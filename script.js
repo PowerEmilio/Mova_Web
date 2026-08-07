@@ -45,3 +45,25 @@ apkBtn.addEventListener('click', (e) => {
     alert('Configurá el enlace de descarga:\n\nEn index.html, cambiá href="#" del botón "Descargar APK" por la URL real de tu APK (por ejemplo, un GitHub Release).');
   }
 });
+
+// Pricing calculator — plan base + módulos, total en USD y pesos
+const PRICE_BASE = 20;      // core (US$)
+const USD_TO_ARS = 1490;    // tipo de cambio
+const usdEl = document.getElementById('calcUsd');
+const arsEl = document.getElementById('calcArs');
+if (usdEl && arsEl) {
+  const arsFmt = new Intl.NumberFormat('es-AR');
+  const inputs = document.querySelectorAll('.module__input');
+  const recalc = () => {
+    let usd = PRICE_BASE;
+    inputs.forEach((input) => {
+      const mod = input.closest('.module');
+      mod.classList.toggle('module--on', input.checked);
+      if (input.checked) usd += Number(mod.dataset.price) || 0;
+    });
+    usdEl.textContent = usd;
+    arsEl.textContent = arsFmt.format(usd * USD_TO_ARS);
+  };
+  inputs.forEach((input) => input.addEventListener('change', recalc));
+  recalc();
+}
