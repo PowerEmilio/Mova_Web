@@ -1,0 +1,10 @@
+# Config local de Claude Code (no publicar)
+.claude/
+
+# Sistema
+Thumbs.db
+.DS_Store
+
+# Editores
+.vscode/
+.idea/
