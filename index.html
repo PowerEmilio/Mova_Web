@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=3" />
+  <link rel="stylesheet" href="styles.css?v=4" />
 </head>
 <body>
 
@@ -245,29 +245,46 @@
         <div class="download__glow"></div>
         <img src="assets/mova-icon.png" alt="Mova" class="download__logo" />
         <h2>Empezá a usar Mova</h2>
-        <p>Descargá la app para Android. La versión de iOS está en camino.</p>
+        <p>Descargá Mova para Android o Windows. La versión de iOS está en camino.</p>
         <div class="download__btns">
           <a href="https://github.com/PowerEmilio/Mova_Web/releases/download/v1.0.3/Mova.apk" class="btn btn--primary btn--lg" id="apkBtn" download>
             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
-            Descargar APK · Android
+            APK · Android
+          </a>
+          <a href="https://github.com/PowerEmilio/Mova_Web/releases/download/v1.0.3/mova_setup.exe" class="btn btn--primary btn--lg" id="winBtn" download>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 5.4l7.6-1.05v7.35H3V5.4zm0 13.2l7.6 1.05v-7.28H3v6.23zm8.4 1.17L21.5 21v-8.53h-10.1v7.3zM11.4 4.2L21.5 3v8.42H11.4V4.2z"/></svg>
+            Instalador · Windows
           </a>
           <span class="btn btn--ghost btn--lg btn--disabled">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M16 13c0-2 1.5-3 1.6-3.1-0.9-1.3-2.3-1.5-2.8-1.5-1.2-.1-2.3.7-2.9.7-.6 0-1.5-.7-2.5-.7-1.3 0-2.5.8-3.1 1.9-1.4 2.3-.4 5.8 1 7.7.7.9 1.4 1.9 2.5 1.9 1 0 1.4-.6 2.6-.6s1.5.6 2.6.6 1.8-.9 2.4-1.8c.8-1.1 1.1-2.2 1.1-2.3-.1 0-2.1-.8-2.1-3zM14.2 6.3c.6-.7 1-1.6.9-2.6-.8 0-1.9.6-2.5 1.2-.5.6-1 1.5-.9 2.4.9.1 1.8-.4 2.5-1z"/></svg>
             iOS · Próximamente
           </span>
         </div>
-        <p class="download__hint">Android 5.0+ · v1.0.3 · ~77 MB</p>
+        <p class="download__hint">v1.0.3 · Android 5.0+ (~77 MB) · Windows 10/11 64-bit (~20 MB)</p>
 
-        <details class="install">
-          <summary>¿Cómo instalar el APK?</summary>
-          <ol>
-            <li>Tocá <b>Descargar APK</b> y esperá a que termine la descarga.</li>
-            <li>Abrí <code>Mova.apk</code> desde las notificaciones o la carpeta <b>Descargas</b>.</li>
-            <li>Android va a pedir permiso para <b>instalar apps de esta fuente</b>: activalo y volvé atrás.</li>
-            <li>Tocá <b>Instalar</b> y ¡listo! 🎉</li>
-          </ol>
-          <p>Es normal que Android muestre un aviso al instalar apps fuera de Google Play. Aparece con cualquier APK descargado del navegador.</p>
-        </details>
+        <div class="install-group">
+          <details class="install">
+            <summary>¿Cómo instalar en Android?</summary>
+            <ol>
+              <li>Tocá <b>APK · Android</b> y esperá a que termine la descarga.</li>
+              <li>Abrí <code>Mova.apk</code> desde las notificaciones o la carpeta <b>Descargas</b>.</li>
+              <li>Android va a pedir permiso para <b>instalar apps de esta fuente</b>: activalo y volvé atrás.</li>
+              <li>Tocá <b>Instalar</b> y ¡listo! 🎉</li>
+            </ol>
+            <p>Es normal que Android muestre un aviso al instalar apps fuera de Google Play. Aparece con cualquier APK descargado del navegador.</p>
+          </details>
+
+          <details class="install">
+            <summary>¿Cómo instalar en Windows?</summary>
+            <ol>
+              <li>Tocá <b>Instalador · Windows</b> para bajar <code>mova_setup.exe</code>.</li>
+              <li>Hacé doble clic en el archivo descargado.</li>
+              <li>Si aparece <b>“Windows protegió su PC”</b>, tocá <b>Más información → Ejecutar de todas formas</b>.</li>
+              <li>Aceptá el permiso de administrador. Mova se instala solo y crea el <b>acceso directo en el escritorio</b>. 🎉</li>
+            </ol>
+            <p>El instalador coloca la app en <code>C:\Program Files\Mova</code>. Para desinstalar: <b>Configuración → Aplicaciones → Mova</b>.</p>
+          </details>
+        </div>
       </div>
     </div>
   </section>
