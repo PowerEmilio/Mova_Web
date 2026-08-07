@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <link rel="stylesheet" href="styles.css?v=6" />
 </head>
 <body>
 
@@ -230,9 +230,8 @@
           <span class="plan__badge">Plan base</span>
           <h3 class="plan__name">Mova</h3>
           <p class="plan__desc">La base para poner tu gimnasio en orden: alumnos, staff y tu panel de inicio.</p>
-          <!-- Para mostrar un precio real, reemplazá "Consultá" por el monto, ej: $12.000 -->
           <div class="plan__price">
-            <span class="plan__amount">Consultá</span>
+            <span class="plan__amount">US$20</span>
             <span class="plan__period">/ mes</span>
           </div>
           <ul class="plan__list">
@@ -259,7 +258,7 @@
               <b>Finanzas</b>
               <span>Ingresos, gastos, cuotas y reportes en PDF.</span>
             </div>
-            <span class="module__add" aria-hidden="true">+</span>
+            <span class="module__price">+US$10<small>/mes</small></span>
           </div>
 
           <div class="module">
@@ -270,7 +269,7 @@
               <b>Tienda</b>
               <span>Catálogo de productos y suplementos dentro de la app.</span>
             </div>
-            <span class="module__add" aria-hidden="true">+</span>
+            <span class="module__price">+US$7<small>/mes</small></span>
           </div>
 
           <div class="module">
@@ -281,10 +280,12 @@
               <b>Rutinas</b>
               <span>Entrenamientos con calendario y registro de cada sesión.</span>
             </div>
-            <span class="module__add" aria-hidden="true">+</span>
+            <span class="module__price">+US$8<small>/mes</small></span>
           </div>
         </div>
       </div>
+
+      <p class="pricing__usd reveal">Precios en dólares (USD). Ejemplo: base + Finanzas + Rutinas = <b>US$38 / mes</b>.</p>
 
       <!-- Mercado Pago -->
       <div class="mp-note reveal">
