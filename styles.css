@@ -171,13 +171,26 @@ a { color: inherit; text-decoration: none; }
   transition: transform .25s ease, border-color .25s, box-shadow .25s;
   position: relative; overflow: hidden;
 }
-.feature::before {
-  content: ''; position: absolute; inset: 0; border-radius: inherit;
+.feature:hover { transform: translateY(-4px); border-color: var(--border-soft); box-shadow: var(--shadow); }
+
+/* ===== Spotlight que sigue al mouse (todas las cards + Descarga) ===== */
+.feature, .plan, .module, .calc, .snack, .download__card { position: relative; overflow: hidden; }
+.feature::before,
+.plan::before,
+.module::before,
+.calc::before,
+.snack::before,
+.download__card::before {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
   background: radial-gradient(400px circle at var(--mx,50%) var(--my,0%), rgba(0,189,137,.08), transparent 40%);
   opacity: 0; transition: opacity .3s;
 }
-.feature:hover { transform: translateY(-4px); border-color: var(--border-soft); box-shadow: var(--shadow); }
-.feature:hover::before { opacity: 1; }
+.feature:hover::before,
+.plan:hover::before,
+.module:hover::before,
+.calc:hover::before,
+.snack:hover::before,
+.download__card:hover::before { opacity: 1; }
 .feature__icon {
   width: 52px; height: 52px; border-radius: 14px; margin-bottom: 20px;
   display: grid; place-items: center; color: var(--green);
@@ -200,7 +213,10 @@ a { color: inherit; text-decoration: none; }
 
 /* ===== Showcase ===== */
 .showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-.showcase__media { position: relative; display: flex; justify-content: center; align-items: center; min-height: 560px; }
+.showcase__mediaWrap { display: flex; flex-direction: column; align-items: center; }
+.showcase__media { position: relative; display: flex; justify-content: center; align-items: center; min-height: 560px; width: 100%; }
+.shotNote { margin-top: 12px; text-align: center; font-size: 12.5px; color: var(--text-3); opacity: .75; }
+.shotNote::before { content: '📱'; margin-right: 6px; font-size: 11px; opacity: .8; }
 .phone--sm { width: 250px; height: 510px; padding: 10px; }
 .phone--sm .phone__screen { border-radius: 30px; }
 .phone--tilt { position: absolute; left: 6%; transform: rotate(-8deg) scale(.9); z-index: 1; opacity: .95; }
@@ -238,10 +254,11 @@ a { color: inherit; text-decoration: none; }
 .pill--bad { color: var(--pink); background: rgba(255,66,118,.14); }
 
 /* ===== Updates ===== */
-.updates { display: grid; grid-template-columns: 1.1fr .9fr; gap: 50px; align-items: center; }
+.updates { display: grid; grid-template-columns: 1.1fr .9fr; column-gap: 50px; row-gap: 40px; align-items: center; }
 .updates__copy h2 { margin: 14px 0 16px; }
 .updates__copy > p { color: var(--text-2); font-size: 17px; }
-.updates__flow { display: flex; align-items: center; gap: 14px; margin-top: 28px; flex-wrap: wrap; }
+/* En pantallas anchas la línea de pasos ocupa el ancho completo, centrada y abajo */
+.updates__flow { grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; }
 .flowStep { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; font-size: 14px; font-weight: 500; }
 .flowStep span { width: 24px; height: 24px; border-radius: 50%; background: var(--green); color: var(--ink-on-green); font-weight: 800; font-size: 13px; display: grid; place-items: center; }
 .flowArrow { color: var(--green); font-weight: 700; }
@@ -291,7 +308,6 @@ a { color: inherit; text-decoration: none; }
 /* ===== Pricing ===== */
 .pricing { display: grid; grid-template-columns: 1fr 1.1fr; gap: 24px; align-items: stretch; }
 .plan { position: relative; overflow: hidden; background: var(--surface); border: 1px solid var(--green); border-radius: 20px; padding: 34px 30px; display: flex; flex-direction: column; box-shadow: var(--shadow-green); }
-.plan__glow { position: absolute; top: -120px; right: -80px; width: 320px; height: 320px; background: radial-gradient(closest-side, rgba(0,189,137,.22), transparent 70%); pointer-events: none; }
 .plan__badge { position: relative; align-self: flex-start; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--green); background: rgba(0,189,137,.12); border: 1px solid rgba(0,189,137,.3); padding: 5px 12px; border-radius: 999px; }
 .plan__name { position: relative; font-size: 30px; font-weight: 800; letter-spacing: -.02em; margin: 16px 0 6px; }
 .plan__desc { position: relative; color: var(--text-2); font-size: 15px; margin-bottom: 20px; }
@@ -376,8 +392,13 @@ a { color: inherit; text-decoration: none; }
   .hero__device { margin-top: 40px; }
   .grid { grid-template-columns: 1fr 1fr; }
   .showcase, .updates { grid-template-columns: 1fr; }
-  .showcase__media { min-height: 480px; margin-bottom: 20px; }
-  .updates__flow { justify-content: center; }
+  .showcase__media { min-height: 480px; }
+  .showcase__mediaWrap { margin-bottom: 20px; }
+  /* En mobile la línea de pasos vuelve a quedar entre el texto y la tarjeta */
+  .updates { row-gap: 28px; }
+  .updates__copy { order: 1; }
+  .updates__flow { order: 2; }
+  .updates__card { order: 3; }
 }
 @media (max-width: 560px) {
   .hero { padding-top: 120px; }

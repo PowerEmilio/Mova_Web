@@ -28,7 +28,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=8" />
+  <link rel="stylesheet" href="styles.css?v=10" />
 </head>
 <body>
 
@@ -123,6 +123,15 @@
 
         <article class="feature reveal">
           <div class="feature__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/><circle cx="12" cy="15" r="3"/><path d="M12 13.6V15l1 .8"/></svg>
+          </div>
+          <h3>Clases y horarios</h3>
+          <p>Creá clases con su horario, asignales entrenadores y anotá a los alumnos. Cada uno ve su agenda al instante.</p>
+          <span class="feature__tag">Nuevo</span>
+        </article>
+
+        <article class="feature reveal">
+          <div class="feature__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5M16 3.5a3 3 0 010 5.5M21 20c0-2.5-2-4-4-4.5"/></svg>
           </div>
           <h3>Gestión de alumnos</h3>
@@ -159,17 +168,20 @@
   <!-- ===== SHOWCASE ===== -->
   <section class="section section--alt" id="showcase">
     <div class="container showcase">
-      <div class="showcase__media reveal">
-        <div class="phone phone--sm phone--tilt">
-          <div class="phone__screen">
-            <img src="assets/rutinas.jpeg" alt="Pantalla de Rutinas de la app Mova" class="shot__img" loading="lazy" />
+      <div class="showcase__mediaWrap reveal">
+        <div class="showcase__media">
+          <div class="phone phone--sm phone--tilt">
+            <div class="phone__screen">
+              <img src="assets/rutinas.jpeg" alt="Pantalla de Rutinas de la app Mova" class="shot__img" loading="lazy" />
+            </div>
+          </div>
+          <div class="phone phone--sm phone--front">
+            <div class="phone__screen">
+              <img src="assets/finanzas.jpeg" alt="Pantalla de Finanzas de la app Mova" class="shot__img" loading="lazy" />
+            </div>
           </div>
         </div>
-        <div class="phone phone--sm phone--front">
-          <div class="phone__screen">
-            <img src="assets/finanzas.jpeg" alt="Pantalla de Finanzas de la app Mova" class="shot__img" loading="lazy" />
-          </div>
-        </div>
+        <p class="shotNote">Capturas reales de Mova en modo oscuro</p>
       </div>
 
       <div class="showcase__copy reveal">
@@ -182,7 +194,6 @@
           <li>Reportes y comprobantes en PDF</li>
           <li>Modo claro y oscuro</li>
         </ul>
-        <p class="note">📱 Capturas reales de Mova en modo oscuro.</p>
       </div>
     </div>
   </section>
@@ -194,13 +205,6 @@
         <span class="eyebrow">Actualizaciones OTA</span>
         <h2>Nuevas versiones, sin esperar a la tienda</h2>
         <p>Con Shorebird, Mova recibe los arreglos y mejoras al instante. La app avisa cuando hay una nueva versión y se actualiza con un toque en <b>Reiniciar</b>.</p>
-        <div class="updates__flow">
-          <div class="flowStep"><span>1</span> Publicamos el parche</div>
-          <div class="flowArrow">→</div>
-          <div class="flowStep"><span>2</span> Se descarga solo</div>
-          <div class="flowArrow">→</div>
-          <div class="flowStep"><span>3</span> Reiniciás y listo</div>
-        </div>
       </div>
       <div class="updates__card reveal">
         <div class="snack">
@@ -211,6 +215,13 @@
           </div>
           <button>Reiniciar</button>
         </div>
+      </div>
+      <div class="updates__flow reveal">
+        <div class="flowStep"><span>1</span> Publicamos el parche</div>
+        <div class="flowArrow">→</div>
+        <div class="flowStep"><span>2</span> Se descarga solo</div>
+        <div class="flowArrow">→</div>
+        <div class="flowStep"><span>3</span> Reiniciás y listo</div>
       </div>
     </div>
   </section>
@@ -227,16 +238,16 @@
       <div class="pricing">
         <!-- Plan base -->
         <article class="plan reveal">
-          <div class="plan__glow"></div>
           <span class="plan__badge">Plan base</span>
           <h3 class="plan__name">Mova</h3>
-          <p class="plan__desc">La base para poner tu gimnasio en orden: alumnos, staff y tu panel de inicio.</p>
+          <p class="plan__desc">La base para poner tu gimnasio en orden: alumnos, clases, staff y tu panel de inicio.</p>
           <div class="plan__price">
             <span class="plan__amount">US$20</span>
             <span class="plan__period">/ mes</span>
           </div>
           <ul class="plan__list">
             <li>Gestión de alumnos</li>
+            <li>Clases con horarios y entrenadores</li>
             <li>Staff y roles de acceso</li>
             <li>Panel de inicio</li>
             <li>Actualizaciones automáticas</li>

@@ -25,8 +25,8 @@ document.querySelectorAll('.reveal').forEach((el, i) => {
   io.observe(el);
 });
 
-// Spotlight hover on feature cards
-document.querySelectorAll('.feature').forEach((card) => {
+// Spotlight hover on every card (features, precios, OTA y descarga)
+document.querySelectorAll('.feature, .plan, .module, .calc, .snack, .download__card').forEach((card) => {
   card.addEventListener('mousemove', (e) => {
     const r = card.getBoundingClientRect();
     card.style.setProperty('--mx', `${e.clientX - r.left}px`);
