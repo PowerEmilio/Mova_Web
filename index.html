@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="no-js">
 <head>
   <meta charset="UTF-8" />
+  <script>document.documentElement.classList.remove("no-js");</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mova — Gestión de gimnasios en una sola app</title>
   <meta name="description" content="Mova es la app para gestionar tu gimnasio: rutinas, alumnos, clases, finanzas, tienda y staff. Probá 15 días gratis, sin permanencia." />
@@ -29,7 +30,80 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=16" />
+  <link rel="stylesheet" href="styles.css?v=17" />
+
+  <!-- Datos estructurados. Las respuestas deben coincidir con el FAQ visible:
+       si se edita una, hay que editar la otra. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Mova",
+        "applicationCategory": "BusinessApplication",
+        "description": "App para gestionar gimnasios: rutinas, alumnos, clases, finanzas, tienda y staff.",
+        "operatingSystem": "Android 5.0+, Windows 10/11",
+        "url": "https://poweremilio.github.io/Mova_Web/",
+        "image": "https://poweremilio.github.io/Mova_Web/assets/og-image.png",
+        "inLanguage": "es-AR",
+        "softwareVersion": "1.0.5",
+        "offers": {
+          "@type": "Offer",
+          "price": "20",
+          "priceCurrency": "USD",
+          "description": "Plan base mensual. Módulos opcionales desde US$7. 15 días de prueba gratis.",
+          "availability": "https://schema.org/InStock"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "¿Cómo funciona la prueba de 15 días?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Instalás Mova, cargás tu gimnasio y usás la app completa durante 15 días sin que se te cobre nada. Para iniciar la prueba se pide una tarjeta, pero el primer cobro recién ocurre al día 16. Si cancelás antes, no se cobra." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Puedo cancelar cuando quiera?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Sí. Mova se paga mes a mes y no hay permanencia ni penalidad por cancelar. Dejás de pagar y el servicio corre hasta el final del mes que ya abonaste." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cómo se paga y en qué moneda?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Los precios están en dólares, pero el cobro se hace en pesos por Mercado Pago. Usamos un tipo de cambio de referencia que actualizamos cada 3 meses, así que tu cuota no cambia mes a mes. No necesitás cuenta en dólares ni tarjeta internacional." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Tengo que contratar todos los módulos?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Arrancás con el plan base (alumnos, clases, staff y panel de inicio) y sumás Finanzas, Tienda o Rutinas solo cuando los necesites." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Los alumnos tienen que pagar algo?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. El plan lo paga el gimnasio. Tus alumnos descargan la app y la usan sin costo para ver su rutina, su agenda de clases y su estado de pago." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿En qué dispositivos funciona?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Hoy Mova corre en Android 5.0 o superior y en Windows 10/11 de 64 bits. La versión para iPhone está en desarrollo." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Cómo recibo las actualizaciones?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Automáticamente. Cuando publicamos una mejora, la app la descarga sola y te avisa; tocás Reiniciar y ya estás en la versión nueva. No hay que volver a instalar nada ni esperar a una tienda de apps." }
+          },
+          {
+            "@type": "Question",
+            "name": "¿Quién puede ver qué dentro del gimnasio?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Mova maneja cuatro roles: dueño, administrador, staff y alumno. Cada uno accede solo a lo que le corresponde: el alumno ve su rutina y sus clases, el staff gestiona lo suyo, y las finanzas quedan reservadas a quien vos decidas." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
@@ -40,7 +114,7 @@
         <img src="assets/mova-icon.webp" alt="Mova" class="brand__logo" width="30" height="30" />
         <span class="brand__name">Mova</span>
       </a>
-      <nav class="nav__links">
+      <nav class="nav__links" id="navLinks">
         <a href="#features">Funciones</a>
         <a href="#showcase">La app</a>
         <a href="#precios">Precios</a>
@@ -48,7 +122,7 @@
         <a href="#download">Descargar</a>
       </nav>
       <a href="#download" class="btn btn--primary btn--sm">Probá 15 días gratis</a>
-      <button class="nav__burger" id="burger" aria-label="Menú">
+      <button class="nav__burger" id="burger" aria-label="Menú" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
       </button>
     </div>

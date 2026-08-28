@@ -147,34 +147,6 @@ a { color: inherit; text-decoration: none; }
   box-shadow: inset 0 0 0 1px rgba(0,0,0,.85), inset 0 1px 2px rgba(0,0,0,.9), inset 0 0 22px rgba(0,0,0,.45);
 }
 
-.app { height: 100%; display: flex; flex-direction: column; }
-.app__bar { display: flex; align-items: center; gap: 10px; padding: 30px 16px 14px; background: var(--surface); border-bottom: 1px solid var(--border); }
-.app__logo { width: 22px; height: 22px; }
-.app__title { font-weight: 800; font-size: 17px; letter-spacing: -0.02em; }
-.app__avatar { margin-left: auto; width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, var(--green), var(--green-dark)); color: var(--ink-on-green); display: grid; place-items: center; font-weight: 700; font-size: 13px; }
-.app__body { flex: 1; padding: 16px; overflow: hidden; }
-.app__hello { font-weight: 700; font-size: 17px; }
-.app__muted { color: var(--text-3); font-size: 12px; margin-bottom: 14px; }
-.app__stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 14px; }
-.stat { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 11px 8px; text-align: center; }
-.stat__num { display: block; font-weight: 800; font-size: 18px; color: var(--green); letter-spacing: -0.02em; }
-.stat__lbl { font-size: 10px; color: var(--text-3); }
-.app__card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 13px; margin-bottom: 12px; }
-.app__cardRow { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--text-2); }
-.app__amt { margin-left: auto; color: var(--text); font-weight: 700; }
-.app__bars { display: flex; align-items: flex-end; gap: 6px; height: 54px; margin-top: 12px; }
-.app__bars i { flex: 1; background: linear-gradient(var(--green), var(--green-dark)); border-radius: 4px 4px 0 0; opacity: .85; }
-.app__list { display: flex; flex-direction: column; gap: 8px; }
-.app__item { display: flex; align-items: center; gap: 9px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 11px 12px; font-size: 12px; }
-.app__tag { margin-left: auto; font-size: 10px; font-weight: 600; color: var(--green); background: rgba(0,189,137,.12); padding: 3px 8px; border-radius: 999px; }
-.app__tag--pink { color: var(--pink); background: rgba(255,66,118,.12); }
-.ic { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 8px; font-size: 12px; }
-.ic--green { background: rgba(0,189,137,.15); color: var(--green); }
-.ic--soft { background: var(--surface-2); }
-.app__nav { display: flex; justify-content: space-around; padding: 12px 8px 18px; background: var(--surface); border-top: 1px solid var(--border); font-size: 18px; }
-.app__nav span { opacity: .4; filter: grayscale(1); }
-.app__nav .on { opacity: 1; filter: none; }
-
 /* ===== Trust strip / garantías ===== */
 .strip { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-2); box-shadow: inset 0 1px 0 rgba(255,255,255,.035), inset 0 -1px 0 rgba(0,0,0,.4); }
 .strip__inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; padding: 30px 24px; }
@@ -278,28 +250,9 @@ a { color: inherit; text-decoration: none; }
   width: 22px; height: 22px; border-radius: 50%; background: rgba(0,189,137,.15);
   color: var(--green); font-size: 13px; font-weight: 700; display: grid; place-items: center;
 }
-.note { font-size: 13px; color: var(--text-3); background: var(--surface); border: 1px dashed var(--border-soft); border-radius: 12px; padding: 12px 14px; }
-.note code { background: rgba(255,255,255,.06); padding: 2px 6px; border-radius: 5px; color: var(--green); font-size: 12px; }
 
 /* Real screenshots inside the phone frame */
 .shot__img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
-
-/* Fake screenshots (legacy mockups — unused) */
-.shot { height: 100%; padding: 26px 14px 14px; background: var(--bg-2); display: flex; flex-direction: column; gap: 9px; }
-.shot__top { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
-.shot__ex { display: flex; align-items: center; justify-content: space-between; background: var(--surface); border: 1px solid var(--border); border-radius: 11px; padding: 13px 13px; font-size: 13px; }
-.shot__ex span { color: var(--text-3); font-size: 12px; }
-.shot__ex--v { border-color: rgba(255,66,118,.3); }
-.shot__ex--v b { color: var(--pink); }
-.shot__cta { margin-top: auto; background: var(--green); color: var(--ink-on-green); text-align: center; font-weight: 700; font-size: 13px; padding: 12px; border-radius: 11px; }
-.shot__row { display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: 11px; padding: 10px 12px; font-size: 13px; }
-.shot__row b { font-weight: 600; }
-.av { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0; }
-.av--1 { background: #4f8cff; } .av--2 { background: #ff7ab6; } .av--3 { background: #f5a524; } .av--4 { background: #22b8a6; } .av--5 { background: #a06bff; }
-.pill { margin-left: auto; font-size: 10px; font-weight: 700; padding: 3px 9px; border-radius: 999px; font-style: normal; }
-.pill--ok { color: var(--green); background: rgba(0,189,137,.14); }
-.pill--warn { color: #f5a524; background: rgba(245,165,36,.14); }
-.pill--bad { color: var(--pink); background: rgba(255,66,118,.14); }
 
 /* ===== Updates ===== */
 .updates { display: grid; grid-template-columns: 1.1fr .9fr; column-gap: 50px; row-gap: 40px; align-items: center; }
@@ -380,8 +333,6 @@ a { color: inherit; text-decoration: none; }
 .plan__list { position: relative; list-style: none; display: grid; gap: 12px; margin-bottom: 26px; }
 .plan__list li { position: relative; padding-left: 30px; color: var(--text); font-size: 15px; }
 .plan__list li::before { content: '✓'; position: absolute; left: 0; top: 0; width: 20px; height: 20px; border-radius: 50%; background: rgba(0,189,137,.15); color: var(--green); font-size: 12px; font-weight: 700; display: grid; place-items: center; }
-.btn--full { width: 100%; justify-content: center; }
-.plan .btn--full { position: relative; margin-top: auto; }
 .plan__foot { position: relative; margin-top: auto; padding-top: 10px; color: var(--text-3); font-size: 13px; }
 
 .modules { display: flex; flex-direction: column; gap: 14px; }
@@ -521,4 +472,49 @@ a { color: inherit; text-decoration: none; }
   .contact__copy p { max-width: none; }
   .contact__actions { justify-content: center; }
   .contact__actions .btn { flex: 1; justify-content: center; min-width: 140px; }
+}
+
+/* ===== Accesibilidad y estados de foco ===== */
+
+/* Sin JS, .reveal nunca recibe .in y la página quedaría en blanco. */
+.no-js .reveal { opacity: 1; transform: none; }
+
+/* Foco visible en todo lo navegable por teclado. */
+:where(a, button, summary, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* Quien pidió menos movimiento no debería ver nada animarse solo. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* ===== Burger: pasa a X ===== */
+.nav__burger span { transform-origin: center; transition: transform .25s ease, opacity .2s ease; }
+.nav.open .nav__burger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav.open .nav__burger span:nth-child(2) { opacity: 0; }
+.nav.open .nav__burger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ===== Sección activa en el nav ===== */
+.nav__links a { position: relative; }
+.nav__links a::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: -7px; height: 2px;
+  background: var(--green); border-radius: 2px;
+  transform: scaleX(0); transition: transform .25s ease;
+}
+.nav__links a:hover::after { transform: scaleX(.45); }
+.nav__links a[aria-current='true'] { color: var(--text); }
+.nav__links a[aria-current='true']::after { transform: scaleX(1); }
+
+/* En el menú desplegable vertical el subrayado no aporta. */
+@media (max-width: 900px) {
+  .nav__links a::after { display: none; }
 }
