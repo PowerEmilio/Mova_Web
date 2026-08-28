@@ -2,19 +2,24 @@
 :root {
   --green: #00BD89;
   --green-dark: #008A64;
+  /* Reservado para valores negativos (egresos), igual que en la app.
+     No usar como color decorativo. */
   --pink: #FF4276;
   --ink-on-green: #06231A;
 
-  --bg: #0B0B0C;
-  --bg-2: #131315;
-  --surface: #1A1A1D;
-  --surface-2: #1D1D22;
-  --border: #26262B;
-  --border-soft: #2E2E35;
+  /* Escalera de superficies: cada peldaño tiene que leerse contra el anterior.
+     bg → bg-2 ≈ 1.09 : 1, bg-2 → surface ≈ 1.16 : 1, surface → border ≈ 1.20 : 1 */
+  --bg: #09090B;
+  --bg-2: #16161B;
+  --surface: #212128;
+  --surface-2: #2A2A32;
+  --border: #31313A;
+  --border-soft: #3D3D48;
 
   --text: #F4F4F4;
   --text-2: #B6B7BC;
-  --text-3: #7C7D84;
+  /* Aclarado para mantener >= 4.5:1 (AA) sobre --surface, que subió de brillo. */
+  --text-3: #8E8F97;
 
   --radius: 18px;
   --radius-sm: 12px;
@@ -68,7 +73,7 @@ a { color: inherit; text-decoration: none; }
   border-bottom: 1px solid transparent;
 }
 .nav.scrolled {
-  background: rgba(11,11,12,.72);
+  background: rgba(9,9,11,.72);
   backdrop-filter: blur(16px) saturate(160%);
   border-bottom-color: var(--border);
 }
@@ -114,12 +119,33 @@ a { color: inherit; text-decoration: none; }
 .hero__device { display: flex; justify-content: center; }
 .phone {
   position: relative; width: 300px; height: 610px;
-  background: #050506; border-radius: 44px; padding: 12px;
+  background: linear-gradient(155deg, #1e1e24, #08080a 26%, #050506 72%, #16161b);
+  border-radius: 44px; padding: 12px;
   border: 1px solid var(--border-soft);
-  box-shadow: var(--shadow), 0 0 0 1px rgba(255,255,255,.02), var(--shadow-green);
+  /* Los `inset` solo se ven en los 12px de marco: la pantalla los tapa.
+     Simulan luz cayendo desde arriba sobre el borde del equipo. */
+  box-shadow:
+    var(--shadow),
+    var(--shadow-green),
+    0 0 0 1px rgba(255,255,255,.03),
+    inset 0 2px 0 rgba(255,255,255,.14),
+    inset 1px 0 0 rgba(255,255,255,.06),
+    inset -1px 0 0 rgba(255,255,255,.06),
+    inset 0 -2px 0 rgba(255,255,255,.04);
 }
-.phone__notch { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); width: 120px; height: 26px; background: #050506; border-radius: 999px; z-index: 3; }
-.phone__screen { width: 100%; height: 100%; border-radius: 33px; overflow: hidden; background: var(--bg-2); }
+/* Botón lateral */
+.phone::after {
+  content: ''; position: absolute; right: -1px; top: 138px;
+  width: 2px; height: 86px; border-radius: 2px;
+  background: linear-gradient(#3a3a44, #14141a);
+}
+.phone__screen { position: relative; width: 100%; height: 100%; border-radius: 33px; overflow: hidden; background: var(--bg-2); }
+/* Bisel: hunde la pantalla dentro del marco */
+.phone__screen::after {
+  content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.85), inset 0 1px 2px rgba(0,0,0,.9), inset 0 0 22px rgba(0,0,0,.45);
+}
 
 .app { height: 100%; display: flex; flex-direction: column; }
 .app__bar { display: flex; align-items: center; gap: 10px; padding: 30px 16px 14px; background: var(--surface); border-bottom: 1px solid var(--border); }
@@ -150,7 +176,7 @@ a { color: inherit; text-decoration: none; }
 .app__nav .on { opacity: 1; filter: none; }
 
 /* ===== Trust strip / garantías ===== */
-.strip { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-2); }
+.strip { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-2); box-shadow: inset 0 1px 0 rgba(255,255,255,.035), inset 0 -1px 0 rgba(0,0,0,.4); }
 .strip__inner { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; padding: 30px 24px; }
 .promise { display: flex; align-items: flex-start; gap: 13px; }
 .promise__icon {
@@ -172,7 +198,11 @@ a { color: inherit; text-decoration: none; }
 
 /* ===== Sections ===== */
 .section { padding: 100px 0; }
-.section--alt { background: var(--bg-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.section--alt {
+  background: var(--bg-2);
+  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035), inset 0 -1px 0 rgba(0,0,0,.4);
+}
 .section__head { text-align: center; max-width: 640px; margin: 0 auto 56px; }
 .eyebrow { display: inline-block; color: var(--green); font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 14px; }
 .section h2 { font-size: clamp(28px, 3.4vw, 42px); line-height: 1.12; letter-spacing: -0.03em; font-weight: 800; }
@@ -232,10 +262,11 @@ a { color: inherit; text-decoration: none; }
 .showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 .showcase__mediaWrap { display: flex; flex-direction: column; align-items: center; }
 .showcase__media { position: relative; display: flex; justify-content: center; align-items: center; min-height: 560px; width: 100%; }
-.shotNote { margin-top: 12px; text-align: center; font-size: 12.5px; color: var(--text-3); opacity: .75; }
-.shotNote::before { content: '📱'; margin-right: 6px; font-size: 11px; opacity: .8; }
+.shotNote { margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 12.5px; color: var(--text-3); opacity: .75; }
+.shotNote svg { width: 14px; height: 14px; flex-shrink: 0; }
 .phone--sm { width: 250px; height: 510px; padding: 10px; }
 .phone--sm .phone__screen { border-radius: 30px; }
+.phone--sm::after { top: 114px; height: 72px; }
 .phone--tilt { position: absolute; left: 6%; transform: rotate(-8deg) scale(.9); z-index: 1; opacity: .95; }
 .phone--front { position: relative; z-index: 2; transform: rotate(3deg); }
 .showcase__copy h2 { margin-bottom: 16px; }
@@ -318,11 +349,19 @@ a { color: inherit; text-decoration: none; }
 .install-group { max-width: 480px; margin: 26px auto 0; display: flex; flex-direction: column; gap: 12px; }
 .install-group .install { margin: 0; max-width: none; }
 .install { position: relative; max-width: 480px; margin: 26px auto 0; text-align: left; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
-.install summary { cursor: pointer; list-style: none; padding: 14px 18px; font-weight: 600; font-size: 14px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.install summary { cursor: pointer; list-style: none; padding: 14px 18px; font-weight: 600; font-size: 14px; color: var(--text); display: flex; align-items: center; gap: 10px; }
 .install summary::-webkit-details-marker { display: none; }
-.install summary::before { content: '📲'; }
-.install summary::after { content: '⌄'; margin-left: auto; transition: transform .25s; font-size: 18px; color: var(--text-3); }
-.install[open] summary::after { transform: rotate(180deg); }
+.install summary:focus-visible { outline: 2px solid var(--green); outline-offset: -2px; }
+.install__ic { flex-shrink: 0; width: 18px; height: 18px; color: var(--green); }
+.install summary::after {
+  content: ''; margin-left: auto; flex-shrink: 0;
+  width: 9px; height: 9px;
+  border-right: 2px solid var(--text-3); border-bottom: 2px solid var(--text-3);
+  border-radius: 1px;
+  transform: rotate(45deg) translate(-2px, -2px);
+  transition: transform .25s ease, border-color .2s;
+}
+.install[open] summary::after { transform: rotate(-135deg) translate(-2px, -2px); border-color: var(--green); }
 .install ol { margin: 0; padding: 4px 18px 4px 40px; }
 .install ol li { color: var(--text-2); font-size: 14px; margin-bottom: 8px; }
 .install ol li b { color: var(--text); }
@@ -408,7 +447,7 @@ a { color: inherit; text-decoration: none; }
   .nav__burger { display: flex; }
   .nav.open .nav__links {
     display: flex; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0;
-    background: rgba(11,11,12,.97); backdrop-filter: blur(16px); padding: 20px 24px; gap: 18px; border-bottom: 1px solid var(--border);
+    background: rgba(9,9,11,.97); backdrop-filter: blur(16px); padding: 20px 24px; gap: 18px; border-bottom: 1px solid var(--border);
   }
   .hero__inner { grid-template-columns: 1fr; text-align: center; }
   .hero__copy { display: flex; flex-direction: column; align-items: center; }

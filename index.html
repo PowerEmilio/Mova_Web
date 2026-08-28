@@ -24,11 +24,12 @@
   <meta name="twitter:description" content="Rutinas, alumnos, clases, finanzas y más. Probá 15 días gratis, sin permanencia. Android y Windows." />
   <meta name="twitter:image" content="https://poweremilio.github.io/Mova_Web/assets/og-image.png" />
 
-  <link rel="icon" type="image/png" href="assets/mova-icon.png" />
+  <link rel="icon" type="image/png" sizes="180x180" href="assets/mova-icon-180.png" />
+  <link rel="apple-touch-icon" href="assets/mova-icon-180.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=12" />
+  <link rel="stylesheet" href="styles.css?v=16" />
 </head>
 <body>
 
@@ -36,7 +37,7 @@
   <header class="nav" id="nav">
     <div class="container nav__inner">
       <a href="#top" class="brand">
-        <img src="assets/mova-icon.png" alt="Mova" class="brand__logo" />
+        <img src="assets/mova-icon.webp" alt="Mova" class="brand__logo" width="30" height="30" />
         <span class="brand__name">Mova</span>
       </a>
       <nav class="nav__links">
@@ -89,7 +90,7 @@
       <div class="hero__device reveal">
         <div class="phone">
           <div class="phone__screen">
-            <img src="assets/inicio.jpeg" alt="Pantalla de inicio de la app Mova" class="shot__img" />
+            <img src="assets/inicio.webp" alt="Pantalla de inicio de la app Mova" class="shot__img" width="640" height="1388" fetchpriority="high" decoding="async" />
           </div>
         </div>
       </div>
@@ -208,16 +209,19 @@
         <div class="showcase__media">
           <div class="phone phone--sm phone--tilt">
             <div class="phone__screen">
-              <img src="assets/rutinas.jpeg" alt="Pantalla de Rutinas de la app Mova" class="shot__img" loading="lazy" />
+              <img src="assets/rutinas.webp" alt="Pantalla de Rutinas de la app Mova" class="shot__img" width="640" height="1388" loading="lazy" decoding="async" />
             </div>
           </div>
           <div class="phone phone--sm phone--front">
             <div class="phone__screen">
-              <img src="assets/finanzas.jpeg" alt="Pantalla de Finanzas de la app Mova" class="shot__img" loading="lazy" />
+              <img src="assets/finanzas.webp" alt="Pantalla de Finanzas de la app Mova" class="shot__img" width="640" height="1388" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>
-        <p class="shotNote">Capturas reales de Mova en modo oscuro</p>
+        <p class="shotNote">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
+          Capturas reales de Mova en modo oscuro
+        </p>
       </div>
 
       <div class="showcase__copy reveal">
@@ -244,7 +248,7 @@
       </div>
       <div class="updates__card reveal">
         <div class="snack">
-          <img src="assets/mova-icon.png" alt="" />
+          <img src="assets/mova-icon.webp" alt="" width="40" height="40" loading="lazy" />
           <div>
             <b>Actualización lista</b>
             <span>Versión 1.0.5 disponible</span>
@@ -432,7 +436,7 @@
     <div class="container">
       <div class="download__card reveal">
         <div class="download__glow"></div>
-        <img src="assets/mova-icon.png" alt="Mova" class="download__logo" />
+        <img src="assets/mova-icon.webp" alt="Mova" class="download__logo" width="72" height="72" loading="lazy" />
         <h2>Empezá tus 15 días gratis</h2>
         <p>Descargá Mova para Android o Windows y probala con tu gimnasio real. La versión de iOS está en camino.</p>
         <div class="download__btns">
@@ -453,23 +457,29 @@
 
         <div class="install-group">
           <details class="install">
-            <summary>¿Cómo instalar en Android?</summary>
+            <summary>
+              <svg class="install__ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 9.48l1.84-3.18a.4.4 0 00-.7-.4l-1.86 3.23a11.6 11.6 0 00-9.76 0L5.26 5.9a.4.4 0 00-.7.4L6.4 9.48A10.4 10.4 0 001 17.5h22a10.4 10.4 0 00-5.4-8.02zM7 14.75a1 1 0 110-2 1 1 0 010 2zm10 0a1 1 0 110-2 1 1 0 010 2z"/></svg>
+              ¿Cómo instalar en Android?
+            </summary>
             <ol>
               <li>Tocá <b>APK · Android</b> y esperá a que termine la descarga.</li>
               <li>Abrí <code>Mova.apk</code> desde las notificaciones o la carpeta <b>Descargas</b>.</li>
               <li>Android va a pedir permiso para <b>instalar apps de esta fuente</b>: activalo y volvé atrás.</li>
-              <li>Tocá <b>Instalar</b> y ¡listo! 🎉</li>
+              <li>Tocá <b>Instalar</b> y listo.</li>
             </ol>
             <p>Es normal que Android muestre un aviso al instalar apps fuera de Google Play. Aparece con cualquier APK descargado del navegador.</p>
           </details>
 
           <details class="install">
-            <summary>¿Cómo instalar en Windows?</summary>
+            <summary>
+              <svg class="install__ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.4l7.6-1.05v7.35H3V5.4zm0 13.2l7.6 1.05v-7.28H3v6.23zm8.4 1.17L21.5 21v-8.53h-10.1v7.3zM11.4 4.2L21.5 3v8.42H11.4V4.2z"/></svg>
+              ¿Cómo instalar en Windows?
+            </summary>
             <ol>
               <li>Tocá <b>Instalador · Windows</b> para bajar <code>mova_setup.exe</code>.</li>
               <li>Hacé doble clic en el archivo descargado.</li>
               <li>Si aparece <b>“Windows protegió su PC”</b>, tocá <b>Más información → Ejecutar de todas formas</b>.</li>
-              <li>Aceptá el permiso de administrador. Mova se instala solo y crea el <b>acceso directo en el escritorio</b>. 🎉</li>
+              <li>Aceptá el permiso de administrador. Mova se instala solo y crea el <b>acceso directo en el escritorio</b>.</li>
             </ol>
             <p>El instalador coloca la app en <code>C:\Program Files\Mova</code>. Para desinstalar: <b>Configuración → Aplicaciones → Mova</b>.</p>
           </details>
@@ -482,7 +492,7 @@
   <footer class="footer">
     <div class="container footer__inner">
       <div class="footer__brand">
-        <img src="assets/mova-icon.png" alt="Mova" />
+        <img src="assets/mova-icon.webp" alt="Mova" width="38" height="38" loading="lazy" />
         <div>
           <b>Mova</b>
           <span>Gestión de gimnasios</span>
