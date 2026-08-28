@@ -96,6 +96,92 @@ if (puedeHover && !prefersReducedMotion.matches) {
     });
 }
 
+// Recorrido por rol: selector de rol + lista de pantallas + teléfono
+const TOUR = {
+  admin: [
+    { archivo: 'admin/inicio.webp', w: 364, h: 777, nombre: 'Inicio',
+      desc: 'Tu gimnasio de un vistazo: perfil, horarios y el balance del mes.' },
+    { archivo: 'admin/rutinas.webp', w: 360, h: 773, nombre: 'Rutinas',
+      desc: 'Creá entrenamientos y asignalos. Cada rutina guarda ejercicios, alumnos y objetivo.' },
+    { archivo: 'admin/rutina_personalizacion.webp', w: 361, h: 789, nombre: 'Armar la rutina',
+      desc: 'Elegí los días sugeridos y qué campos pide cada ejercicio: carga, descanso o indicaciones.' },
+    { archivo: 'admin/finanzas.webp', w: 360, h: 774, nombre: 'Finanzas',
+      desc: 'Ingresos, gastos y balance, con el detalle de cada movimiento.' },
+    { archivo: 'admin/tienda.webp', w: 374, h: 773, nombre: 'Tienda',
+      desc: 'Catálogo con stock y precios, y carrito para vender en el mostrador.' },
+  ],
+  alumno: [
+    { archivo: 'alumno/inicio_alumno.webp', w: 360, h: 800, nombre: 'Inicio',
+      desc: 'Su rutina sugerida del día y la próxima clase, apenas abre la app.' },
+    { archivo: 'alumno/registro_rutina_alumno.webp', w: 359, h: 780, nombre: 'Registrar entrenamiento',
+      desc: 'Anota repeticiones y carga serie por serie, con el objetivo a la vista.' },
+  ],
+};
+
+const tourList = document.getElementById('tourList');
+const tourScreen = document.getElementById('tourScreen');
+const tourCaption = document.getElementById('tourCaption');
+
+if (tourList && tourScreen) {
+  const roles = [...document.querySelectorAll('.tour__role')];
+  let rolActual = 'admin';
+
+  // Una <img> por captura, apiladas: cambiar de pantalla es un fundido, no una
+  // recarga, así que no parpadea al volver a una ya vista.
+  const imagenes = new Map();
+  Object.entries(TOUR).forEach(([rol, pantallas]) => {
+    pantallas.forEach((p, i) => {
+      const img = document.createElement('img');
+      img.src = `assets/${p.archivo}`;
+      img.alt = `Pantalla ${p.nombre} de Mova, vista de ${rol === 'admin' ? 'dueño y staff' : 'alumno'}`;
+      img.className = 'shot__img tour__shot';
+      img.width = p.w;
+      img.height = p.h;
+      img.decoding = 'async';
+      // Solo la primera del rol por defecto se carga de entrada
+      if (!(rol === 'admin' && i === 0)) img.loading = 'lazy';
+      tourScreen.appendChild(img);
+      imagenes.set(p.archivo, img);
+    });
+  });
+
+  const mostrar = (rol, indice) => {
+    const pantalla = TOUR[rol][indice];
+    imagenes.forEach((img, archivo) =>
+      img.classList.toggle('is-on', archivo === pantalla.archivo)
+    );
+    tourCaption.textContent = pantalla.desc;
+    [...tourList.children].forEach((b, i) =>
+      b.setAttribute('aria-pressed', String(i === indice))
+    );
+  };
+
+  const pintarLista = (rol) => {
+    tourList.innerHTML = '';
+    TOUR[rol].forEach((p, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'screen';
+      b.setAttribute('aria-pressed', String(i === 0));
+      b.innerHTML = `<span class="screen__num">${i + 1}</span>
+        <span class="screen__txt"><b>${p.nombre}</b><span>${p.desc}</span></span>`;
+      b.addEventListener('click', () => mostrar(rol, i));
+      tourList.appendChild(b);
+    });
+    mostrar(rol, 0);
+  };
+
+  roles.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      rolActual = btn.dataset.role;
+      roles.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      pintarLista(rolActual);
+    });
+  });
+
+  pintarLista(rolActual);
+}
+
 // Año en el pie
 document.getElementById('year').textContent = new Date().getFullYear();
 

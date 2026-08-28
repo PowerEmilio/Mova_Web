@@ -230,19 +230,113 @@ a { color: inherit; text-decoration: none; }
 }
 .feature__tagArrow { color: var(--green); font-size: 15px; font-weight: 800; }
 
-/* ===== Showcase ===== */
-.showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-.showcase__mediaWrap { display: flex; flex-direction: column; align-items: center; }
-.showcase__media { position: relative; display: flex; justify-content: center; align-items: center; min-height: 560px; width: 100%; }
-.shotNote { margin-top: 12px; display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 12.5px; color: var(--text-3); opacity: .75; }
-.shotNote svg { width: 14px; height: 14px; flex-shrink: 0; }
-.phone--sm { width: 250px; height: 510px; padding: 10px; }
-.phone--sm .phone__screen { border-radius: 30px; }
-.phone--sm::after { top: 114px; height: 72px; }
-.phone--tilt { position: absolute; left: 6%; transform: rotate(-8deg) scale(.9); z-index: 1; opacity: .95; }
-.phone--front { position: relative; z-index: 2; transform: rotate(3deg); }
-.showcase__copy h2 { margin-bottom: 16px; }
-.showcase__copy > p { color: var(--text-2); font-size: 17px; }
+/* ===== Recorrido por rol ===== */
+.tour { max-width: 1000px; margin: 0 auto; }
+
+/* Selector de rol */
+.tour__roles {
+  display: flex; justify-content: center; gap: 6px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 999px; padding: 6px; width: fit-content; margin: 0 auto 40px;
+}
+.tour__role {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: none; border: 0; cursor: pointer;
+  font-family: inherit; font-size: 15px; font-weight: 600; letter-spacing: -.01em;
+  color: var(--text-2); padding: 11px 22px; border-radius: 999px;
+  transition: color .2s, background .25s;
+  white-space: nowrap;
+}
+.tour__role svg { width: 18px; height: 18px; }
+.tour__role:hover { color: var(--text); }
+.tour__role[aria-pressed='true'] {
+  background: var(--green); color: var(--ink-on-green);
+  box-shadow: 0 6px 18px -8px rgba(0,189,137,.7);
+}
+
+/* Cuerpo: lista a la izquierda, teléfono a la derecha */
+.tour__body { display: grid; grid-template-columns: 1fr 320px; gap: 56px; align-items: center; }
+.tour__list { display: flex; flex-direction: column; gap: 10px; }
+
+.screen {
+  display: flex; align-items: flex-start; gap: 14px; text-align: left;
+  background: transparent; border: 1px solid transparent; border-radius: 14px;
+  padding: 16px 18px; cursor: pointer; font-family: inherit; width: 100%;
+  transition: background .2s, border-color .2s, transform .2s;
+}
+.screen:hover { background: var(--surface); border-color: var(--border); }
+.screen[aria-pressed='true'] {
+  background: var(--surface); border-color: rgba(0,189,137,.35);
+  box-shadow: inset 0 0 0 1px rgba(0,189,137,.18);
+}
+.screen__num {
+  flex-shrink: 0; width: 28px; height: 28px; border-radius: 9px;
+  display: grid; place-items: center;
+  font-size: 13px; font-weight: 800;
+  color: var(--text-3); background: var(--surface-2);
+  transition: background .2s, color .2s;
+}
+.screen[aria-pressed='true'] .screen__num { background: var(--green); color: var(--ink-on-green); }
+.screen__txt { display: flex; flex-direction: column; gap: 3px; }
+.screen__txt b { font-size: 17px; letter-spacing: -.015em; color: var(--text); }
+.screen__txt span { font-size: 14.5px; color: var(--text-2); line-height: 1.5; }
+
+/* Teléfono */
+.tour__device { display: flex; justify-content: center; }
+.tour__figure { margin: 0; display: flex; flex-direction: column; align-items: center; }
+.phone--tour { width: 300px; height: 610px; }
+/* Las capturas se apilan y se cruzan con un fundido. */
+.phone--tour .phone__screen { display: grid; }
+.tour__shot {
+  grid-area: 1 / 1; opacity: 0; visibility: hidden;
+  transition: opacity .35s ease, visibility .35s;
+}
+.tour__shot.is-on { opacity: 1; visibility: visible; }
+.tour__caption {
+  margin-top: 16px; max-width: 300px; text-align: center;
+  font-size: 13px; color: var(--text-3); line-height: 1.5;
+}
+
+/* La leyenda bajo el teléfono repite lo que ya dice la pantalla elegida:
+   en escritorio sobra, en mobile es la única descripción visible. */
+@media (min-width: 861px) { .tour__caption { display: none; } }
+
+@media (max-width: 860px) {
+  .tour__body { grid-template-columns: 1fr; gap: 28px; }
+  .tour__device { order: 2; }
+  /* La lista pasa a chips deslizables sobre el teléfono. */
+  .tour__list {
+    order: 1; flex-direction: row; gap: 8px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    padding-bottom: 6px; margin: 0 -24px; padding-inline: 24px;
+    scrollbar-width: none;
+    /* `safe` centra mientras los chips entren, y vuelve a alinear al inicio
+       cuando desbordan. Con `center` a secas el primero queda cortado fuera
+       del área desplazable y no hay forma de llegar a él. */
+    justify-content: center;
+    justify-content: safe center;
+  }
+  .tour__list::-webkit-scrollbar { display: none; }
+  .screen {
+    flex-direction: column; align-items: center; gap: 6px;
+    width: auto; flex: 0 0 auto; scroll-snap-align: center;
+    padding: 10px 16px; border-radius: 999px;
+    background: var(--surface); border-color: var(--border);
+  }
+  .screen__num { display: none; }
+  .screen__txt { align-items: center; }
+  .screen__txt b { font-size: 14px; white-space: nowrap; }
+  /* En chips la descripción no entra: la muestra la leyenda del teléfono. */
+  .screen__txt span { display: none; }
+}
+
+@media (max-width: 400px) {
+  .tour__roles { width: 100%; }
+  .tour__role { flex: 1; justify-content: center; padding: 11px 12px; font-size: 14px; }
+  .phone--tour { width: 270px; height: 550px; }
+  .tour__caption { max-width: 270px; }
+}
+
 .checks { list-style: none; margin: 24px 0; display: grid; gap: 12px; }
 .checks li { position: relative; padding-left: 32px; color: var(--text); font-size: 16px; }
 .checks li::before {
@@ -250,6 +344,16 @@ a { color: inherit; text-decoration: none; }
   width: 22px; height: 22px; border-radius: 50%; background: rgba(0,189,137,.15);
   color: var(--green); font-size: 13px; font-weight: 700; display: grid; place-items: center;
 }
+
+/* Fila de características bajo el recorrido. Va después de .checks: comparten
+   especificidad, así que el orden es lo único que decide. */
+.checks--row {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px; margin: 52px auto 0; max-width: 1000px;
+}
+.checks--row li { font-size: 14.5px; }
+@media (max-width: 860px) { .checks--row { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .checks--row { grid-template-columns: 1fr; } }
 
 /* Real screenshots inside the phone frame */
 .shot__img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
@@ -405,9 +509,7 @@ a { color: inherit; text-decoration: none; }
   .hero__cta, .hero__meta { justify-content: center; }
   .hero__device { margin-top: 40px; }
   .grid { grid-template-columns: 1fr 1fr; }
-  .showcase, .updates { grid-template-columns: 1fr; }
-  .showcase__media { min-height: 480px; }
-  .showcase__mediaWrap { margin-bottom: 20px; }
+  .updates { grid-template-columns: 1fr; }
   /* En mobile la línea de pasos vuelve a quedar entre el texto y la tarjeta */
   .updates { row-gap: 28px; }
   .updates__copy { order: 1; }
@@ -417,8 +519,6 @@ a { color: inherit; text-decoration: none; }
 @media (max-width: 560px) {
   .hero { padding-top: 120px; }
   .grid { grid-template-columns: 1fr; }
-  .phone--tilt { display: none; }
-  .phone--front { transform: none; }
   .section { padding: 72px 0; }
   .download__card { padding: 44px 20px; }
   .footer__inner { flex-direction: column; text-align: center; }

@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=17" />
+  <link rel="stylesheet" href="styles.css?v=19" />
 
   <!-- Datos estructurados. Las respuestas deben coincidir con el FAQ visible:
        si se edita una, hay que editar la otra. -->
@@ -164,7 +164,7 @@
       <div class="hero__device reveal">
         <div class="phone">
           <div class="phone__screen">
-            <img src="assets/inicio.webp" alt="Pantalla de inicio de la app Mova" class="shot__img" width="640" height="1388" fetchpriority="high" decoding="async" />
+            <img src="assets/admin/inicio.webp" alt="Pantalla de inicio de Mova, con el perfil del gimnasio y el balance del mes" class="shot__img" width="364" height="777" fetchpriority="high" decoding="async" />
           </div>
         </div>
       </div>
@@ -276,39 +276,48 @@
     </div>
   </section>
 
-  <!-- ===== SHOWCASE ===== -->
+  <!-- ===== SHOWCASE / RECORRIDO POR ROL ===== -->
   <section class="section section--alt" id="showcase">
-    <div class="container showcase">
-      <div class="showcase__mediaWrap reveal">
-        <div class="showcase__media">
-          <div class="phone phone--sm phone--tilt">
-            <div class="phone__screen">
-              <img src="assets/rutinas.webp" alt="Pantalla de Rutinas de la app Mova" class="shot__img" width="640" height="1388" loading="lazy" decoding="async" />
-            </div>
-          </div>
-          <div class="phone phone--sm phone--front">
-            <div class="phone__screen">
-              <img src="assets/finanzas.webp" alt="Pantalla de Finanzas de la app Mova" class="shot__img" width="640" height="1388" loading="lazy" decoding="async" />
-            </div>
-          </div>
-        </div>
-        <p class="shotNote">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>
-          Capturas reales de Mova en modo oscuro
-        </p>
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">La experiencia</span>
+        <h2>Cada rol ve exactamente lo que necesita</h2>
+        <p>Interfaz oscura por defecto, diseñada con Material 3. Elegí un rol y recorré las pantallas reales de la app.</p>
       </div>
 
-      <div class="showcase__copy reveal">
-        <span class="eyebrow">La experiencia</span>
-        <h2>Rápida, clara y pensada para el día a día</h2>
-        <p>Interfaz oscura por defecto, diseñada con Material 3. Cada pantalla va al grano para que el profe registre y el dueño decida sin perder tiempo.</p>
-        <ul class="checks">
-          <li>Registro de sesiones en pocos toques</li>
-          <li>Estado de pago visible al instante</li>
-          <li>Reportes y comprobantes en PDF</li>
-          <li>Modo claro y oscuro</li>
-        </ul>
+      <div class="tour reveal">
+        <!-- Selector de rol -->
+        <div class="tour__roles">
+          <button type="button" class="tour__role" data-role="admin" aria-pressed="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5M16 3.5a3 3 0 010 5.5M21 20c0-2.5-2-4-4-4.5"/></svg>
+            Dueño y staff
+          </button>
+          <button type="button" class="tour__role" data-role="alumno" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.5" r="3.5"/><path d="M5 20c0-3.5 3.2-6 7-6s7 2.5 7 6"/></svg>
+            Alumno
+          </button>
+        </div>
+
+        <div class="tour__body">
+          <div class="tour__list" id="tourList"></div>
+
+          <div class="tour__device">
+            <figure class="tour__figure">
+              <div class="phone phone--tour">
+                <div class="phone__screen" id="tourScreen"></div>
+              </div>
+              <figcaption class="tour__caption" aria-live="polite" id="tourCaption"></figcaption>
+            </figure>
+          </div>
+        </div>
       </div>
+
+      <ul class="checks checks--row reveal">
+        <li>Registro de sesiones en pocos toques</li>
+        <li>Estado de pago visible al instante</li>
+        <li>Reportes y comprobantes en PDF</li>
+        <li>Modo claro y oscuro</li>
+      </ul>
     </div>
   </section>
 
