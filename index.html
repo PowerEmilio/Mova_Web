@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mova — Gestión de gimnasios en una sola app</title>
-  <meta name="description" content="Mova es la app para gestionar tu gimnasio: rutinas, alumnos, finanzas, tienda y staff. Todo en un solo lugar, con actualizaciones instantáneas." />
+  <meta name="description" content="Mova es la app para gestionar tu gimnasio: rutinas, alumnos, clases, finanzas, tienda y staff. Probá 15 días gratis, sin permanencia." />
   <meta name="theme-color" content="#00BD89" />
 
   <!-- Open Graph -->
   <meta property="og:site_name" content="Mova" />
   <meta property="og:title" content="Mova — Gestión de gimnasios en una sola app" />
-  <meta property="og:description" content="Rutinas, alumnos, finanzas y más. Descargá Mova para Android y Windows." />
+  <meta property="og:description" content="Rutinas, alumnos, clases, finanzas y más. Probá 15 días gratis, sin permanencia. Android y Windows." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://poweremilio.github.io/Mova_Web/" />
   <meta property="og:image" content="https://poweremilio.github.io/Mova_Web/assets/og-image.png" />
@@ -21,14 +21,14 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Mova — Gestión de gimnasios en una sola app" />
-  <meta name="twitter:description" content="Rutinas, alumnos, finanzas y más. Descargá Mova para Android y Windows." />
+  <meta name="twitter:description" content="Rutinas, alumnos, clases, finanzas y más. Probá 15 días gratis, sin permanencia. Android y Windows." />
   <meta name="twitter:image" content="https://poweremilio.github.io/Mova_Web/assets/og-image.png" />
 
   <link rel="icon" type="image/png" href="assets/mova-icon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=10" />
+  <link rel="stylesheet" href="styles.css?v=12" />
 </head>
 <body>
 
@@ -43,9 +43,10 @@
         <a href="#features">Funciones</a>
         <a href="#showcase">La app</a>
         <a href="#precios">Precios</a>
+        <a href="#faq">Preguntas</a>
         <a href="#download">Descargar</a>
       </nav>
-      <a href="#download" class="btn btn--primary btn--sm">Descargar app</a>
+      <a href="#download" class="btn btn--primary btn--sm">Probá 15 días gratis</a>
       <button class="nav__burger" id="burger" aria-label="Menú">
         <span></span><span></span><span></span>
       </button>
@@ -58,7 +59,7 @@
     <div class="container hero__inner">
       <div class="hero__copy reveal">
         <span class="badge">
-          <span class="badge__dot"></span> Flutter · Firebase · v1.0.5
+          <span class="badge__dot"></span> Nuevo · Clases y horarios
         </span>
         <h1 class="hero__title">
           Todo tu gimnasio,<br />
@@ -71,13 +72,16 @@
         <div class="hero__cta">
           <a href="#download" class="btn btn--primary">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
-            Descargar
+            Probá 15 días gratis
           </a>
-          <a href="#features" class="btn btn--ghost">Ver funciones</a>
+          <a href="https://wa.me/5491139288841?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20Mova%20para%20mi%20gimnasio" class="btn btn--ghost" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.05L2 22l5.1-1.33A10 10 0 1012 2zm0 1.8a8.2 8.2 0 016.9 12.6l-.28.44.72 2.63-2.7-.71-.42.25A8.2 8.2 0 1112 3.8zm-3.6 4c-.18 0-.47.07-.72.34-.25.27-.95.93-.95 2.26s.98 2.62 1.11 2.8c.14.18 1.9 3.02 4.7 4.1 2.32.9 2.8.72 3.3.68.5-.05 1.6-.66 1.83-1.29.23-.63.23-1.17.16-1.29-.07-.11-.25-.18-.53-.31-.28-.14-1.6-.8-1.85-.89-.25-.09-.43-.13-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.28-.14-1.16-.43-2.2-1.37-.82-.72-1.37-1.62-1.53-1.89-.16-.27-.02-.42.12-.55.13-.13.28-.34.42-.5.14-.17.18-.29.28-.47.09-.19.04-.35-.02-.49-.07-.13-.6-1.47-.83-2.01-.21-.52-.43-.45-.6-.46l-.5-.01z"/></svg>
+            Hablar por WhatsApp
+          </a>
         </div>
         <div class="hero__meta">
-          <div class="hero__metaItem"><strong>OTA</strong> Actualizaciones instantáneas</div>
-          <div class="hero__metaItem"><strong>4</strong> roles: dueño, admin, staff, alumno</div>
+          <div class="hero__metaItem"><strong>15 días</strong> gratis para probarlo</div>
+          <div class="hero__metaItem"><strong>Sin permanencia</strong> cancelás cuando quieras</div>
         </div>
       </div>
 
@@ -92,12 +96,44 @@
     </div>
   </section>
 
-  <!-- ===== LOGOS / TRUST STRIP ===== -->
+  <!-- ===== GARANTÍAS / TRUST STRIP ===== -->
   <div class="strip">
     <div class="container strip__inner">
-      <span>Construido con tecnología moderna</span>
-      <div class="strip__items">
-        <span>Flutter</span><i>·</i><span>Firebase</span><i>·</i><span>Cloud Firestore</span><i>·</i><span>Shorebird OTA</span>
+      <div class="promise">
+        <span class="promise__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </span>
+        <div>
+          <b>15 días gratis</b>
+          <span>Probalo con tu gimnasio real, sin apuro.</span>
+        </div>
+      </div>
+      <div class="promise">
+        <span class="promise__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/><circle cx="12" cy="12" r="9"/></svg>
+        </span>
+        <div>
+          <b>Sin permanencia</b>
+          <span>Mes a mes. Cancelás cuando quieras.</span>
+        </div>
+      </div>
+      <div class="promise">
+        <span class="promise__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v10m0 0l-3.5-3.5M12 13l3.5-3.5"/><path d="M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
+        </span>
+        <div>
+          <b>Mejoras incluidas</b>
+          <span>Cada versión nueva llega sola, sin costo extra.</span>
+        </div>
+      </div>
+      <div class="promise">
+        <span class="promise__icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H8l-5 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </span>
+        <div>
+          <b>Soporte sin vueltas</b>
+          <span>Escribinos por WhatsApp o email. Sin tickets ni respuestas automáticas.</span>
+        </div>
       </div>
     </div>
   </div>
@@ -314,21 +350,91 @@
           <span class="calc__ars">≈ $<span id="calcArs">29.800</span> ARS por mes</span>
         </div>
         <div class="calc__cta">
-          <a href="#download" class="btn btn--primary btn--lg">Empezar</a>
-          <p class="calc__note">El cobro es <b>en pesos</b> por Mercado Pago, al tipo de cambio del día (US$1 = $1.490). Mes a mes, sin permanencia.</p>
+          <a href="#download" class="btn btn--primary btn--lg">Probá 15 días gratis</a>
+          <p class="calc__note">Los primeros <b>15 días no se cobran</b>. Para iniciar la prueba se necesita una tarjeta; si cancelás antes, no se te cobra nada. Después, el cobro es <b>en pesos</b> por Mercado Pago al tipo de cambio del día (US$1 = $1.490), mes a mes y sin permanencia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ + CONTACTO ===== -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2>Lo que todos preguntan antes de empezar</h2>
+        <p>Y si te queda alguna duda, escribinos: te contesta la misma persona que desarrolla Mova.</p>
+      </div>
+
+      <div class="faq reveal">
+        <details class="faq__item">
+          <summary>¿Cómo funciona la prueba de 15 días?</summary>
+          <p>Instalás Mova, cargás tu gimnasio y usás la app completa durante 15 días sin que se te cobre nada. Para iniciar la prueba se pide una tarjeta, pero el primer cobro recién ocurre al día 16. Si cancelás antes, no se cobra.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>¿Puedo cancelar cuando quiera?</summary>
+          <p>Sí. Mova se paga mes a mes y no hay permanencia ni penalidad por cancelar. Dejás de pagar y el servicio corre hasta el final del mes que ya abonaste.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>¿Cómo se paga y en qué moneda?</summary>
+          <p>Los precios están en dólares, pero el cobro se hace <b>en pesos por Mercado Pago</b>, al tipo de cambio del día. No necesitás cuenta en dólares ni tarjeta internacional.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>¿Tengo que contratar todos los módulos?</summary>
+          <p>No. Arrancás con el plan base (alumnos, clases, staff y panel de inicio) y sumás Finanzas, Tienda o Rutinas solo cuando los necesites. Podés calcular tu precio exacto en la <a href="#precios">sección de precios</a>.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>¿Los alumnos tienen que pagar algo?</summary>
+          <p>No. El plan lo paga el gimnasio. Tus alumnos descargan la app y la usan sin costo para ver su rutina, su agenda de clases y su estado de pago.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>¿En qué dispositivos funciona?</summary>
+          <p>Hoy Mova corre en <b>Android 5.0 o superior</b> y en <b>Windows 10/11 de 64 bits</b>. La versión para iPhone está en desarrollo.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>¿Cómo recibo las actualizaciones?</summary>
+          <p>Automáticamente. Cuando publicamos una mejora, la app la descarga sola y te avisa; tocás <b>Reiniciar</b> y ya estás en la versión nueva. No hay que volver a instalar nada ni esperar a una tienda de apps.</p>
+        </details>
+
+        <details class="faq__item">
+          <summary>¿Quién puede ver qué dentro del gimnasio?</summary>
+          <p>Mova maneja cuatro roles: <b>dueño, administrador, staff y alumno</b>. Cada uno accede solo a lo que le corresponde: el alumno ve su rutina y sus clases, el staff gestiona lo suyo, y las finanzas quedan reservadas a quien vos decidas.</p>
+        </details>
+      </div>
+
+      <div class="contact reveal" id="contacto">
+        <div class="contact__copy">
+          <h3>¿Te quedó alguna duda?</h3>
+          <p>Contanos cómo trabaja tu gimnasio y te decimos si Mova te sirve. Sin vueltas y sin compromiso.</p>
+        </div>
+        <div class="contact__actions">
+          <a href="https://wa.me/5491139288841?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20Mova%20para%20mi%20gimnasio" class="btn btn--primary btn--lg" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 00-8.6 15.05L2 22l5.1-1.33A10 10 0 1012 2zm0 1.8a8.2 8.2 0 016.9 12.6l-.28.44.72 2.63-2.7-.71-.42.25A8.2 8.2 0 1112 3.8zm-3.6 4c-.18 0-.47.07-.72.34-.25.27-.95.93-.95 2.26s.98 2.62 1.11 2.8c.14.18 1.9 3.02 4.7 4.1 2.32.9 2.8.72 3.3.68.5-.05 1.6-.66 1.83-1.29.23-.63.23-1.17.16-1.29-.07-.11-.25-.18-.53-.31-.28-.14-1.6-.8-1.85-.89-.25-.09-.43-.13-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.28-.14-1.16-.43-2.2-1.37-.82-.72-1.37-1.62-1.53-1.89-.16-.27-.02-.42.12-.55.13-.13.28-.34.42-.5.14-.17.18-.29.28-.47.09-.19.04-.35-.02-.49-.07-.13-.6-1.47-.83-2.01-.21-.52-.43-.45-.6-.46l-.5-.01z"/></svg>
+            WhatsApp
+          </a>
+          <a href="mailto:emiliorodriguez123.er6@gmail.com?subject=Consulta%20sobre%20Mova" class="btn btn--ghost btn--lg">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="M3 6.5l9 6 9-6"/></svg>
+            Email
+          </a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ===== DOWNLOAD ===== -->
-  <section class="section download" id="download">
+  <section class="section section--alt download" id="download">
     <div class="container">
       <div class="download__card reveal">
         <div class="download__glow"></div>
         <img src="assets/mova-icon.png" alt="Mova" class="download__logo" />
-        <h2>Empezá a usar Mova</h2>
-        <p>Descargá Mova para Android o Windows. La versión de iOS está en camino.</p>
+        <h2>Empezá tus 15 días gratis</h2>
+        <p>Descargá Mova para Android o Windows y probala con tu gimnasio real. La versión de iOS está en camino.</p>
         <div class="download__btns">
           <a href="https://github.com/PowerEmilio/Mova_Web/releases/download/v1.0.5/Mova.apk" class="btn btn--primary btn--lg" id="apkBtn" download>
             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
@@ -386,9 +492,11 @@
         <a href="#features">Funciones</a>
         <a href="#showcase">La app</a>
         <a href="#precios">Precios</a>
-        <a href="#download">Descargar</a>
+        <a href="#faq">Preguntas</a>
+        <a href="https://wa.me/5491139288841" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:emiliorodriguez123.er6@gmail.com">Email</a>
       </nav>
-      <p class="footer__copy">© <span id="year"></span> Mova · Hecho con Flutter &amp; Firebase</p>
+      <p class="footer__copy">© <span id="year"></span> Mova · Hecho con Flutter, Firebase y Shorebird</p>
     </div>
   </footer>
 

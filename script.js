@@ -26,7 +26,7 @@ document.querySelectorAll('.reveal').forEach((el, i) => {
 });
 
 // Spotlight hover on every card (features, precios, OTA y descarga)
-document.querySelectorAll('.feature, .plan, .module, .calc, .snack, .download__card').forEach((card) => {
+document.querySelectorAll('.feature, .plan, .module, .calc, .snack, .download__card, .contact').forEach((card) => {
   card.addEventListener('mousemove', (e) => {
     const r = card.getBoundingClientRect();
     card.style.setProperty('--mx', `${e.clientX - r.left}px`);
