@@ -6,7 +6,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mova — Gestión de gimnasios en una sola app</title>
   <meta name="description" content="Mova es la app para gestionar tu gimnasio: rutinas, alumnos, clases, finanzas, tienda y staff. Probá 15 días gratis, sin permanencia." />
-  <meta name="theme-color" content="#00BD89" />
+  <meta name="theme-color" content="#FAFAF9" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#09090B" media="(prefers-color-scheme: dark)" />
+
+  <!-- La página soporta ambos esquemas y por defecto sigue al sistema.
+       El script fija la elección guardada ANTES del primer pintado: sin él
+       habría un destello del esquema equivocado. Debe quedar inline y sin
+       defer. [data-pin] lo lee el CSS; [data-scheme] es el esquema efectivo,
+       que solo se usa para elegir el icono del conmutador. -->
+  <meta name="color-scheme" content="light dark" />
+  <script>
+    {
+      const meta = document.querySelector('meta[name="color-scheme"]');
+      let elegido = null;
+      try { elegido = localStorage.getItem("color-scheme"); } catch (e) { /* modo privado */ }
+      if (elegido === "light" || elegido === "dark") {
+        meta.content = elegido;
+        document.documentElement.dataset.pin = elegido;
+      }
+      const oscuro = elegido
+        ? elegido === "dark"
+        : matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.dataset.scheme = oscuro ? "dark" : "light";
+    }
+  </script>
 
   <!-- Open Graph -->
   <meta property="og:site_name" content="Mova" />
@@ -25,11 +48,15 @@
   <meta name="twitter:description" content="Rutinas, alumnos, clases, finanzas y más. Probá 15 días gratis, sin permanencia. Android y Windows." />
   <meta name="twitter:image" content="https://poweremilio.github.io/Mova_Web/assets/og-image.png" />
 
+  <link rel="canonical" href="https://poweremilio.github.io/Mova_Web/" />
   <link rel="icon" type="image/png" sizes="180x180" href="assets/mova-icon-180.png" />
   <link rel="apple-touch-icon" href="assets/mova-icon-180.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- Instrument Sans para titulares, Inter para UI y cuerpo. Ambas variables:
+       se pide el rango de pesos, no una lista. Los pesos 800/900 de Inter
+       ya no se usan. -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400..700&family=Instrument+Sans:wght@500..700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 
   <!-- Datos estructurados. Las respuestas deben coincidir con el FAQ visible:
@@ -122,6 +149,10 @@
         <a href="#download">Descargar</a>
       </nav>
       <a href="#download" class="btn btn--primary btn--sm">Probá 15 días gratis</a>
+      <button class="nav__theme" id="themeToggle" type="button" aria-label="Cambiar entre modo claro y oscuro">
+        <svg class="nav__themeIcon nav__themeIcon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4"/></svg>
+        <svg class="nav__themeIcon nav__themeIcon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13.5A8.5 8.5 0 1110.5 4a6.8 6.8 0 009.5 9.5z"/></svg>
+      </button>
       <button class="nav__burger" id="burger" aria-label="Menú" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
       </button>
@@ -216,14 +247,14 @@
   <!-- ===== FEATURES ===== -->
   <section class="section" id="features">
     <div class="container">
-      <div class="section__head reveal">
+      <div class="section__head section__head--left reveal">
         <span class="eyebrow">Funciones</span>
         <h2>Una plataforma para gestionar todo el gimnasio</h2>
         <p>Desde la rutina de un alumno hasta las finanzas del mes. Todo conectado, en tiempo real.</p>
       </div>
 
       <div class="grid">
-        <article class="feature feature--link reveal">
+        <article class="feature feature--link">
           <div class="feature__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6.5 6.5l11 11M4 8l-2 2 2 2M20 8l2 2-2 2M8 4l-2 2 2 2M16 4l2 2-2 2"/></svg>
           </div>
@@ -232,7 +263,7 @@
           <span class="feature__tag">Profe <span class="feature__tagArrow">↔</span> Alumno</span>
         </article>
 
-        <article class="feature reveal">
+        <article class="feature">
           <div class="feature__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/><circle cx="12" cy="15" r="3"/><path d="M12 13.6V15l1 .8"/></svg>
           </div>
@@ -241,7 +272,7 @@
           <span class="feature__tag">Nuevo</span>
         </article>
 
-        <article class="feature reveal">
+        <article class="feature">
           <div class="feature__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5M16 3.5a3 3 0 010 5.5M21 20c0-2.5-2-4-4-4.5"/></svg>
           </div>
@@ -249,7 +280,7 @@
           <p>Fichas, membresías y estado de pago de cada persona. Sabé de un vistazo quién está al día.</p>
         </article>
 
-        <article class="feature reveal">
+        <article class="feature">
           <div class="feature__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20M6 15h4"/></svg>
           </div>
@@ -257,7 +288,7 @@
           <p>Controlá ingresos, pagos de cuotas y reportes. Exportá comprobantes en PDF cuando lo necesites.</p>
         </article>
 
-        <article class="feature reveal">
+        <article class="feature">
           <div class="feature__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2 12h11l2-8H7"/><circle cx="9" cy="20" r="1.4"/><circle cx="17" cy="20" r="1.4"/></svg>
           </div>
@@ -265,7 +296,7 @@
           <p>Ofrecé productos y suplementos desde la propia app, con su catálogo dentro de Mova.</p>
         </article>
 
-        <article class="feature reveal">
+        <article class="feature">
           <div class="feature__icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M12 9h5M12 13h5"/></svg>
           </div>
@@ -277,7 +308,7 @@
   </section>
 
   <!-- ===== SHOWCASE / RECORRIDO POR ROL ===== -->
-  <section class="section section--alt" id="showcase">
+  <section class="section" id="showcase">
     <div class="container">
       <div class="section__head reveal">
         <span class="eyebrow">La experiencia</span>
@@ -303,9 +334,12 @@
 
           <div class="tour__device">
             <figure class="tour__figure">
-              <div class="phone phone--tour">
+              <button type="button" class="phone phone--tour" id="tourZoom" aria-label="Ver la pantalla en grande">
                 <div class="phone__screen" id="tourScreen"></div>
-              </div>
+                <span class="phone__zoom" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M10.5 7.5v6M7.5 10.5h6"/></svg>
+                </span>
+              </button>
               <figcaption class="tour__caption" aria-live="polite" id="tourCaption"></figcaption>
             </figure>
           </div>
@@ -350,9 +384,9 @@
   </section>
 
   <!-- ===== PRECIOS ===== -->
-  <section class="section section--alt" id="precios">
+  <section class="section" id="precios">
     <div class="container">
-      <div class="section__head reveal">
+      <div class="section__head section__head--left reveal">
         <span class="eyebrow">Precios</span>
         <h2>Armá tu Mova a medida</h2>
         <p>Empezás con el plan base y sumás solo los módulos que tu gimnasio necesita. Un pago mensual, sin permanencia.</p>
@@ -438,22 +472,18 @@
         </div>
         <div class="calc__cta">
           <a href="#download" class="btn btn--primary btn--lg">Probá 15 días gratis</a>
-          <p class="calc__note">Los primeros <b>15 días no se cobran</b>. Para iniciar la prueba se necesita una tarjeta; si cancelás antes, no se te cobra nada. Después, el cobro es <b>en pesos</b> por Mercado Pago, mes a mes y sin permanencia. Usamos un tipo de cambio de referencia de <b>US$1 = $1.490</b>, que <b>actualizamos cada 3 meses</b>.</p>
+          <ul class="calc__note">
+            <li>Los primeros <b>15 días no se cobran</b>.</li>
+            <li>Para iniciar la prueba se necesita una tarjeta; si cancelás antes, no se te cobra nada.</li>
+            <li>Después, el cobro es <b>en pesos</b> por Mercado Pago, mes a mes y sin permanencia.</li>
+            <li>Usamos un tipo de cambio de referencia de <b>US$1 = $1.490</b>, que <b>actualizamos cada 3 meses</b>.</li>
+          </ul>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ===== FAQ + CONTACTO ===== -->
-  <section class="section" id="faq">
-    <div class="container">
-      <div class="section__head reveal">
-        <span class="eyebrow">Preguntas frecuentes</span>
-        <h2>Lo que todos preguntan antes de empezar</h2>
-        <p>Y si te queda alguna duda, escribinos: te contesta la misma persona que desarrolla Mova.</p>
-      </div>
-
-      <div class="faq reveal">
+      <!-- Las dudas sobre el cobro se resuelven acá, donde nacen, en vez de
+           dos pantallas más abajo en el FAQ general. -->
+      <div class="faq faq--inline reveal">
         <details class="faq__item">
           <summary>¿Cómo funciona la prueba de 15 días?</summary>
           <p>Instalás Mova, cargás tu gimnasio y usás la app completa durante 15 días sin que se te cobre nada. Para iniciar la prueba se pide una tarjeta, pero el primer cobro recién ocurre al día 16. Si cancelás antes, no se cobra.</p>
@@ -473,7 +503,46 @@
           <summary>¿Tengo que contratar todos los módulos?</summary>
           <p>No. Arrancás con el plan base (alumnos, clases, staff y panel de inicio) y sumás Finanzas, Tienda o Rutinas solo cuando los necesites. Podés calcular tu precio exacto en la <a href="#precios">sección de precios</a>.</p>
         </details>
+      </div>
+    </div>
+  </section>
 
+  <!-- ===== FAQ + CONTACTO ===== -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section__head reveal">
+        <span class="eyebrow">Preguntas frecuentes</span>
+        <h2>Lo que todos preguntan antes de empezar</h2>
+        <p>Y si te queda alguna duda, escribinos: te contesta la misma persona que desarrolla Mova.</p>
+      </div>
+
+      <!-- Va antes del FAQ: quien está por poner una tarjeta quiere saber
+           dónde terminan sus datos antes de seguir leyendo. -->
+      <div class="datos reveal">
+        <article class="dato">
+          <span class="dato__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg>
+          </span>
+          <h3>Dónde viven tus datos</h3>
+          <p>En Firebase, la infraestructura de Google.</p>
+        </article>
+        <article class="dato">
+          <span class="dato__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 11-2.6-6.4"/><path d="M21 3v5h-5"/></svg>
+          </span>
+          <h3>Copias de seguridad</h3>
+          <p>Se hace una copia semanal de la información del gimnasio.</p>
+        </article>
+        <article class="dato">
+          <span class="dato__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10" rx="2"/><path d="M8 10.5V7a4 4 0 018 0v3.5"/></svg>
+          </span>
+          <h3>Quién puede verlos</h3>
+          <p>Solo el dueño del gimnasio y el staff que él autorice, según el rol de cada uno.</p>
+        </article>
+      </div>
+
+      <div class="faq reveal">
         <details class="faq__item">
           <summary>¿Los alumnos tienen que pagar algo?</summary>
           <p>No. El plan lo paga el gimnasio. Tus alumnos descargan la app y la usan sin costo para ver su rutina, su agenda de clases y su estado de pago.</p>
@@ -515,7 +584,7 @@
   </section>
 
   <!-- ===== DOWNLOAD ===== -->
-  <section class="section section--alt download" id="download">
+  <section class="section download" id="download">
     <div class="container">
       <div class="download__card reveal">
         <div class="download__glow"></div>
@@ -588,10 +657,22 @@
         <a href="#faq">Preguntas</a>
         <a href="https://wa.me/5491139288841" target="_blank" rel="noopener">WhatsApp</a>
         <a href="mailto:emiliorodriguez123.er6@gmail.com">Email</a>
+        <!-- Privacidad y Términos vuelven acá cuando los borradores estén
+             cerrados y revisados. Los archivos existen sin commitear. -->
       </nav>
       <p class="footer__copy">© <span id="year"></span> Mova · Hecho con Flutter, Firebase y Shorebird</p>
     </div>
   </footer>
+
+  <!-- Lightbox del recorrido. <dialog> nativo: el foco, Escape y el fondo
+       los maneja el navegador, no hace falta librería ni trampa de foco. -->
+  <dialog class="lightbox" id="lightbox">
+    <button type="button" class="lightbox__close" id="lightboxClose" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <img id="lightboxImg" alt="" />
+    <p class="lightbox__caption" id="lightboxCaption"></p>
+  </dialog>
 
   <script src="script.js"></script>
 </body>

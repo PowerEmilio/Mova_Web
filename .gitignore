@@ -8,3 +8,9 @@ Thumbs.db
 # Editores
 .vscode/
 .idea/
+
+# Borradores legales sin cerrar. El repo es público y se publica por GitHub
+# Pages: mientras tengan marcas [COMPLETAR] no tienen que llegar al sitio.
+privacidad.html
+terminos.html
+legal.css

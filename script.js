@@ -6,6 +6,61 @@ const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 12);
 onScroll();
 window.addEventListener('scroll', onScroll, { passive: true });
 
+// Conmutador de esquema de color. Dos estados, no tres: o seguís al sistema,
+// o queda fijado el contrario. El script del <head> ya aplicó lo guardado;
+// acá solo se maneja el clic y los cambios de preferencia del sistema.
+const themeToggle = document.getElementById('themeToggle');
+const schemeMeta = document.querySelector('meta[name="color-scheme"]');
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+const esquemaEfectivo = () =>
+  document.documentElement.dataset.pin ||
+  (prefersDark.matches ? 'dark' : 'light');
+
+// Ver .sin-transiciones en el CSS: sin esto, todo lo que tenga `transition`
+// sobre color o fondo se queda pintado con el tema anterior.
+const sinTransiciones = (cambio) => {
+  const raiz = document.documentElement;
+  raiz.classList.add('sin-transiciones');
+  cambio();
+  // Dos cuadros: uno para que el navegador aplique los colores nuevos y otro
+  // para devolver las transiciones sin que se disparen con el cambio.
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => raiz.classList.remove('sin-transiciones'))
+  );
+};
+
+const aplicarEsquema = (fijado) => sinTransiciones(() => {
+  const raiz = document.documentElement;
+  if (fijado) {
+    raiz.dataset.pin = fijado;
+    schemeMeta.content = fijado;
+    try { localStorage.setItem('color-scheme', fijado); } catch (e) { /* modo privado */ }
+  } else {
+    delete raiz.dataset.pin;
+    schemeMeta.content = 'light dark';
+    try { localStorage.removeItem('color-scheme'); } catch (e) { /* modo privado */ }
+  }
+  raiz.dataset.scheme = esquemaEfectivo();
+});
+
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    // Si ya estaba fijado, el clic devuelve el control al sistema; si no,
+    // fija el contrario de lo que se está viendo.
+    const fijado = document.documentElement.dataset.pin;
+    aplicarEsquema(fijado ? null : (esquemaEfectivo() === 'dark' ? 'light' : 'dark'));
+  });
+}
+// El SO puede cambiar de tema en cualquier momento: mientras no haya nada
+// fijado, el icono tiene que seguirlo.
+prefersDark.addEventListener('change', () => {
+  if (document.documentElement.dataset.pin) return;
+  sinTransiciones(() => {
+    document.documentElement.dataset.scheme = prefersDark.matches ? 'dark' : 'light';
+  });
+});
+
 // Menú mobile
 const burger = document.getElementById('burger');
 const setMenu = (open) => {
@@ -81,19 +136,19 @@ if (secciones.length) {
   secciones.forEach((s) => spy.observe(s));
 }
 
-// Spotlight que sigue al mouse. Se salta en dispositivos táctiles y con
-// movimiento reducido: ahí solo genera trabajo de más.
+// Spotlight que sigue al mouse. Antes estaba en siete tipos de tarjeta y el
+// efecto perdía todo significado; ahora queda solo en el bloque de descarga,
+// que es el momento de conversión. Se salta en táctil y con movimiento
+// reducido: ahí solo genera trabajo de más.
 const puedeHover = window.matchMedia('(hover: hover)').matches;
 if (puedeHover && !prefersReducedMotion.matches) {
-  document
-    .querySelectorAll('.feature, .plan, .module, .calc, .snack, .download__card, .contact')
-    .forEach((card) => {
-      card.addEventListener('mousemove', (e) => {
-        const r = card.getBoundingClientRect();
-        card.style.setProperty('--mx', `${e.clientX - r.left}px`);
-        card.style.setProperty('--my', `${e.clientY - r.top}px`);
-      });
+  document.querySelectorAll('.download__card').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+      card.style.setProperty('--my', `${e.clientY - r.top}px`);
     });
+  });
 }
 
 // Recorrido por rol: selector de rol + lista de pantallas + teléfono
@@ -145,8 +200,12 @@ if (tourList && tourScreen) {
     });
   });
 
+  // La pantalla en pantalla, para que el lightbox sepa qué ampliar.
+  let pantallaActual = TOUR.admin[0];
+
   const mostrar = (rol, indice) => {
     const pantalla = TOUR[rol][indice];
+    pantallaActual = pantalla;
     imagenes.forEach((img, archivo) =>
       img.classList.toggle('is-on', archivo === pantalla.archivo)
     );
@@ -180,6 +239,42 @@ if (tourList && tourScreen) {
   });
 
   pintarLista(rolActual);
+
+  // Ampliar la captura. El teléfono del recorrido mide 300-340px: alcanza
+  // para elegir, no para leer la pantalla. <dialog> se encarga del foco,
+  // de Escape y del fondo.
+  const lightbox = document.getElementById('lightbox');
+  const zoom = document.getElementById('tourZoom');
+  if (lightbox && zoom && typeof lightbox.showModal === 'function') {
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    zoom.addEventListener('click', () => {
+      lightboxImg.src = `assets/${pantallaActual.archivo}`;
+      lightboxImg.width = pantallaActual.w;
+      lightboxImg.height = pantallaActual.h;
+      lightboxImg.alt = `Pantalla ${pantallaActual.nombre} de Mova, en tamaño completo`;
+      lightboxCaption.textContent = `${pantallaActual.nombre} — ${pantallaActual.desc}`;
+      lightbox.showModal();
+    });
+    document
+      .getElementById('lightboxClose')
+      .addEventListener('click', () => lightbox.close());
+    // Clic fuera de la imagen: el <dialog> ocupa toda la pantalla, así que
+    // el fondo solo se distingue comparando contra el recuadro real.
+    lightbox.addEventListener('click', (e) => {
+      const r = lightbox.getBoundingClientRect();
+      const dentro =
+        e.clientX >= r.left && e.clientX <= r.right &&
+        e.clientY >= r.top && e.clientY <= r.bottom;
+      if (!dentro) lightbox.close();
+    });
+  } else if (zoom) {
+    // Sin <dialog> el botón no haría nada: se saca del recorrido de teclado
+    // y se esconde la lupa, pero el marco queda igual.
+    zoom.disabled = true;
+    zoom.removeAttribute('aria-label');
+    zoom.querySelector('.phone__zoom')?.remove();
+  }
 }
 
 // Año en el pie
