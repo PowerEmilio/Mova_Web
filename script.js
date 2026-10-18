@@ -170,6 +170,8 @@ const TOUR = {
       desc: 'Su rutina sugerida del día y la próxima clase, apenas abre la app.' },
     { archivo: 'alumno/registro_rutina_alumno.webp', w: 359, h: 780, nombre: 'Registrar entrenamiento',
       desc: 'Anota repeticiones y carga serie por serie, con el objetivo a la vista.' },
+    { archivo: 'alumno/clases_alumno.webp', w: 360, h: 742, nombre: 'Mis clases',
+      desc: 'Las clases en las que está anotado, con días, horarios y entrenador, y la de hoy destacada.' },
   ],
 };
 
