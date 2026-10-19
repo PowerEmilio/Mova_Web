@@ -529,7 +529,9 @@
   .tour__figure { margin: 0; display: flex; flex-direction: column; align-items: center; }
   /* El marco del recorrido es un <button>: al tocarlo se amplía la captura. */
   .phone--tour { cursor: zoom-in; display: block; text-align: initial; }
-  .phone--tour:disabled { cursor: default; }
+  .phone--tour:disabled,
+  .phone--tour.is-empty { cursor: default; }
+  .phone--tour.is-empty .phone__zoom { display: none; }
   .phone__zoom {
     position: absolute; z-index: 3; right: var(--sp-5); bottom: var(--sp-5);
     width: 2.25rem; height: 2.25rem; border-radius: var(--r-full);
@@ -555,6 +557,33 @@
     transition: opacity .35s ease, visibility .35s;
   }
   .tour__shot.is-on { opacity: 1; visibility: visible; }
+  /* Pantalla sin captura todavía: ocupa el lugar de la imagen. */
+  .tour__empty {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: var(--sp-3); padding: var(--sp-6); text-align: center;
+    color: var(--d-400); font-size: var(--fs-sm);
+  }
+  .tour__empty svg { width: 2.5rem; height: 2.5rem; color: var(--green-500); opacity: .7; }
+  .tour__empty b { font-family: var(--font-display); font-size: var(--fs-lg); color: var(--d-050); }
+
+  /* Paginador de capturas, bajo el teléfono */
+  .tour__pager { display: flex; align-items: center; gap: var(--sp-3); margin-top: var(--sp-4); }
+  .tour__pager[hidden] { display: none; }
+  .tour__step {
+    width: 2.25rem; height: 2.25rem; border-radius: var(--r-full);
+    display: grid; place-items: center; cursor: pointer;
+    color: var(--fg); background: var(--surface); border: 1px solid var(--line);
+    transition: background .2s, border-color .2s;
+  }
+  .tour__step:hover { background: var(--surface-2); border-color: var(--accent-line); }
+  .tour__step svg { width: 1.125rem; height: 1.125rem; }
+  .tour__dots { display: flex; gap: var(--sp-2); }
+  .tour__dot {
+    width: 0.5rem; height: 0.5rem; padding: 0; border: 0; border-radius: var(--r-full);
+    background: var(--line-strong); cursor: pointer;
+    transition: width .25s ease, background .25s ease;
+  }
+  .tour__dot[aria-current='true'] { width: 1.5rem; background: var(--accent); }
   .tour__caption {
     margin-top: var(--sp-4); max-width: var(--phone-w); text-align: center;
     font-size: var(--fs-xs); color: var(--fg-subtle); line-height: 1.5;

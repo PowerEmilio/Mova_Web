@@ -151,27 +151,41 @@ if (puedeHover && !prefersReducedMotion.matches) {
   });
 }
 
-// Recorrido por rol: selector de rol + lista de pantallas + teléfono
+// Recorrido por rol: selector de rol + lista de pantallas + teléfono.
+// Cada pantalla lleva una o más capturas en `fotos`; con más de una aparece
+// el paginador bajo el teléfono. Con `fotos: []` se muestra un aviso de
+// "captura próximamente" hasta que se cargue la imagen.
 const TOUR = {
   admin: [
-    { archivo: 'admin/inicio.webp', w: 364, h: 777, nombre: 'Inicio',
-      desc: 'Tu gimnasio de un vistazo: perfil, horarios y el balance del mes.' },
-    { archivo: 'admin/rutinas.webp', w: 360, h: 773, nombre: 'Rutinas',
-      desc: 'Creá entrenamientos y asignalos. Cada rutina guarda ejercicios, alumnos y objetivo.' },
-    { archivo: 'admin/rutina_personalizacion.webp', w: 361, h: 789, nombre: 'Armar la rutina',
-      desc: 'Elegí los días sugeridos y qué campos pide cada ejercicio: carga, descanso o indicaciones.' },
-    { archivo: 'admin/finanzas.webp', w: 360, h: 774, nombre: 'Finanzas',
-      desc: 'Ingresos, gastos y balance, con el detalle de cada movimiento.' },
-    { archivo: 'admin/tienda.webp', w: 374, h: 773, nombre: 'Tienda',
-      desc: 'Catálogo con stock y precios, y carrito para vender en el mostrador.' },
+    { nombre: 'Inicio',
+      desc: 'Tu gimnasio de un vistazo: perfil, horarios y el balance del mes.',
+      fotos: [{ archivo: 'admin/inicio.webp', w: 364, h: 777 }] },
+    { nombre: 'Rutinas',
+      desc: 'Elegí los días sugeridos y qué campos pide cada ejercicio: carga, descanso o personalízalo a tu gusto.',
+      fotos: [
+        { archivo: 'admin/rutinas.webp', w: 360, h: 773 },
+        { archivo: 'admin/rutina_personalizacion.webp', w: 360, h: 742 },
+      ] },
+    { nombre: 'Clases',
+      desc: 'Creá clases con sus horarios, asigná entrenadores y anotá a los alumnos en cada franja.',
+      fotos: [{ archivo: 'admin/clases.webp', w: 360, h: 742 }] },
+    { nombre: 'Finanzas',
+      desc: 'Ingresos, gastos y balance, con el detalle de cada movimiento.',
+      fotos: [{ archivo: 'admin/finanzas.webp', w: 360, h: 774 }] },
+    { nombre: 'Tienda',
+      desc: 'Catálogo con stock y precios, y carrito para vender en el mostrador.',
+      fotos: [{ archivo: 'admin/tienda.webp', w: 374, h: 773 }] },
   ],
   alumno: [
-    { archivo: 'alumno/inicio_alumno.webp', w: 360, h: 800, nombre: 'Inicio',
-      desc: 'Su rutina sugerida del día y la próxima clase, apenas abre la app.' },
-    { archivo: 'alumno/registro_rutina_alumno.webp', w: 359, h: 780, nombre: 'Registrar entrenamiento',
-      desc: 'Anota repeticiones y carga serie por serie, con el objetivo a la vista.' },
-    { archivo: 'alumno/clases_alumno.webp', w: 360, h: 742, nombre: 'Mis clases',
-      desc: 'Las clases en las que está anotado, con días, horarios y entrenador, y la de hoy destacada.' },
+    { nombre: 'Inicio',
+      desc: 'Su rutina sugerida del día y la próxima clase, apenas abre la app.',
+      fotos: [{ archivo: 'alumno/inicio_alumno.webp', w: 360, h: 800 }] },
+    { nombre: 'Registrar entrenamiento',
+      desc: 'Anota repeticiones y carga serie por serie, con el objetivo a la vista.',
+      fotos: [{ archivo: 'alumno/registro_rutina_alumno.webp', w: 359, h: 780 }] },
+    { nombre: 'Mis clases',
+      desc: 'Las clases en las que está anotado, con días, horarios y entrenador, y la de hoy destacada.',
+      fotos: [{ archivo: 'alumno/clases_alumno.webp', w: 360, h: 742 }] },
   ],
 };
 
@@ -183,39 +197,93 @@ if (tourList && tourScreen) {
   const roles = [...document.querySelectorAll('.tour__role')];
   let rolActual = 'admin';
 
-  // Una <img> por captura, apiladas: cambiar de pantalla es un fundido, no una
-  // recarga, así que no parpadea al volver a una ya vista.
-  const imagenes = new Map();
+  const tourPager = document.getElementById('tourPager');
+  const tourDots = document.getElementById('tourDots');
+  const zoom = document.getElementById('tourZoom');
+
+  // Un elemento por captura, apilados: cambiar de pantalla es un fundido, no
+  // una recarga, así que no parpadea al volver a una ya vista. La clave es
+  // "rol:pantalla:foto"; las pantallas sin captura usan "rol:pantalla:vacio".
+  const capas = new Map();
   Object.entries(TOUR).forEach(([rol, pantallas]) => {
+    const vista = rol === 'admin' ? 'dueño y staff' : 'alumno';
     pantallas.forEach((p, i) => {
-      const img = document.createElement('img');
-      img.src = `assets/${p.archivo}`;
-      img.alt = `Pantalla ${p.nombre} de Mova, vista de ${rol === 'admin' ? 'dueño y staff' : 'alumno'}`;
-      img.className = 'shot__img tour__shot';
-      img.width = p.w;
-      img.height = p.h;
-      img.decoding = 'async';
-      // Solo la primera del rol por defecto se carga de entrada
-      if (!(rol === 'admin' && i === 0)) img.loading = 'lazy';
-      tourScreen.appendChild(img);
-      imagenes.set(p.archivo, img);
+      if (p.fotos.length === 0) {
+        const vacio = document.createElement('div');
+        vacio.className = 'tour__shot tour__empty';
+        vacio.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="12" cy="12" r="3.5"/><path d="M8 5l1.5-2h5L16 5"/></svg>
+          <b>${p.nombre}</b><span>Captura próximamente</span>`;
+        tourScreen.appendChild(vacio);
+        capas.set(`${rol}:${i}:vacio`, vacio);
+        return;
+      }
+      p.fotos.forEach((f, j) => {
+        const img = document.createElement('img');
+        img.src = `assets/${f.archivo}`;
+        img.alt = `Pantalla ${p.nombre} de Mova, vista de ${vista}` +
+          (p.fotos.length > 1 ? ` (${j + 1} de ${p.fotos.length})` : '');
+        img.className = 'shot__img tour__shot';
+        img.width = f.w;
+        img.height = f.h;
+        img.decoding = 'async';
+        // Solo la primera del rol por defecto se carga de entrada
+        if (!(rol === 'admin' && i === 0 && j === 0)) img.loading = 'lazy';
+        tourScreen.appendChild(img);
+        capas.set(`${rol}:${i}:${j}`, img);
+      });
     });
   });
 
-  // La pantalla en pantalla, para que el lightbox sepa qué ampliar.
-  let pantallaActual = TOUR.admin[0];
+  // Lo que está en pantalla, para el paginador y el lightbox.
+  let actual = { rol: 'admin', indice: 0, foto: 0 };
+  const pantallaActual = () => TOUR[actual.rol][actual.indice];
+  const fotoActual = () => pantallaActual().fotos[actual.foto];
+
+  const pintarFoto = () => {
+    const { rol, indice, foto } = actual;
+    const pantalla = pantallaActual();
+    const clave = pantalla.fotos.length ? `${rol}:${indice}:${foto}` : `${rol}:${indice}:vacio`;
+    capas.forEach((el, k) => el.classList.toggle('is-on', k === clave));
+
+    const varias = pantalla.fotos.length > 1;
+    tourPager.hidden = !varias;
+    [...tourDots.children].forEach((d, j) =>
+      d.setAttribute('aria-current', String(j === foto))
+    );
+    // Sin captura no hay nada que ampliar.
+    if (zoom) zoom.classList.toggle('is-empty', !pantalla.fotos.length);
+  };
+
+  const irAFoto = (j) => {
+    const total = pantallaActual().fotos.length;
+    if (total < 2) return;
+    actual.foto = (j + total) % total;
+    pintarFoto();
+  };
 
   const mostrar = (rol, indice) => {
-    const pantalla = TOUR[rol][indice];
-    pantallaActual = pantalla;
-    imagenes.forEach((img, archivo) =>
-      img.classList.toggle('is-on', archivo === pantalla.archivo)
-    );
+    actual = { rol, indice, foto: 0 };
+    const pantalla = pantallaActual();
     tourCaption.textContent = pantalla.desc;
     [...tourList.children].forEach((b, i) =>
       b.setAttribute('aria-pressed', String(i === indice))
     );
+    tourDots.innerHTML = '';
+    if (pantalla.fotos.length > 1) {
+      pantalla.fotos.forEach((_, j) => {
+        const d = document.createElement('button');
+        d.type = 'button';
+        d.className = 'tour__dot';
+        d.setAttribute('aria-label', `Captura ${j + 1} de ${pantalla.fotos.length}`);
+        d.addEventListener('click', () => irAFoto(j));
+        tourDots.appendChild(d);
+      });
+    }
+    pintarFoto();
   };
+
+  document.getElementById('tourPrev').addEventListener('click', () => irAFoto(actual.foto - 1));
+  document.getElementById('tourNext').addEventListener('click', () => irAFoto(actual.foto + 1));
 
   const pintarLista = (rol) => {
     tourList.innerHTML = '';
@@ -246,16 +314,18 @@ if (tourList && tourScreen) {
   // para elegir, no para leer la pantalla. <dialog> se encarga del foco,
   // de Escape y del fondo.
   const lightbox = document.getElementById('lightbox');
-  const zoom = document.getElementById('tourZoom');
   if (lightbox && zoom && typeof lightbox.showModal === 'function') {
     const lightboxImg = document.getElementById('lightboxImg');
     const lightboxCaption = document.getElementById('lightboxCaption');
     zoom.addEventListener('click', () => {
-      lightboxImg.src = `assets/${pantallaActual.archivo}`;
-      lightboxImg.width = pantallaActual.w;
-      lightboxImg.height = pantallaActual.h;
-      lightboxImg.alt = `Pantalla ${pantallaActual.nombre} de Mova, en tamaño completo`;
-      lightboxCaption.textContent = `${pantallaActual.nombre} — ${pantallaActual.desc}`;
+      const pantalla = pantallaActual();
+      const foto = fotoActual();
+      if (!foto) return;
+      lightboxImg.src = `assets/${foto.archivo}`;
+      lightboxImg.width = foto.w;
+      lightboxImg.height = foto.h;
+      lightboxImg.alt = `Pantalla ${pantalla.nombre} de Mova, en tamaño completo`;
+      lightboxCaption.textContent = `${pantalla.nombre} — ${pantalla.desc}`;
       lightbox.showModal();
     });
     document

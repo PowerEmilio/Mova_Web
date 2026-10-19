@@ -340,6 +340,16 @@
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M10.5 7.5v6M7.5 10.5h6"/></svg>
                 </span>
               </button>
+              <!-- Solo aparece cuando la pantalla elegida tiene más de una captura -->
+              <div class="tour__pager" id="tourPager" hidden>
+                <button type="button" class="tour__step" id="tourPrev" aria-label="Captura anterior">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+                </button>
+                <div class="tour__dots" id="tourDots"></div>
+                <button type="button" class="tour__step" id="tourNext" aria-label="Captura siguiente">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+                </button>
+              </div>
               <figcaption class="tour__caption" aria-live="polite" id="tourCaption"></figcaption>
             </figure>
           </div>
