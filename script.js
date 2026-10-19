@@ -165,6 +165,7 @@ const TOUR = {
       fotos: [
         { archivo: 'admin/rutinas.webp', w: 360, h: 773 },
         { archivo: 'admin/rutina_personalizacion.webp', w: 360, h: 742 },
+        { archivo: 'admin/rutina_ejercicios.webp', w: 360, h: 742 },
       ] },
     { nombre: 'Clases',
       desc: 'Creá clases con sus horarios, asigná entrenadores y anotá a los alumnos en cada franja.',
@@ -182,7 +183,10 @@ const TOUR = {
       fotos: [{ archivo: 'alumno/inicio_alumno.webp', w: 360, h: 800 }] },
     { nombre: 'Registrar entrenamiento',
       desc: 'Anota repeticiones y carga serie por serie, con el objetivo a la vista.',
-      fotos: [{ archivo: 'alumno/registro_rutina_alumno.webp', w: 359, h: 780 }] },
+      fotos: [
+        { archivo: 'alumno/registro_rutina_alumno.webp', w: 359, h: 780 },
+        { archivo: 'alumno/registro_sensaciones_alumno.webp', w: 360, h: 742 },
+      ] },
     { nombre: 'Mis clases',
       desc: 'Las clases en las que está anotado, con días, horarios y entrenador, y la de hoy destacada.',
       fotos: [{ archivo: 'alumno/clases_alumno.webp', w: 360, h: 742 }] },
