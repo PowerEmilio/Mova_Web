@@ -353,16 +353,16 @@ if (tourList && tourScreen) {
   }
 }
 
-// Botón iPhone y Mac. Abre un modal que ofrece instalar Mova (acceso
-// directo en el inicio del celular o en el Dock de la Mac) o solo abrirla en
-// el navegador. Ninguna página puede instalarse sola en Safari, y el acceso
+// Botón Instalar Mova. Abre un modal que ofrece instalar Mova (acceso
+// directo en el inicio del celular, el Dock o el menú Inicio) o solo abrirla
+// en el navegador. Ninguna página puede instalarse sola en Safari, y el acceso
 // directo tiene que crearse desde movaapp.web.app (si se agrega desde acá,
 // queda la landing): por eso "Instalar" abre la app con ?instalar=1 y es ella
 // la que muestra el último paso. El iPad con iPadOS se presenta como Mac, así
 // que se lo distingue por el táctil.
-const appleBtn = document.getElementById('appleBtn');
+const installBtn = document.getElementById('installBtn');
 const qrModal = document.getElementById('qrModal');
-if (appleBtn && qrModal && typeof qrModal.showModal === 'function') {
+if (installBtn && qrModal && typeof qrModal.showModal === 'function') {
   const ua = navigator.userAgent;
   const ios = /iPhone|iPad|iPod/.test(ua) ||
     (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
@@ -400,9 +400,12 @@ if (appleBtn && qrModal && typeof qrModal.showModal === 'function') {
     instalar: 'Instalar en esta Mac',
     qr: true,
   } : {
-    titulo: 'Mova en iPhone, Mac o esta computadora',
-    lead: 'Instalala como app: abre en su propia ventana y se actualiza sola.',
-    pasos: [],
+    titulo: 'Instalá Mova en esta computadora',
+    lead: 'Queda en el menú Inicio, abre en su propia ventana y se actualiza sola.',
+    pasos: [
+      'Tocá <b>Instalar en esta computadora</b>: se abre Mova.',
+      'Tocá <b>Instalar</b> en el aviso que aparece abajo.',
+    ],
     instalar: 'Instalar en esta computadora',
     qr: true,
   };
@@ -414,7 +417,7 @@ if (appleBtn && qrModal && typeof qrModal.showModal === 'function') {
     textos.pasos.map((p) => `<li>${p}</li>`).join('');
   document.getElementById('qrModalInstalar').textContent = textos.instalar;
 
-  appleBtn.addEventListener('click', (e) => {
+  installBtn.addEventListener('click', (e) => {
     e.preventDefault();
     qrModal.showModal();
   });
