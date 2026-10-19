@@ -34,7 +34,7 @@
   <!-- Open Graph -->
   <meta property="og:site_name" content="Mova" />
   <meta property="og:title" content="Mova — Gestión de gimnasios en una sola app" />
-  <meta property="og:description" content="Rutinas, alumnos, clases, finanzas y más. Probá 15 días gratis, sin permanencia. Android y Windows." />
+  <meta property="og:description" content="Rutinas, alumnos, clases, finanzas y más. Probá 15 días gratis, sin permanencia. Android, Windows, iPhone y Mac." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://poweremilio.github.io/Mova_Web/" />
   <meta property="og:image" content="https://poweremilio.github.io/Mova_Web/assets/og-image.png" />
@@ -45,7 +45,7 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Mova — Gestión de gimnasios en una sola app" />
-  <meta name="twitter:description" content="Rutinas, alumnos, clases, finanzas y más. Probá 15 días gratis, sin permanencia. Android y Windows." />
+  <meta name="twitter:description" content="Rutinas, alumnos, clases, finanzas y más. Probá 15 días gratis, sin permanencia. Android, Windows, iPhone y Mac." />
   <meta name="twitter:image" content="https://poweremilio.github.io/Mova_Web/assets/og-image.png" />
 
   <link rel="canonical" href="https://poweremilio.github.io/Mova_Web/" />
@@ -70,7 +70,7 @@
         "name": "Mova",
         "applicationCategory": "BusinessApplication",
         "description": "App para gestionar gimnasios: rutinas, alumnos, clases, finanzas, tienda y staff.",
-        "operatingSystem": "Android 5.0+, Windows 10/11",
+        "operatingSystem": "Android 5.0+, Windows 10/11, iOS y macOS (app web)",
         "url": "https://poweremilio.github.io/Mova_Web/",
         "image": "https://poweremilio.github.io/Mova_Web/assets/og-image.png",
         "inLanguage": "es-AR",
@@ -114,7 +114,7 @@
           {
             "@type": "Question",
             "name": "¿En qué dispositivos funciona?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Hoy Mova corre en Android 5.0 o superior y en Windows 10/11 de 64 bits. La versión para iPhone está en desarrollo." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Mova corre en Android 5.0 o superior y en Windows 10/11 de 64 bits. En iPhone y Mac se instala desde el navegador como app web: queda con su ícono, abre sin barra del navegador y se actualiza sola." }
           },
           {
             "@type": "Question",
@@ -560,7 +560,7 @@
 
         <details class="faq__item">
           <summary>¿En qué dispositivos funciona?</summary>
-          <p>Hoy Mova corre en <b>Android 5.0 o superior</b> y en <b>Windows 10/11 de 64 bits</b>. La versión para iPhone está en desarrollo.</p>
+          <p>Mova corre en <b>Android 5.0 o superior</b> y en <b>Windows 10/11 de 64 bits</b>. En <b>iPhone y Mac</b> se instala desde el navegador como app web: queda con su ícono, abre sin barra del navegador y se actualiza sola.</p>
         </details>
 
         <details class="faq__item">
@@ -600,7 +600,7 @@
         <div class="download__glow"></div>
         <img src="assets/mova-icon.webp" alt="Mova" class="download__logo" width="72" height="72" loading="lazy" />
         <h2>Empezá tus 15 días gratis</h2>
-        <p>Descargá Mova para Android o Windows y probala con tu gimnasio real. La versión de iOS está en camino.</p>
+        <p>Instalá Mova en Android, Windows, iPhone o Mac y probala con tu gimnasio real.</p>
         <div class="download__btns">
           <a href="https://github.com/PowerEmilio/Mova_Web/releases/download/v1.0.6/Mova.apk" class="btn btn--primary btn--lg" id="apkBtn" download>
             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 2h14v2H5v-2z"/></svg>
@@ -610,12 +610,15 @@
             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3 5.4l7.6-1.05v7.35H3V5.4zm0 13.2l7.6 1.05v-7.28H3v6.23zm8.4 1.17L21.5 21v-8.53h-10.1v7.3zM11.4 4.2L21.5 3v8.42H11.4V4.2z"/></svg>
             Instalador · Windows
           </a>
-          <span class="btn btn--ghost btn--lg btn--disabled">
+          <!-- Sin JS es un link común a la app web. Con JS, en una computadora
+               abre el modal con el QR (script.js): el que entra desde la PC
+               casi siempre quiere instalarla en el iPhone, no en la PC. -->
+          <a href="https://movaapp.web.app/?instalar=1" class="btn btn--primary btn--lg" id="appleBtn" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M16 13c0-2 1.5-3 1.6-3.1-0.9-1.3-2.3-1.5-2.8-1.5-1.2-.1-2.3.7-2.9.7-.6 0-1.5-.7-2.5-.7-1.3 0-2.5.8-3.1 1.9-1.4 2.3-.4 5.8 1 7.7.7.9 1.4 1.9 2.5 1.9 1 0 1.4-.6 2.6-.6s1.5.6 2.6.6 1.8-.9 2.4-1.8c.8-1.1 1.1-2.2 1.1-2.3-.1 0-2.1-.8-2.1-3zM14.2 6.3c.6-.7 1-1.6.9-2.6-.8 0-1.9.6-2.5 1.2-.5.6-1 1.5-.9 2.4.9.1 1.8-.4 2.5-1z"/></svg>
-            iOS · Próximamente
-          </span>
+            App web · iPhone y Mac
+          </a>
         </div>
-        <p class="download__hint">v1.0.6 · Android 5.0+ (~74 MB) · Windows 10/11 64-bit (~20 MB)</p>
+        <p class="download__hint">v1.0.6 · Android 5.0+ (~74 MB) · Windows 10/11 64-bit (~20 MB) · iPhone y Mac sin descarga</p>
 
         <div class="install-group">
           <details class="install">
@@ -644,6 +647,20 @@
               <li>Aceptá el permiso de administrador. Mova se instala solo y crea el <b>acceso directo en el escritorio</b>.</li>
             </ol>
             <p>El instalador coloca la app en <code>C:\Program Files\Mova</code>. Para desinstalar: <b>Configuración → Aplicaciones → Mova</b>.</p>
+          </details>
+
+          <details class="install">
+            <summary>
+              <svg class="install__ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 13c0-2 1.5-3 1.6-3.1-0.9-1.3-2.3-1.5-2.8-1.5-1.2-.1-2.3.7-2.9.7-.6 0-1.5-.7-2.5-.7-1.3 0-2.5.8-3.1 1.9-1.4 2.3-.4 5.8 1 7.7.7.9 1.4 1.9 2.5 1.9 1 0 1.4-.6 2.6-.6s1.5.6 2.6.6 1.8-.9 2.4-1.8c.8-1.1 1.1-2.2 1.1-2.3-.1 0-2.1-.8-2.1-3zM14.2 6.3c.6-.7 1-1.6.9-2.6-.8 0-1.9.6-2.5 1.2-.5.6-1 1.5-.9 2.4.9.1 1.8-.4 2.5-1z"/></svg>
+              ¿Cómo instalar en iPhone o Mac?
+            </summary>
+            <ol>
+              <li>Tocá <b>App web · iPhone y Mac</b>. En la computadora, escaneá el código QR con la cámara del iPhone.</li>
+              <li><b>iPhone:</b> abrí el link en <b>Safari</b>, tocá <b>Compartir</b> y elegí <b>Agregar a pantalla de inicio</b>.</li>
+              <li><b>Mac:</b> en Safari, <b>Archivo → Agregar al Dock</b>. En Chrome, el ícono de instalar en la barra de direcciones.</li>
+              <li>Mova queda con su ícono y abre como cualquier app.</li>
+            </ol>
+            <p>Apple no deja que una página se instale sola: el último paso siempre lo hacés vos. La app web se actualiza sola, sin descargar nada.</p>
           </details>
         </div>
       </div>
@@ -682,6 +699,19 @@
     </button>
     <img id="lightboxImg" alt="" />
     <p class="lightbox__caption" id="lightboxCaption"></p>
+  </dialog>
+
+  <!-- Modal del botón iPhone y Mac en computadoras: QR para el celular y,
+       como segunda opción, abrir la app web en esta misma máquina. -->
+  <dialog class="qrModal" id="qrModal" aria-labelledby="qrModalTitle">
+    <button type="button" class="lightbox__close" id="qrModalClose" aria-label="Cerrar">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <h3 id="qrModalTitle">Instalá Mova en tu iPhone</h3>
+    <p>Escaneá el código con la cámara del iPhone y seguí las instrucciones que aparecen en pantalla.</p>
+    <img src="assets/qr-instalar.svg" alt="Código QR que abre movaapp.web.app para instalar Mova" class="qrModal__qr" width="200" height="200" />
+    <p class="qrModal__url">movaapp.web.app</p>
+    <a href="https://movaapp.web.app/?instalar=1" class="btn btn--ghost" target="_blank" rel="noopener" id="qrModalHere">Instalar en esta computadora</a>
   </dialog>
 
   <script src="script.js"></script>

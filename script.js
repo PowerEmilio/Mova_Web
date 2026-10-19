@@ -353,6 +353,39 @@ if (tourList && tourScreen) {
   }
 }
 
+// Botón iPhone y Mac. En el celular es un link directo a la app web, que
+// muestra sola cómo instalarse. En una computadora abre el modal con el QR:
+// quien entra desde la PC casi siempre quiere la app en el iPhone. El iPad
+// con iPadOS se presenta como Mac, así que se lo distingue por el táctil.
+const appleBtn = document.getElementById('appleBtn');
+const qrModal = document.getElementById('qrModal');
+if (appleBtn && qrModal && typeof qrModal.showModal === 'function') {
+  const ua = navigator.userAgent;
+  const esMovil =
+    /Android|iPhone|iPad|iPod/i.test(ua) ||
+    (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  if (!esMovil) {
+    appleBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      qrModal.showModal();
+    });
+    document
+      .getElementById('qrModalClose')
+      .addEventListener('click', () => qrModal.close());
+    document
+      .getElementById('qrModalHere')
+      .addEventListener('click', () => qrModal.close());
+    // Clic en el fondo: mismo criterio que el lightbox.
+    qrModal.addEventListener('click', (e) => {
+      const r = qrModal.getBoundingClientRect();
+      const dentro =
+        e.clientX >= r.left && e.clientX <= r.right &&
+        e.clientY >= r.top && e.clientY <= r.bottom;
+      if (!dentro) qrModal.close();
+    });
+  }
+}
+
 // Año en el pie
 document.getElementById('year').textContent = new Date().getFullYear();
 
