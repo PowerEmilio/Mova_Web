@@ -353,37 +353,85 @@ if (tourList && tourScreen) {
   }
 }
 
-// Botón iPhone y Mac. En el celular es un link directo a la app web, que
-// muestra sola cómo instalarse. En una computadora abre el modal con el QR:
-// quien entra desde la PC casi siempre quiere la app en el iPhone. El iPad
-// con iPadOS se presenta como Mac, así que se lo distingue por el táctil.
+// Botón iPhone y Mac. Abre un modal que ofrece instalar Mova (acceso
+// directo en el inicio del celular o en el Dock de la Mac) o solo abrirla en
+// el navegador. Ninguna página puede instalarse sola en Safari, y el acceso
+// directo tiene que crearse desde movaapp.web.app (si se agrega desde acá,
+// queda la landing): por eso "Instalar" abre la app con ?instalar=1 y es ella
+// la que muestra el último paso. El iPad con iPadOS se presenta como Mac, así
+// que se lo distingue por el táctil.
 const appleBtn = document.getElementById('appleBtn');
 const qrModal = document.getElementById('qrModal');
 if (appleBtn && qrModal && typeof qrModal.showModal === 'function') {
   const ua = navigator.userAgent;
-  const esMovil =
-    /Android|iPhone|iPad|iPod/i.test(ua) ||
+  const ios = /iPhone|iPad|iPod/.test(ua) ||
     (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
-  if (!esMovil) {
-    appleBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      qrModal.showModal();
-    });
-    document
-      .getElementById('qrModalClose')
-      .addEventListener('click', () => qrModal.close());
-    document
-      .getElementById('qrModalHere')
-      .addEventListener('click', () => qrModal.close());
-    // Clic en el fondo: mismo criterio que el lightbox.
-    qrModal.addEventListener('click', (e) => {
-      const r = qrModal.getBoundingClientRect();
-      const dentro =
-        e.clientX >= r.left && e.clientX <= r.right &&
-        e.clientY >= r.top && e.clientY <= r.bottom;
-      if (!dentro) qrModal.close();
-    });
-  }
+  const android = /Android/.test(ua);
+  const mac = !ios && /Macintosh/.test(ua);
+  const safariMac = mac && /Safari/.test(ua) && !/Chrome|Chromium|Edg|Firefox/.test(ua);
+
+  const textos = ios ? {
+    titulo: 'Instalá Mova en tu iPhone',
+    lead: 'Queda en tu pantalla de inicio como cualquier app, sin pasar por el App Store.',
+    pasos: [
+      'Tocá <b>Instalar en el inicio</b>: se abre Mova.',
+      'Tocá <b>Compartir</b> (en Safari puede estar dentro de <b>•••</b>).',
+      'Elegí <b>Agregar a pantalla de inicio</b> y confirmá con <b>Agregar</b>.',
+    ],
+    instalar: 'Instalar en el inicio',
+  } : android ? {
+    titulo: 'Instalá Mova en tu celular',
+    lead: 'Queda en tu pantalla de inicio como cualquier app y se actualiza sola.',
+    pasos: [
+      'Tocá <b>Instalar en el inicio</b>: se abre Mova.',
+      'Tocá <b>Instalar</b> en el aviso que aparece abajo y confirmá.',
+    ],
+    instalar: 'Instalar en el inicio',
+  } : mac ? {
+    titulo: 'Instalá Mova en tu Mac',
+    lead: 'Queda en el Dock y en Launchpad, abre en su propia ventana y se actualiza sola.',
+    pasos: safariMac ? [
+      'Tocá <b>Instalar en esta Mac</b>: se abre Mova.',
+      'En la barra de menú, elegí <b>Archivo → Agregar al Dock</b>.',
+    ] : [
+      'Tocá <b>Instalar en esta Mac</b>: se abre Mova.',
+      'Tocá <b>Instalar</b> en el aviso que aparece abajo.',
+    ],
+    instalar: 'Instalar en esta Mac',
+    qr: true,
+  } : {
+    titulo: 'Mova en iPhone, Mac o esta computadora',
+    lead: 'Instalala como app: abre en su propia ventana y se actualiza sola.',
+    pasos: [],
+    instalar: 'Instalar en esta computadora',
+    qr: true,
+  };
+
+  document.getElementById('qrModalTitle').textContent = textos.titulo;
+  document.getElementById('qrModalLead').textContent = textos.lead;
+  document.getElementById('qrModalQr').hidden = !textos.qr;
+  document.getElementById('qrModalPasos').innerHTML =
+    textos.pasos.map((p) => `<li>${p}</li>`).join('');
+  document.getElementById('qrModalInstalar').textContent = textos.instalar;
+
+  appleBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    qrModal.showModal();
+  });
+  document
+    .getElementById('qrModalClose')
+    .addEventListener('click', () => qrModal.close());
+  qrModal.querySelectorAll('.qrModal__acciones a').forEach((a) =>
+    a.addEventListener('click', () => qrModal.close())
+  );
+  // Clic en el fondo: mismo criterio que el lightbox.
+  qrModal.addEventListener('click', (e) => {
+    const r = qrModal.getBoundingClientRect();
+    const dentro =
+      e.clientX >= r.left && e.clientX <= r.right &&
+      e.clientY >= r.top && e.clientY <= r.bottom;
+    if (!dentro) qrModal.close();
+  });
 }
 
 // Año en el pie

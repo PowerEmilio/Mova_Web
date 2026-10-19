@@ -909,7 +909,17 @@
     padding: var(--sp-3); background: #fff; border-radius: var(--r-md);
     box-sizing: content-box;
   }
-  .qrModal > .qrModal__url { margin: var(--sp-3) auto var(--sp-5); color: var(--fg-subtle); font-size: var(--fs-xs); font-variant-numeric: tabular-nums; }
+  .qrModal__qrBox[hidden] { display: none; }
+  .qrModal__qrBox .qrModal__url { margin: var(--sp-3) auto var(--sp-5); color: var(--fg-subtle); font-size: var(--fs-xs); }
+  .qrModal__pasos {
+    text-align: left; margin: 0 0 var(--sp-5); padding: var(--sp-3) var(--sp-4) var(--sp-3) var(--sp-8);
+    background: var(--surface-sunken); border: 1px solid var(--line); border-radius: var(--r-md);
+  }
+  .qrModal__pasos:empty { display: none; }
+  .qrModal__pasos li { color: var(--fg-muted); font-size: var(--fs-sm); margin: var(--sp-1) 0; }
+  .qrModal__pasos li b { color: var(--fg); }
+  .qrModal__acciones { display: flex; flex-direction: column; gap: var(--sp-2); }
+  .qrModal__acciones .btn { justify-content: center; }
 
   /* ===== Datos y seguridad ===== */
   .datos {

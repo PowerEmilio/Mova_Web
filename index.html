@@ -701,17 +701,25 @@
     <p class="lightbox__caption" id="lightboxCaption"></p>
   </dialog>
 
-  <!-- Modal del botón iPhone y Mac en computadoras: QR para el celular y,
-       como segunda opción, abrir la app web en esta misma máquina. -->
+  <!-- Modal del botón iPhone y Mac. Ofrece las dos cosas: instalar Mova
+       (acceso directo en el inicio o en el Dock) o solo abrirla en el
+       navegador. Los textos se ajustan al dispositivo en script.js; el QR
+       aparece solo en computadoras, para pasar la app al iPhone. -->
   <dialog class="qrModal" id="qrModal" aria-labelledby="qrModalTitle">
     <button type="button" class="lightbox__close" id="qrModalClose" aria-label="Cerrar">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
     </button>
-    <h3 id="qrModalTitle">Instalá Mova en tu iPhone</h3>
-    <p>Escaneá el código con la cámara del iPhone y seguí las instrucciones que aparecen en pantalla.</p>
-    <img src="assets/qr-instalar.svg" alt="Código QR que abre movaapp.web.app para instalar Mova" class="qrModal__qr" width="200" height="200" />
-    <p class="qrModal__url">movaapp.web.app</p>
-    <a href="https://movaapp.web.app/?instalar=1" class="btn btn--ghost" target="_blank" rel="noopener" id="qrModalHere">Instalar en esta computadora</a>
+    <h3 id="qrModalTitle">Instalá Mova</h3>
+    <p id="qrModalLead">Queda con su ícono, abre sin la barra del navegador y se actualiza sola.</p>
+    <div class="qrModal__qrBox" id="qrModalQr" hidden>
+      <img src="assets/qr-instalar.svg" alt="Código QR que abre movaapp.web.app para instalar Mova" class="qrModal__qr" width="200" height="200" />
+      <p class="qrModal__url">¿La querés en el iPhone? Escaneá con la cámara.</p>
+    </div>
+    <ol class="qrModal__pasos" id="qrModalPasos"></ol>
+    <div class="qrModal__acciones">
+      <a href="https://movaapp.web.app/?instalar=1" class="btn btn--primary" target="_blank" rel="noopener" id="qrModalInstalar">Instalar Mova</a>
+      <a href="https://movaapp.web.app/" class="btn btn--ghost" target="_blank" rel="noopener" id="qrModalAbrir">Abrir sin instalar</a>
+    </div>
   </dialog>
 
   <script src="script.js"></script>
