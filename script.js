@@ -160,6 +160,13 @@ const TOUR = {
     { nombre: 'Inicio',
       desc: 'Tu gimnasio de un vistazo: perfil, horarios y el balance del mes.',
       fotos: [{ archivo: 'admin/inicio.webp', w: 364, h: 777 }] },
+    { nombre: 'Alumnos',
+      desc: 'La lista con el estado de pago de cada uno y, en el alta, la ficha completa: datos, plan, clases y contacto.',
+      fotos: [
+        { archivo: 'admin/alumnos.webp', w: 360, h: 730 },
+        { archivo: 'admin/alumno_alta.webp', w: 360, h: 730 },
+        { archivo: 'admin/alumno_clases.webp', w: 360, h: 730 },
+      ] },
     { nombre: 'Rutinas',
       desc: 'Elegí los días sugeridos y qué campos pide cada ejercicio: carga, descanso o personalízalo a tu gusto.',
       fotos: [
