@@ -316,6 +316,13 @@
   .hero__cta { display: flex; gap: var(--sp-3); flex-wrap: wrap; }
   .hero__meta { display: flex; gap: var(--sp-8); margin-top: var(--sp-10); flex-wrap: wrap; }
   .hero__metaItem { font-size: var(--fs-sm); color: var(--fg-subtle); max-width: 13.125rem; }
+  /* Link a Instagram: a propósito discreto, debajo de los datos del plan. */
+  .hero__social {
+    display: inline-flex; align-items: center; gap: var(--sp-2); margin-top: var(--sp-6);
+    font-size: var(--fs-xs); color: var(--fg-subtle); transition: color .2s;
+  }
+  .hero__social span { color: var(--fg-muted); font-weight: 600; }
+  .hero__social:hover, .hero__social:hover span { color: var(--accent-ink); }
   .hero__metaItem strong {
     display: block; font-family: var(--font-display); color: var(--accent-ink);
     font-size: var(--fs-xl); font-weight: 700; letter-spacing: var(--track-tight);
