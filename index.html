@@ -607,10 +607,17 @@
   <section class="section download" id="download">
     <div class="container">
       <div class="download__card">
-        <div class="download__glow"></div>
         <img src="assets/mova-icon.webp" alt="Mova" class="download__logo" width="72" height="72" loading="lazy" />
         <h2>Empezá tus 15 días gratis</h2>
         <p>Instalá Mova en tu celular o tu computadora y probala con tu gimnasio real. Sin tiendas ni descargas.</p>
+
+        <!-- El QR es el heroe en escritorio: ahi su trabajo real es pasar la
+             app al celular. En celular nadie escanea su propia pantalla, asi
+             que se oculta por CSS y el heroe pasa a ser el boton. -->
+        <figure class="download__qr">
+          <img src="assets/qr-instalar.svg" alt="Código QR que abre Mova en el navegador del celular" width="176" height="176" loading="lazy" />
+          <figcaption>Escaneá con la cámara del celular y Mova se abre ahí, lista para instalar.</figcaption>
+        </figure>
         <div class="download__btns">
           <!-- Sin JS es un link común a la app web. Con JS abre el modal que
                ofrece instalar o solo abrir, con pasos según el dispositivo

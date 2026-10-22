@@ -792,8 +792,24 @@
     border: 1px solid var(--line-strong); border-radius: var(--r-xl);
     padding: var(--sp-16) var(--sp-8); box-shadow: var(--shadow);
   }
-  .download__glow { position: absolute; top: -8.75rem; left: 50%; transform: translateX(-50%); width: 38.75rem; height: 25rem; background: var(--glow-download); pointer-events: none; }
   .download__logo { width: 4.5rem; height: 4.5rem; margin: 0 auto var(--sp-5); position: relative; }
+  /* El QR es el héroe del bloque en escritorio: escanear para instalar es el
+     gesto real del producto, y hasta ahora vivía escondido en un modal. */
+  .download__qr { position: relative; margin: var(--sp-7) auto var(--sp-6); max-width: 22rem; }
+  .download__qr img {
+    width: 11rem; height: 11rem; margin: 0 auto var(--sp-3);
+    background: var(--l-000); border: 1px solid var(--line-strong);
+    border-radius: var(--r-md); padding: var(--sp-3);
+  }
+  .download__qr figcaption { color: var(--fg-muted); font-size: var(--fs-sm); line-height: 1.5; }
+  /* En celular nadie escanea su propia pantalla, así que el QR desaparece y
+     el héroe del bloque vuelve a ser el botón, con los pasos del dispositivo
+     justo debajo. Se hace por CSS y no por JS para que valga también sin JS.
+     Esa es la mayoría de las visitas: no es el caso borde. */
+  @media (max-width: 760px) {
+    .download__qr { display: none; }
+    .install-group { margin-top: var(--sp-6); }
+  }
   .download__card h2 { margin-bottom: var(--sp-3); }
   .download__card > p { color: var(--fg-muted); font-size: var(--fs-md); margin-bottom: var(--sp-8); }
   .download__btns { display: flex; gap: var(--sp-3); justify-content: center; flex-wrap: wrap; position: relative; }
