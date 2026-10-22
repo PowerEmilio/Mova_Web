@@ -254,7 +254,7 @@ git commit -m "refactor(movimiento): eliminar el revelado por scroll de todas la
 
 - [ ] **Step 1: Reescribir el marcado del hero**
 
-Dos columnas. Izquierda: `h1` con **"Tu gimnasio entra en una pantalla."** en tres líneas, el `p` de hoy sin cambios (*"Mova reúne rutinas, alumnos, finanzas, tienda y staff en un mismo lugar. Simple para el profe, potente para el dueño."*), los dos CTA actuales, `.hero__meta` y `.hero__social` tal como están. Se borran `.badge`, `.hero__glow`, el `<span class="grad">` y el `.phone` del hero.
+Dos columnas. Izquierda: `h1` con **"Tu gimnasio entra en una pantalla."** en tres líneas, el `p` de hoy sin cambios (*"Mova reúne rutinas, clases, alumnos, finanzas, tienda y staff en un mismo lugar. Simple para el profe, potente para el dueño."*), los dos CTA actuales, `.hero__meta` y `.hero__social` tal como están. Se borran `.badge`, `.hero__glow`, el `<span class="grad">` y el `.phone` del hero.
 
 Derecha: `.panel`, con los cuatro bloques que la app realmente muestra en el inicio del admin, en este orden:
 1. clases de hoy — una fila, punto ámbar;

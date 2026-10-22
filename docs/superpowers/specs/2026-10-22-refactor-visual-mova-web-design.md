@@ -211,7 +211,7 @@ subtítulo no.
 
 - `h1`: **"Tu gimnasio entra en una pantalla."** — una sola voz, sin ninguna palabra
   acentuada en otro color ni en degradado. El peso lo lleva el condensado a tres líneas.
-- `p`: **"Mova reúne rutinas, alumnos, finanzas, tienda y staff en un mismo lugar. Simple
+- `p`: **"Mova reúne rutinas, clases, alumnos, finanzas, tienda y staff en un mismo lugar. Simple
   para el profe, potente para el dueño."** — queda tal cual está hoy. La segunda oración es
   lo único que nombra a los dos públicos de Mova y no tiene reemplazo en ninguna otra parte
   de la página.
