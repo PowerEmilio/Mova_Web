@@ -58,7 +58,14 @@
        rango de pesos, no una lista, y nunca 800/900. Un solo pedido para las
        dos familias. -->
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400..700&family=Archivo+Narrow:wght@500..700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <!-- El ?v= no es decorativo: GitHub Pages sirve los assets con
+       Cache-Control: max-age=600, así que durante diez minutos después de
+       publicar, quien ya visitó el sitio recibe este HTML nuevo con el CSS
+       viejo todavía en su caché — y el marcado nuevo sin sus reglas se ve
+       roto. Con la versión en la URL, un archivo nuevo es una URL nueva y no
+       hay nada que reutilizar.
+       SUBIR ESTA FECHA cada vez que cambien styles.css o script.js. -->
+  <link rel="stylesheet" href="styles.css?v=2026-10-22" />
 
   <!-- Datos estructurados. Las respuestas deben coincidir con el FAQ visible:
        si se edita una, hay que editar la otra. -->
@@ -727,6 +734,7 @@
     </div>
   </dialog>
 
-  <script src="script.js"></script>
+  <!-- Misma versión que styles.css: ver la nota del <head>. -->
+  <script src="script.js?v=2026-10-22"></script>
 </body>
 </html>
