@@ -506,27 +506,28 @@
   /* ===== Feature grid (bento) =====
      Rutinas ocupa 2x2 y las otras cinco se acomodan solas alrededor: el
      autoplacement llena las tres filas exactas sin posicionar nada a mano. */
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-5); }
-  .feature {
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: var(--r-lg); padding: var(--sp-7);
-    transition: transform .25s ease, border-color .25s, box-shadow .25s;
-    position: relative; overflow: hidden;
-    display: flex; flex-direction: column;
-    /* Contenedor propio: el tamaño del texto lo decide el ancho de la
-       tarjeta, no el del viewport. Así la destacada crece sola. */
-    container-type: inline-size;
+  /* ===== Funciones =====
+     Lista editorial a dos columnas en lugar de seis tarjetas con ícono. El
+     filete de la izquierda codifica información real —base o módulo— y la
+     palabra de arriba la repite, porque el color no puede ser el único
+     portador. Sin hover que levante tarjetas: no son botones. */
+  .features {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    /* Por columnas, no por filas: así la izquierda es todo lo que viene
+       incluido y la derecha todo lo que se suma aparte. El agrupamiento es
+       parte de la información. */
+    grid-template-rows: repeat(3, auto); grid-auto-flow: column;
+    column-gap: var(--sp-12); row-gap: var(--sp-8);
   }
-  .feature:hover { transform: translateY(-4px); border-color: var(--line-strong); box-shadow: var(--shadow); }
-  .feature--link { grid-column: span 2; grid-row: span 2; }
-  @media (max-width: 900px) {
-    /* A dos columnas, la destacada ya ocupa el ancho entero: si además
-       abarcara dos filas quedaría una tarjeta altísima. */
-    .feature--link { grid-row: span 1; }
+  .feature { padding-left: var(--sp-5); border-left: 2px solid; }
+  .feature--base { border-left-color: var(--accent); }
+  .feature--modulo { border-left-color: var(--warn); }
+  .feature__plan {
+    display: block; font-size: var(--fs-2xs); font-weight: 600;
+    margin-bottom: var(--sp-2); letter-spacing: .01em;
   }
-  @media (max-width: 560px) {
-    .feature--link { grid-column: span 1; }
-  }
+  .feature--base .feature__plan { color: var(--accent-ink); }
+  .feature--modulo .feature__plan { color: var(--fg-muted); }
 
   /* ===== Spotlight que sigue al mouse =====
      Solo en el bloque de descarga. Repetido en siete componentes era ruido:
@@ -538,17 +539,9 @@
     opacity: 0; transition: opacity .3s;
   }
   .download__card:hover::before { opacity: 1; }
-  .feature__icon {
-    width: 3.25rem; height: 3.25rem; border-radius: var(--r-md); margin-bottom: var(--sp-5);
-    display: grid; place-items: center; color: var(--fg);
-    background: var(--chip-bg); border: 1px solid var(--line);
-  }
-  .feature__icon svg { width: 1.625rem; height: 1.625rem; }
-  .feature h3 { font-size: var(--fs-lg); font-weight: 600; letter-spacing: var(--track-tight); margin-bottom: var(--sp-2); }
-  .feature p { color: var(--fg-muted); font-size: var(--fs-base); }
+  .feature h3 { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 700; letter-spacing: var(--track-tight); margin-bottom: var(--sp-2); }
+  .feature p { color: var(--fg-muted); font-size: var(--fs-base); max-width: 44ch; }
 
-  /* Resalta la unión profe ↔ alumno en la tarjeta de Rutinas */
-  .feature--link { border-color: var(--accent-line); }
   .feature__tag {
     display: inline-flex; align-items: center; gap: var(--sp-2);
     margin-top: var(--sp-4); padding: 0.4375rem var(--sp-4);
@@ -558,17 +551,11 @@
   }
   .feature__tagArrow { color: var(--accent-ink); font-size: var(--fs-base); font-weight: 700; }
 
-  /* La tarjeta destacada crece por su propio ancho, no por el del viewport.
-     Va DESPUÉS de las reglas base de .feature: comparten especificidad, así
-     que el orden es lo único que decide. El umbral está por encima del ancho
-     que alcanza una tarjeta suelta a una columna (32rem a 560px), de modo
-     que solo lo cruza la destacada. */
-  @container (min-width: 34rem) {
-    .feature__icon { width: 4rem; height: 4rem; border-radius: var(--r-lg); margin-bottom: var(--sp-7); }
-    .feature__icon svg { width: 2rem; height: 2rem; }
-    .feature h3 { font-size: var(--fs-2xl); margin-bottom: var(--sp-3); }
-    .feature p { font-size: var(--fs-md); max-width: 42ch; }
-    .feature__tag { margin-top: auto; align-self: flex-start; }
+  @media (max-width: 700px) {
+    .features {
+      grid-template-columns: 1fr; grid-template-rows: none;
+      grid-auto-flow: row; row-gap: var(--sp-7);
+    }
   }
 
   /* ===== Recorrido por rol ===== */
