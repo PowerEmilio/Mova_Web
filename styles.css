@@ -751,27 +751,33 @@
   .shot__img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
 
   /* ===== Updates ===== */
-  .updates { display: grid; grid-template-columns: 1.1fr .9fr; column-gap: var(--sp-12); row-gap: var(--sp-10); align-items: center; }
-  .updates__copy h2 { margin: var(--sp-3) 0 var(--sp-4); }
+  .updates { display: grid; row-gap: var(--sp-10); }
+  .updates__copy h2 { margin: 0 0 var(--sp-4); }
   .updates__copy > p { color: var(--fg-muted); font-size: var(--fs-md); max-width: var(--measure); }
-  /* En pantallas anchas la línea de pasos ocupa el ancho completo, centrada y abajo */
-  .updates__flow { grid-column: 1 / -1; display: flex; align-items: center; justify-content: center; gap: var(--sp-3); flex-wrap: wrap; }
-  .flowStep { display: flex; align-items: center; gap: var(--sp-2); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-sm); padding: var(--sp-3) var(--sp-4); font-size: var(--fs-sm); font-weight: 500; }
-  .flowStep span { width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--accent); color: var(--accent-fg); font-weight: 700; font-size: var(--fs-xs); display: grid; place-items: center; font-variant-numeric: tabular-nums; }
-  .flowArrow { color: var(--fg-subtle); font-weight: 700; line-height: 1; }
-  .flowArrow::before { content: "\2192"; }
 
-  @media (max-width: 700px) {
-    .updates__flow { flex-direction: column; flex-wrap: nowrap; gap: var(--sp-2); }
-    .updates__flow .flowStep { width: 100%; max-width: 20rem; justify-content: flex-start; }
-    .flowArrow::before { content: "\2193"; }
+  /* Línea de tiempo: un hilo verde continuo atraviesa los cuatro momentos.
+     El tramo lo dibuja cada paso hasta el siguiente, así cae exacto entre
+     número y número sin depender de porcentajes. */
+  .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-5); list-style: none; }
+  .flow__step { position: relative; padding-top: var(--sp-8); font-size: var(--fs-sm); }
+  .flow__step::before {
+    content: ''; position: absolute; top: calc(.75rem - 1px);
+    left: 1.5rem; right: calc(var(--sp-5) * -1); height: 2px;
+    background: var(--accent-line);
   }
-  .updates__card { display: flex; justify-content: center; }
+  .flow__step:last-child::before { content: none; }
+  .flow__n {
+    position: absolute; top: 0; left: 0;
+    width: 1.5rem; height: 1.5rem; border-radius: 50%;
+    background: var(--accent); color: var(--accent-fg);
+    font-weight: 700; font-size: var(--fs-xs);
+    display: grid; place-items: center; font-variant-numeric: tabular-nums;
+  }
+  .flow__step > b { font-weight: 600; }
   .snack {
     display: flex; align-items: center; gap: var(--sp-3);
     background: var(--surface); border: 1px solid var(--line-strong);
-    border-radius: var(--r-md); padding: var(--sp-4) var(--sp-5); width: 100%; max-width: 23.75rem;
-    box-shadow: var(--shadow);
+    border-radius: var(--r-md); padding: var(--sp-3) var(--sp-4);
   }
   .snack img { width: 2.5rem; height: 2.5rem; }
   .snack div { display: flex; flex-direction: column; }
@@ -919,12 +925,14 @@
        una tabla de datos centrada no se lee. */
     .panel { margin-top: var(--sp-10); text-align: initial; }
     .grid { grid-template-columns: 1fr 1fr; }
-    .updates { grid-template-columns: 1fr; }
-    /* En mobile la línea de pasos vuelve a quedar entre el texto y la tarjeta */
     .updates { row-gap: var(--sp-7); }
-    .updates__copy { order: 1; }
-    .updates__flow { order: 2; }
-    .updates__card { order: 3; }
+    /* En angosto la línea de tiempo se pone de pie: el hilo pasa a vertical. */
+    .flow { grid-template-columns: 1fr; gap: var(--sp-6); }
+    .flow__step { padding-top: 0; padding-left: var(--sp-10); min-height: 1.5rem; }
+    .flow__step::before {
+      top: 1.5rem; left: calc(.75rem - 1px); right: auto;
+      bottom: calc(var(--sp-6) * -1); width: 2px; height: auto;
+    }
   }
   @media (max-width: 560px) {
     .grid { grid-template-columns: 1fr; }

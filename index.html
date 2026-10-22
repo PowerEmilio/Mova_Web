@@ -385,26 +385,37 @@
   <section class="section" id="updates">
     <div class="container updates">
       <div class="updates__copy">
-        <span class="eyebrow">Actualizaciones</span>
         <h2>Nuevas versiones, sin esperar a la tienda</h2>
         <p>Mova es una app web: cada arreglo y mejora que publicamos te llega sola, <b>la próxima vez que la abrís</b>. Sin descargas, sin tiendas y siempre en la última versión.</p>
       </div>
-      <div class="updates__card">
-        <div class="snack">
-          <img src="assets/mova-icon.webp" alt="" width="40" height="40" loading="lazy" />
-          <div>
-            <b>Mova está al día</b>
-            <span>Ya tenés la última versión</span>
+      <!-- Es una secuencia real, así que numerarla está justificado. Lo que
+           cambia es la forma: un hilo verde continuo en vez de tres cajas con
+           flechas, y el estado "al día" al final, que es su desenlace y no
+           una tarjeta suelta al costado. -->
+      <ol class="flow">
+        <li class="flow__step">
+          <span class="flow__n">1</span>
+          <b>Publicamos la mejora</b>
+        </li>
+        <li class="flow__step">
+          <span class="flow__n">2</span>
+          <b>Llega sola</b>
+        </li>
+        <li class="flow__step">
+          <span class="flow__n">3</span>
+          <b>Abrís Mova y listo</b>
+        </li>
+        <li class="flow__step flow__step--fin">
+          <span class="flow__n flow__n--ok" aria-hidden="true">✓</span>
+          <div class="snack">
+            <img src="assets/mova-icon.webp" alt="" width="40" height="40" loading="lazy" />
+            <div>
+              <b>Mova está al día</b>
+              <span>Ya tenés la última versión</span>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="updates__flow">
-        <div class="flowStep"><span>1</span> Publicamos la mejora</div>
-        <div class="flowArrow" aria-hidden="true"></div>
-        <div class="flowStep"><span>2</span> Llega sola</div>
-        <div class="flowArrow" aria-hidden="true"></div>
-        <div class="flowStep"><span>3</span> Abrís Mova y listo</div>
-      </div>
+        </li>
+      </ol>
     </div>
   </section>
 
