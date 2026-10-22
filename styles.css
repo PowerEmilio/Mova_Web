@@ -1035,16 +1035,6 @@
    UTILITIES — última capa: gana sin necesidad de subir especificidad.
    ========================================================================= */
 @layer utilities {
-  /* ===== Reveal animation ===== */
-  /* Antes: 28px y 700ms en cada tarjeta. Toda la página se movía y la
-     entrada se notaba más que el contenido. Ahora es un desplazamiento
-     corto sobre los bloques grandes, no sobre cada elemento de una grilla. */
-  .reveal { opacity: 0; transform: translateY(12px); transition: opacity .45s cubic-bezier(.16, 1, .3, 1), transform .45s cubic-bezier(.16, 1, .3, 1); }
-  .reveal.in { opacity: 1; transform: none; }
-
-  /* Sin JS, .reveal nunca recibe .in y la página quedaría en blanco. */
-  .no-js .reveal { opacity: 1; transform: none; }
-
   /* Foco visible en todo lo navegable por teclado. */
   :where(a, button, summary, input, [tabindex]):focus-visible {
     outline: 2px solid var(--accent);
@@ -1072,7 +1062,6 @@
       transition-duration: .01ms !important;
       scroll-behavior: auto !important;
     }
-    .reveal { opacity: 1; transform: none; }
   }
 
   /* En alto contraste desaparecen sombras y fondos: los bordes tienen que

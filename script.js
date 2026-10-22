@@ -80,39 +80,6 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-// Reveal-on-scroll. Con movimiento reducido no se anima nada: se muestra todo.
-const reveals = [...document.querySelectorAll('.reveal')];
-if (prefersReducedMotion.matches) {
-  reveals.forEach((el) => el.classList.add('in'));
-} else {
-  const io = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.classList.add('in');
-          io.unobserve(e.target);
-        }
-      });
-    },
-    { threshold: 0.12 }
-  );
-  // El escalonado se calcula por fila real, no por índice global: dos elementos
-  // que entran juntos en pantalla se retrasan distinto solo si están lado a lado.
-  const filas = new Map();
-  reveals.forEach((el) => {
-    const top = Math.round(el.getBoundingClientRect().top + window.scrollY);
-    const fila = filas.get(top) || [];
-    fila.push(el);
-    filas.set(top, fila);
-  });
-  filas.forEach((fila) => {
-    fila.forEach((el, i) => {
-      el.style.transitionDelay = `${Math.min(i, 3) * 80}ms`;
-    });
-  });
-  reveals.forEach((el) => io.observe(el));
-}
-
 // Sección visible marcada en el nav
 const navLinks = [...nav.querySelectorAll('.nav__links a[href^="#"]')];
 const secciones = navLinks
