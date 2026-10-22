@@ -4,8 +4,10 @@
    TOKENS
    Tier 1: valores crudos. Tier 2/3: semánticos, resueltos con light-dark().
    Regla del acento: los RELLENOS verdes se reservan para el CTA, los estados
-   activos y los datos. El verde como texto o hairline (eyebrows, cifras,
+   activos y los datos. El verde como texto o hairline (cifras, filetes,
    checks) sí puede repetirse: no compite con un botón lleno.
+   El rosa y el ámbar siguen la misma regla y tienen su propio significado:
+   rosa es la plata que sale, ámbar lo que está por vencer.
    ========================================================================= */
 @layer tokens {
   :root {
@@ -79,7 +81,6 @@
     --accent-ink:   light-dark(var(--green-700), var(--green-500));
     --accent-soft:  light-dark(rgba(0, 189, 137, .10), rgba(0, 189, 137, .12));
     --accent-line:  light-dark(rgba(0, 122, 87, .28), rgba(0, 189, 137, .22));
-    --accent-badge: light-dark(var(--green-700), var(--green-200));
 
     /* Las otras dos familias siguen la misma partición que el verde: el
        RELLENO no cambia entre modos (el dato se reconoce igual), la TINTA sí. */
@@ -147,16 +148,9 @@
     --edge-bot-c: light-dark(rgba(15, 28, 24, .045), rgba(0, 0, 0, .4));
     --edge: inset 0 1px 0 var(--edge-top-c), inset 0 -1px 0 var(--edge-bot-c);
 
-    /* En claro un halo verde sobre blanco roto ensucia: baja mucho de peso. */
-    --glow-hero-1: light-dark(rgba(0, 189, 137, .13), rgba(0, 189, 137, .28));
-    --glow-hero-2: light-dark(rgba(0, 189, 137, .03), rgba(0, 189, 137, .05));
-    --glow-hero: radial-gradient(closest-side, var(--glow-hero-1), var(--glow-hero-2) 60%, transparent 75%);
-    --glow-download-1: light-dark(rgba(0, 189, 137, .16), rgba(0, 189, 137, .35));
-    --glow-download: radial-gradient(closest-side, var(--glow-download-1), transparent 70%);
-
-    --grad-from: light-dark(var(--green-700), var(--green-500));
-    --grad-to:   light-dark(var(--green-600), var(--green-300));
-    --grad-accent: linear-gradient(120deg, var(--grad-from), var(--grad-to) 60%, var(--grad-from));
+    /* Los dos halos radiales y el degradado de marca se fueron con el hero y
+       con el bloque de descarga: eran decoración, y eran la parte más
+       reconocible de "página generada" que tenía el sitio. */
     --spotlight: radial-gradient(400px circle at var(--mx, 50%) var(--my, 0%), var(--accent-soft), transparent 40%);
 
     /* El teléfono es un objeto físico: se mantiene oscuro en los dos modos. */
@@ -190,7 +184,6 @@
     --lh-body: 1.6;
     --lh-relaxed: 1.65;
     --track-tight: -0.02em;
-    --track-wide: 0.08em;
     --measure: 65ch;
 
     /* --- Espaciado, radios, layout ---------------------------------------- */
@@ -498,7 +491,6 @@
      molde "título centrado + grilla" y le da ritmo a la página. */
   .section__head--left { text-align: left; max-width: none; margin-inline: 0; }
   .section__head--left p { max-width: 46ch; }
-  .eyebrow { display: inline-block; color: var(--accent-ink); font-weight: 600; font-size: var(--fs-xs); letter-spacing: var(--track-wide); text-transform: uppercase; margin-bottom: var(--sp-3); }
   .section h2 { font-size: var(--fs-3xl); line-height: 1.12; letter-spacing: -0.03em; font-weight: 600; }
   .section__head p { color: var(--fg-muted); font-size: var(--fs-md); margin-top: var(--sp-4); }
 
@@ -1152,7 +1144,7 @@
      seguir existiendo, con colores del sistema. */
   @media (forced-colors: active) {
     .feature, .plan, .module, .calc, .snack, .contact,
-    .faq__item, .install, .download__card, .flowStep { border-color: CanvasText; }
+    .faq__item, .install, .download__card, .flow__step, .module { border-color: CanvasText; }
     .btn--primary { border-color: ButtonText; }
   }
 }
