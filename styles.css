@@ -437,12 +437,11 @@
     background: linear-gradient(155deg, #1e1e24, #08080a 26%, #050506 72%, #16161b);
     border-radius: 2.75rem; padding: var(--sp-3);
     border: 1px solid var(--d-700);
-    /* Eran siete sombras y cinco no se distinguían. Quedan la elevación, el
-       halo de marca y el filo superior, que es el que da el relieve. */
+    /* El marco se calla: la captura es lo que se mira. Queda la elevación y
+       el filo superior; el halo verde de marca se va con los demás glows. */
     box-shadow:
       var(--shadow-lg),
-      var(--shadow-accent),
-      inset 0 2px 0 rgba(255, 255, 255, .14);
+      inset 0 2px 0 rgba(255, 255, 255, .12);
   }
   /* Botón lateral. En proporción, no en px: el marco ahora es fluido. */
   .phone::after {
@@ -562,10 +561,12 @@
   .tour { max-width: 62.5rem; margin-inline: auto; }
 
   /* Selector de rol */
+  /* Control segmentado: una pista hundida con el activo relleno. Sin íconos
+     adentro — "Dueño y staff" y "Alumno" ya se distinguen por su nombre. */
   .tour__roles {
-    display: flex; justify-content: center; gap: 6px;
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: var(--r-full); padding: 6px; width: fit-content; margin: 0 auto var(--sp-10);
+    display: flex; justify-content: center; gap: 4px;
+    background: var(--surface-2); border: 1px solid var(--line);
+    border-radius: var(--r-full); padding: 4px; width: fit-content; margin: 0 auto var(--sp-10);
   }
   .tour__role {
     display: inline-flex; align-items: center; gap: var(--sp-2);
@@ -579,7 +580,6 @@
   .tour__role:hover { color: var(--fg); }
   .tour__role[aria-pressed='true'] {
     background: var(--accent); color: var(--accent-fg);
-    box-shadow: var(--shadow-cta);
   }
 
   /* Cuerpo: lista a la izquierda, teléfono a la derecha */
@@ -726,13 +726,26 @@
 
   /* Fila de características bajo el recorrido. Va después de .checks: comparten
      especificidad, así que el orden es lo único que decide. */
+  /* Fila de confirmaciones: hairline arriba de cada una en vez de tarjetas.
+     El check va en verde porque verde es "confirmado". */
   .checks--row {
     grid-template-columns: repeat(4, 1fr);
-    gap: var(--sp-5); margin: var(--sp-14) auto 0; max-width: 62.5rem;
+    gap: 0; margin: var(--sp-14) auto 0; max-width: 62.5rem;
+    border-top: 1px solid var(--line);
   }
-  .checks--row li { font-size: var(--fs-sm); }
-  @media (max-width: 860px) { .checks--row { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 480px) { .checks--row { grid-template-columns: 1fr; } }
+  .checks--row li {
+    font-size: var(--fs-sm); padding: var(--sp-5) var(--sp-5) var(--sp-2) var(--sp-10);
+    border-left: 1px solid var(--line);
+  }
+  .checks--row li::before { top: var(--sp-5); left: var(--sp-4); }
+  @media (max-width: 860px) {
+    .checks--row { grid-template-columns: repeat(2, 1fr); }
+    .checks--row li:nth-child(odd) { border-left: 0; }
+  }
+  @media (max-width: 480px) {
+    .checks--row { grid-template-columns: 1fr; }
+    .checks--row li { border-left: 0; }
+  }
 
   /* Real screenshots inside the phone frame */
   .shot__img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
