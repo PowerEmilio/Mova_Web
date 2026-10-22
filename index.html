@@ -351,7 +351,13 @@
           <div class="tour__device">
             <figure class="tour__figure">
               <button type="button" class="phone phone--tour" id="tourZoom" aria-label="Ver la pantalla en grande">
-                <div class="phone__screen" id="tourScreen"></div>
+                <!-- Sin JS el recorrido no se arma solo y el marco quedaría
+                     vacío. Esta captura es el respaldo: con JS, el script la
+                     tapa con la pantalla elegida. Es la misma que el
+                     recorrido precarga, así que no cuesta un pedido más. -->
+                <div class="phone__screen" id="tourScreen">
+                  <img src="assets/admin/inicio.webp" alt="Pantalla de inicio de Mova, vista de dueño y staff" class="shot__img tour__fallback" width="364" height="777" decoding="async" />
+                </div>
                 <span class="phone__zoom" aria-hidden="true">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M10.5 7.5v6M7.5 10.5h6"/></svg>
                 </span>
@@ -445,7 +451,7 @@
             <li>Actualizaciones automáticas</li>
           </ul>
           <p class="plan__foot">Base siempre incluida en tu plan.</p>
-        </li>
+        </article>
 
         <!-- Módulos -->
         <div class="modules">

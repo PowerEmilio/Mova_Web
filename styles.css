@@ -90,7 +90,10 @@
     --neg-line:  light-dark(rgba(179, 18, 63, .28), rgba(255, 66, 118, .24));
 
     --warn:      var(--amber-500);
-    --warn-soft: light-dark(rgba(255, 194, 61, .16), rgba(255, 194, 61, .16));
+    /* En oscuro baja a .09: con .16 el relleno ámbar aclaraba tanto la
+       superficie del módulo que el precio en verde quedaba en 4.41 sobre
+       ella, por debajo de AA para el tamaño que toma en pantallas angostas. */
+    --warn-soft: light-dark(rgba(255, 194, 61, .16), rgba(255, 194, 61, .09));
     --warn-line: light-dark(rgba(122, 86, 0, .28), rgba(255, 194, 61, .28));
 
     /* Familia fría para las superficies que EXPLICAN en vez de vender
@@ -114,6 +117,11 @@
          --ink-on-green / --accent ..........  6.84 /  6.84  (mín 4.5)
          --line / --surface .................  1.34 /  1.31  (mín 1.3)
          --line-strong / --surface-raised ...  1.53 /  1.41  (mín 1.3)
+       Pares compuestos (el fondo es un rgba sobre otra superficie, así que
+       hay que componerlo antes de medir; aquí se esconden los errores):
+         módulo "/mes" sobre --warn-soft ....  7.03 /  6.26  (mín 4.5)
+         módulo precio sobre --warn-soft ....  4.75 /  5.22  (mín 4.5)
+         módulo texto sobre --warn-soft .....  7.03 /  6.26  (mín 4.5)
        Tres correcciones salieron de medir, no de mirar:
          --l-100  #DDE6E2 → #D1DCD7  (el hairline claro daba 1.21)
          --d-400  #7E918A → #8A9D96  (texto apagado sobre --surface-2 daba 4.12)
@@ -157,8 +165,9 @@
     --phone-screen-bg: var(--d-900);
 
     /* --- Tipografía -------------------------------------------------------
-       Instrument Sans para titulares (más estrecha y afirmativa que Inter),
-       Inter para UI y cuerpo. Dos familias, sin pesos 800/900. */
+       Archivo para UI y cuerpo, Archivo Narrow para titulares y cifras: una
+       sola familia en dos anchos, de Omnibus-Type (Buenos Aires). Sin pesos
+       800/900. El condensado es lo que le da voz a los titulares. */
     --font-body: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-display: 'Archivo Narrow', 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
@@ -297,7 +306,11 @@
     backdrop-filter: blur(16px) saturate(160%);
     border-bottom-color: var(--line);
   }
-  .nav__inner { display: flex; align-items: center; gap: var(--sp-6); height: var(--nav-h); }
+  /* Alto mínimo y no fijo, con permiso para envolver: con el tamaño de fuente
+     del navegador muy alto, los enlaces y el CTA se pasaban del contenedor y,
+     como el nav es fixed, no había scroll para alcanzarlos. Envolviendo, el
+     conmutador de esquema nunca queda fuera de la pantalla. */
+  .nav__inner { display: flex; align-items: center; flex-wrap: wrap; gap: var(--sp-4) var(--sp-6); min-height: var(--nav-h); padding-block: var(--sp-2); }
   .brand {
     display: flex; align-items: center; gap: var(--sp-2);
     font-family: var(--font-display); font-weight: 700; font-size: var(--fs-xl);
@@ -494,9 +507,6 @@
   .section h2 { font-size: var(--fs-3xl); line-height: 1.12; letter-spacing: -0.03em; font-weight: 600; }
   .section__head p { color: var(--fg-muted); font-size: var(--fs-md); margin-top: var(--sp-4); }
 
-  /* ===== Feature grid (bento) =====
-     Rutinas ocupa 2x2 y las otras cinco se acomodan solas alrededor: el
-     autoplacement llena las tres filas exactas sin posicionar nada a mano. */
   /* ===== Funciones =====
      Lista editorial a dos columnas en lugar de seis tarjetas con ícono. El
      filete de la izquierda codifica información real —base o módulo— y la
@@ -662,6 +672,11 @@
     transition: width .25s ease, background .25s ease;
   }
   .tour__dot[aria-current='true'] { width: 1.5rem; background: var(--accent); }
+  /* El respaldo del recorrido solo existe cuando no corre el JS. Va con la
+     especificidad del contenedor porque .shot__img declara display: block más
+     abajo en esta misma capa y, a igual especificidad, gana el que va último. */
+  .phone__screen .tour__fallback { display: none; }
+  .no-js .phone__screen .tour__fallback { display: block; }
   .tour__caption {
     margin-top: var(--sp-4); max-width: var(--phone-w); text-align: center;
     font-size: var(--fs-xs); color: var(--fg-subtle); line-height: 1.5;
@@ -838,7 +853,8 @@
     background: var(--surface); border: 1px solid var(--line-strong);
     border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow);
   }
-  .plan { position: relative; padding: var(--sp-8); display: flex; flex-direction: column; border-right: 1px solid var(--line); }
+  .plan { position: relative; padding: var(--sp-8); display: flex; flex-direction: column; border-right: 1px solid var(--line); min-width: 0; }
+  .modules { min-width: 0; }
   /* Sin mayúsculas: era la última etiqueta tracked-out de la página. */
   .plan__badge { position: relative; align-self: flex-start; font-size: var(--fs-xs); font-weight: 600; color: var(--fg-muted); background: var(--chip-bg); border: 1px solid var(--line); padding: 5px var(--sp-3); border-radius: var(--r-full); }
   .plan__name { position: relative; font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 700; letter-spacing: var(--track-tight); margin: var(--sp-4) 0 6px; }
@@ -870,7 +886,9 @@
   .module__body b { font-size: var(--fs-md); letter-spacing: -.01em; }
   .module__body span { color: var(--fg-muted); font-size: var(--fs-sm); }
   .module__price { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; font-family: var(--font-display); font-size: var(--fs-lg); font-weight: 700; color: var(--accent-ink); letter-spacing: var(--track-tight); line-height: 1.05; font-variant-numeric: tabular-nums; }
-  .module__price small { font-size: 0.6875rem; font-weight: 500; color: var(--fg-subtle); letter-spacing: 0; }
+  /* --fg-muted y no --fg-subtle: sobre la superficie ámbar del módulo en
+     oscuro, el apagado daba 3.75:1 a 11px y no llegaba a AA. */
+  .module__price small { font-size: 0.6875rem; font-weight: 500; color: var(--fg-muted); letter-spacing: 0; }
 
   .calc { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-8); flex-wrap: wrap; margin-top: var(--sp-7); background: var(--surface); border: 1px solid var(--accent); border-radius: var(--r-lg); padding: var(--sp-7) var(--sp-8); box-shadow: var(--shadow-accent); }
   /* El total es el héroe tipográfico de la sección: es lo que la persona
@@ -904,10 +922,23 @@
 
   @media (max-width: 900px) {
     .pricing { grid-template-columns: 1fr; }
+    /* Apilados, el filete que los separa pasa de vertical a horizontal. */
+    .plan { border-right: 0; border-bottom: 1px solid var(--line); }
     .calc { flex-direction: column; align-items: stretch; text-align: center; }
     .calc__amount { justify-content: center; }
     .calc__cta { align-items: stretch; max-width: none; }
     .calc__cta .btn { justify-content: center; }
+  }
+
+  /* A 320px el ancho mínimo de un módulo (check + texto + precio) supera la
+     pista del grid, y como .pricing recorta para respetar su border-radius,
+     el desborde no se derrama: se corta. Por eso acá bajan los dos paddings
+     y el precio puede caer a su propia línea. */
+  @media (max-width: 480px) {
+    .plan, .modules { padding: var(--sp-5); }
+    .module { flex-wrap: wrap; row-gap: var(--sp-2); padding: var(--sp-4); }
+    .module__body { flex-basis: 60%; }
+    .module__price { flex-direction: row; align-items: baseline; gap: var(--sp-1); margin-left: auto; }
   }
 
   /* ===== Footer ===== */
@@ -923,7 +954,11 @@
   .footer__copy { font-size: var(--fs-xs); color: var(--fg-subtle); }
 
   /* ===== Responsive ===== */
-  @media (max-width: 900px) {
+  /* En em y no en px: así el nav también colapsa cuando la persona sube el
+     tamaño de fuente del navegador, no solo cuando achica la ventana. En
+     media queries, em se mide contra el tamaño inicial, que es justamente el
+     que cambia el zoom de texto. 56.25em = 900px con el tamaño por defecto. */
+  @media (max-width: 56.25em) {
     .nav__links { display: none; }
     .nav .btn--primary { display: none; }
     .nav__burger { display: flex; }
@@ -939,7 +974,6 @@
     /* El panel se apila bajo el titular y vuelve a alinear a la izquierda:
        una tabla de datos centrada no se lee. */
     .panel { margin-top: var(--sp-10); text-align: initial; }
-    .grid { grid-template-columns: 1fr 1fr; }
     .updates { row-gap: var(--sp-7); }
     /* En angosto la línea de tiempo se pone de pie: el hilo pasa a vertical. */
     .flow { grid-template-columns: 1fr; gap: var(--sp-6); }
@@ -950,7 +984,6 @@
     }
   }
   @media (max-width: 560px) {
-    .grid { grid-template-columns: 1fr; }
     .download__card { padding: var(--sp-12) var(--sp-5); }
     .footer__inner { flex-direction: column; text-align: center; }
     .footer__links { margin: 0; }
@@ -1102,7 +1135,7 @@
   .nav__links a[aria-current='true']::after { transform: scaleX(1); }
 
   /* En el menú desplegable vertical el subrayado no aporta. */
-  @media (max-width: 900px) {
+  @media (max-width: 56.25em) {
     .nav__links a::after { display: none; }
   }
 }
