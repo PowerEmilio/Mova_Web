@@ -823,11 +823,16 @@
   .install code { background: var(--code-bg); padding: 2px 6px; border-radius: 5px; color: var(--accent-ink); font-size: var(--fs-2xs); }
 
   /* ===== Pricing ===== */
-  .pricing { display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--sp-6); align-items: stretch; }
-  /* El plan base ya no lleva borde verde: en esta sección el único bloque
-     acentuado es la calculadora, que es donde se convierte. */
-  .plan { position: relative; overflow: hidden; background: var(--surface); border: 1px solid var(--line-strong); border-radius: var(--r-lg); padding: var(--sp-8); display: flex; flex-direction: column; box-shadow: var(--shadow); }
-  .plan__badge { position: relative; align-self: flex-start; font-size: var(--fs-2xs); font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--fg-muted); background: var(--chip-bg); border: 1px solid var(--line); padding: 5px var(--sp-3); border-radius: var(--r-full); }
+  /* El plan base y los módulos comparten UNA superficie: son un solo precio
+     que se arma, no dos productos enfrentados. Los separa un hairline. */
+  .pricing {
+    display: grid; grid-template-columns: 1fr 1.1fr; align-items: stretch;
+    background: var(--surface); border: 1px solid var(--line-strong);
+    border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow);
+  }
+  .plan { position: relative; padding: var(--sp-8); display: flex; flex-direction: column; border-right: 1px solid var(--line); }
+  /* Sin mayúsculas: era la última etiqueta tracked-out de la página. */
+  .plan__badge { position: relative; align-self: flex-start; font-size: var(--fs-xs); font-weight: 600; color: var(--fg-muted); background: var(--chip-bg); border: 1px solid var(--line); padding: 5px var(--sp-3); border-radius: var(--r-full); }
   .plan__name { position: relative; font-family: var(--font-display); font-size: var(--fs-2xl); font-weight: 700; letter-spacing: var(--track-tight); margin: var(--sp-4) 0 6px; }
   .plan__desc { position: relative; color: var(--fg-muted); font-size: var(--fs-base); margin-bottom: var(--sp-5); }
   .plan__price { position: relative; display: flex; align-items: baseline; gap: var(--sp-2); margin-bottom: var(--sp-6); }
@@ -838,11 +843,13 @@
   .plan__list li::before { content: '✓'; position: absolute; left: 0; top: 0; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: var(--accent-soft); color: var(--accent-ink); font-size: var(--fs-2xs); font-weight: 700; display: grid; place-items: center; }
   .plan__foot { position: relative; margin-top: auto; padding-top: var(--sp-2); color: var(--fg-subtle); font-size: var(--fs-xs); }
 
-  .modules { display: flex; flex-direction: column; gap: var(--sp-3); }
+  .modules { display: flex; flex-direction: column; gap: var(--sp-3); padding: var(--sp-8); }
   .modules__head { margin-bottom: var(--sp-1); }
   .modules__head h3 { font-size: var(--fs-xl); font-weight: 600; letter-spacing: var(--track-tight); margin-bottom: 6px; }
   .modules__head p { color: var(--fg-muted); font-size: var(--fs-base); }
-  .module { position: relative; display: flex; align-items: center; gap: var(--sp-3); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--sp-4) var(--sp-5); cursor: pointer; user-select: none; transition: border-color .2s, background .2s, box-shadow .2s; }
+  /* Los dos estados usan los colores por lo que significan: ámbar mientras
+     el módulo está disponible pero no contratado, verde cuando se suma. */
+  .module { position: relative; display: flex; align-items: center; gap: var(--sp-3); background: var(--warn-soft); border: 1px solid var(--warn-line); border-radius: var(--r-md); padding: var(--sp-4) var(--sp-5); cursor: pointer; user-select: none; transition: border-color .2s, background .2s, box-shadow .2s; }
   .module:hover { border-color: var(--accent); }
   .module--on { border-color: var(--accent); background: var(--accent-soft); box-shadow: inset 0 0 0 1px var(--accent-line); }
   .module__input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
@@ -851,9 +858,6 @@
   .module--on .module__check { background: var(--accent); border-color: var(--accent); }
   .module--on .module__check::after { opacity: 1; transform: scale(1); }
   .module__input:focus-visible ~ .module__check { outline: 2px solid var(--accent); outline-offset: 2px; }
-  /* Chip neutro, igual que en features y garantías. */
-  .module__icon { flex-shrink: 0; width: 2.875rem; height: 2.875rem; border-radius: var(--r-sm); display: grid; place-items: center; color: var(--fg); background: var(--chip-bg); border: 1px solid var(--line); }
-  .module__icon svg { width: 1.5rem; height: 1.5rem; }
   .module__body { flex: 1; display: flex; flex-direction: column; }
   .module__body b { font-size: var(--fs-md); letter-spacing: -.01em; }
   .module__body span { color: var(--fg-muted); font-size: var(--fs-sm); }
@@ -861,11 +865,14 @@
   .module__price small { font-size: 0.6875rem; font-weight: 500; color: var(--fg-subtle); letter-spacing: 0; }
 
   .calc { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-8); flex-wrap: wrap; margin-top: var(--sp-7); background: var(--surface); border: 1px solid var(--accent); border-radius: var(--r-lg); padding: var(--sp-7) var(--sp-8); box-shadow: var(--shadow-accent); }
-  .calc__label { display: block; color: var(--fg-subtle); font-size: var(--fs-xs); font-weight: 600; text-transform: uppercase; letter-spacing: .07em; margin-bottom: var(--sp-2); }
+  /* El total es el héroe tipográfico de la sección: es lo que la persona
+     vino a saber. La etiqueta deja de ir en mayúsculas y la línea en pesos
+     se apaga, porque es referencia, no el precio. */
+  .calc__label { display: block; color: var(--fg-subtle); font-size: var(--fs-sm); margin-bottom: var(--sp-1); }
   .calc__amount { display: flex; align-items: baseline; gap: var(--sp-2); }
-  .calc__usd { font-family: var(--font-display); font-size: var(--fs-num); font-weight: 700; letter-spacing: -.03em; color: var(--fg); font-variant-numeric: tabular-nums; }
-  .calc__per { color: var(--fg-subtle); font-size: var(--fs-md); font-weight: 500; }
-  .calc__ars { display: block; color: var(--accent-ink); font-size: var(--fs-lg); font-weight: 600; margin-top: var(--sp-1); font-variant-numeric: tabular-nums; }
+  .calc__usd { font-family: var(--font-display); font-size: var(--fs-4xl); line-height: var(--lh-tight); font-weight: 700; letter-spacing: -.03em; color: var(--accent-ink); font-variant-numeric: tabular-nums; }
+  .calc__per { color: var(--fg-subtle); font-size: var(--fs-lg); font-weight: 500; }
+  .calc__ars { display: block; color: var(--fg-muted); font-size: var(--fs-sm); margin-top: var(--sp-2); font-variant-numeric: tabular-nums; }
   .calc__cta { display: flex; flex-direction: column; align-items: flex-end; gap: var(--sp-3); max-width: 21.25rem; }
   .calc__cta .btn { min-width: 12.5rem; }
   /* Superficie fría: acá se explica el cobro, no se vende. Era el texto más
