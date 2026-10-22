@@ -22,7 +22,7 @@
     --d-700: #1E4C40;
     --d-050: #F1F5F3;
     --d-300: #A9BAB3;
-    --d-400: #7E918A;
+    --d-400: #8A9D96;
 
     /* --- Tier 1 · neutrales claros --------------------------------------
        Los mismos blancos teñidos de verde que usa la app (surface #F7FAF9
@@ -62,7 +62,7 @@
     --bg:             light-dark(var(--l-050), var(--d-950));
     --surface:        light-dark(var(--l-025), var(--d-850));
     --surface-raised: light-dark(var(--l-000), var(--d-800));
-    --surface-2:      light-dark(var(--l-075), var(--d-750));
+    --surface-2:      light-dark(var(--l-075), var(--d-800));
     --surface-sunken: light-dark(var(--l-075), var(--d-900));
     --line:           light-dark(var(--l-100), var(--d-750));
     --line-strong:    light-dark(var(--l-200), var(--d-700));
@@ -102,14 +102,21 @@
     --info-line: light-dark(#C5D4DE, #26353E);
 
     /* Contraste medido sobre la página (claro / oscuro), no estimado:
-         --fg / --bg ................ 15.92 / 15.67   (mín 7)
-         --fg-muted / --bg ..........  7.21 /  8.51   (mín 4.5)
-         --fg-subtle / --surface ....  5.04 /  4.60   (mín 4.5)
-         --accent-ink / --surface ...  5.10 /  6.30   (mín 4.5)
-         --neg-ink / --surface ......  6.50 /  7.14   (mín 4.5)
-         --ink-on-green / --accent ..  6.84 /  6.84   (mín 4.5)
-         --line / --surface .........  1.34 /  1.31   (mín 1.3, hairline visible)
-       --l-100 bajó de #DDE6E2 a #D1DCD7 porque el hairline claro daba 1.21.
+         --fg / --bg ........................ 15.92 / 15.67  (mín 7)
+         --fg-muted / --bg ..................  7.21 /  8.51  (mín 4.5)
+         --fg-subtle / --surface ............  5.04 /  5.36  (mín 4.5)
+         --fg-subtle / --surface-2 ..........  4.59 /  4.80  (mín 4.5)
+         --accent-ink / --surface ...........  5.10 /  6.30  (mín 4.5)
+         --neg-ink / --surface ..............  6.50 /  7.14  (mín 4.5)
+         --accent-ink / --surface-raised ....  5.36 /  5.64  (mín 4.5)
+         --neg-ink / --surface-raised .......  6.83 /  6.40  (mín 4.5)
+         --ink-on-green / --accent ..........  6.84 /  6.84  (mín 4.5)
+         --line / --surface .................  1.34 /  1.31  (mín 1.3)
+         --line-strong / --surface-raised ...  1.53 /  1.41  (mín 1.3)
+       Tres correcciones salieron de medir, no de mirar:
+         --l-100  #DDE6E2 → #D1DCD7  (el hairline claro daba 1.21)
+         --d-400  #7E918A → #8A9D96  (texto apagado sobre --surface-2 daba 4.12)
+         el panel usa --line-strong: --line sobre --surface-raised da 1.17.
        Si se toca cualquiera de estos valores, hay que volver a medir. */
 
     /* --- Tier 3 · UI ------------------------------------------------------ */
@@ -335,24 +342,11 @@
 
   /* ===== Hero ===== */
   .hero { position: relative; padding: calc(var(--nav-h) + var(--sp-16)) 0 var(--sp-14); overflow: hidden; }
-  .hero__glow {
-    position: absolute; top: -11.25rem; left: 50%; transform: translateX(-50%);
-    width: 62.5rem; height: 43.75rem; pointer-events: none;
-    background: var(--glow-hero);
-  }
   .hero__inner {
-    position: relative; display: grid; grid-template-columns: 1.05fr .95fr;
+    position: relative; display: grid; grid-template-columns: 1fr .95fr;
     gap: var(--sp-12); align-items: center;
   }
-  .badge {
-    display: inline-flex; align-items: center; gap: var(--sp-2);
-    background: var(--accent-soft); border: 1px solid var(--accent-line);
-    color: var(--accent-badge); font-size: var(--fs-xs); font-weight: 600;
-    padding: 0.4375rem var(--sp-4); border-radius: var(--r-full); margin-bottom: var(--sp-6);
-  }
-  .badge__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
   .hero__title { font-size: var(--fs-4xl); line-height: var(--lh-tight); letter-spacing: -0.03em; font-weight: 700; }
-  .grad { background: var(--grad-accent); -webkit-background-clip: text; background-clip: text; color: transparent; }
   .hero__sub { color: var(--fg-muted); font-size: var(--fs-lg); max-width: 32.5rem; margin: var(--sp-6) 0 var(--sp-8); }
   .hero__cta { display: flex; gap: var(--sp-3); flex-wrap: wrap; }
   .hero__meta { display: flex; gap: var(--sp-8); margin-top: var(--sp-10); flex-wrap: wrap; }
@@ -370,8 +364,65 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* ===== Phone mockup ===== */
-  .hero__device { display: flex; justify-content: center; }
+  /* ===== Panel del hero =====
+     Los bloques del inicio del admin, en HTML. Invierte con el esquema: no es
+     un objeto físico como el marco del teléfono, y un rectángulo oscuro en
+     medio de una página clara dejaría un agujero justo en el bloque principal.
+     El relieve sale de superficie, filo y sombra, nunca de un halo. */
+  .panel {
+    margin: 0; display: grid; gap: var(--sp-4);
+    background: var(--surface-raised); border: 1px solid var(--line-strong);
+    border-radius: var(--r-lg); padding: var(--sp-5); box-shadow: var(--shadow);
+  }
+  .panel__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-3); }
+  .panel__gym { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-md); }
+  .panel__who { font-size: var(--fs-xs); color: var(--fg-subtle); }
+
+  .panel__finance { display: grid; gap: var(--sp-1); }
+  .panel__label { font-size: var(--fs-xs); color: var(--fg-subtle); }
+  .panel__balance {
+    font-family: var(--font-display); font-size: var(--fs-num); font-weight: 700;
+    line-height: 1; letter-spacing: -.03em; color: var(--accent-ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .panel__pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-3); margin-top: var(--sp-3); }
+  .panel__cell { display: grid; gap: 2px; padding: var(--sp-3); border-radius: var(--r-sm); background: var(--surface-2); }
+  .panel__cellLabel { font-size: var(--fs-2xs); color: var(--fg-subtle); }
+  /* El signo es la señal no cromática: el color solo lo repite. */
+  .panel__in, .panel__out { font-size: var(--fs-sm); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .panel__in { color: var(--accent-ink); }
+  .panel__out { color: var(--neg-ink); }
+
+  .panel__rows { display: grid; }
+  .panel__row {
+    display: flex; align-items: center; gap: var(--sp-3);
+    padding: var(--sp-3) 0; font-size: var(--fs-sm);
+    /* El hairline fuerte, no el normal: sobre --surface-raised en oscuro el
+       normal da 1.17 y deja de verse. */
+    border-top: 1px solid var(--line-strong);
+  }
+  /* Sobre blanco, el ámbar (1.6:1) y el verde (2.4:1) no tienen borde
+     perceptible. El anillo interior oscuro se lo da: el punto refuerza, pero
+     el significado de cada fila ya está en su texto. */
+  .panel__dot { width: .5rem; height: .5rem; border-radius: 50%; flex: none; }
+  .panel__dot--warn {
+    background: var(--warn);
+    box-shadow: 0 0 0 3px var(--warn-soft), inset 0 0 0 1px light-dark(rgba(122, 86, 0, .6), transparent);
+  }
+  .panel__dot--neg {
+    background: var(--neg);
+    box-shadow: 0 0 0 3px var(--neg-soft), inset 0 0 0 1px light-dark(rgba(179, 18, 63, .5), transparent);
+  }
+  .panel__dot--ok {
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft), inset 0 0 0 1px light-dark(rgba(0, 122, 87, .6), transparent);
+  }
+  .panel__rowText { min-width: 0; }
+  .panel__rowText em { font-style: normal; color: var(--fg-subtle); }
+  .panel__rowMeta { margin-left: auto; font-size: var(--fs-xs); color: var(--fg-subtle); white-space: nowrap; }
+  .panel__note { font-size: var(--fs-2xs); color: var(--fg-subtle); }
+
+  /* ===== Phone mockup (recorrido) ===== */
   .phone {
     /* Un teléfono es oscuro en cualquier modo: se le fija el esquema para que
        ningún token del marco se invierta en modo claro. */
@@ -864,7 +915,9 @@
     .hero__inner { grid-template-columns: 1fr; text-align: center; }
     .hero__copy { display: flex; flex-direction: column; align-items: center; }
     .hero__cta, .hero__meta { justify-content: center; }
-    .hero__device { margin-top: var(--sp-10); }
+    /* El panel se apila bajo el titular y vuelve a alinear a la izquierda:
+       una tabla de datos centrada no se lee. */
+    .panel { margin-top: var(--sp-10); text-align: initial; }
     .grid { grid-template-columns: 1fr 1fr; }
     .updates { grid-template-columns: 1fr; }
     /* En mobile la línea de pasos vuelve a quedar entre el texto y la tarjeta */

@@ -438,3 +438,24 @@ if (usdEl && arsEl) {
   inputs.forEach((input) => input.addEventListener('change', recalc));
   recalc();
 }
+
+// Único momento de movimiento de la página: el balance del panel del hero
+// cuenta una vez al cargar. No se repite y no hay nada más animado por
+// scroll. Con movimiento reducido aparece directamente en su cifra final,
+// que ya está escrita en el HTML (sin JS tampoco queda en cero).
+const contarHasta = (el, valor) => {
+  if (!Number.isFinite(valor) || prefersReducedMotion.matches) return;
+  const formato = new Intl.NumberFormat('es-AR');
+  const duracion = 900;
+  const inicio = performance.now();
+  const paso = (ahora) => {
+    const t = Math.min((ahora - inicio) / duracion, 1);
+    // easeOutCubic: arranca rápido y frena, como un número que se asienta.
+    el.textContent = `$${formato.format(Math.round(valor * (1 - (1 - t) ** 3)))}`;
+    if (t < 1) requestAnimationFrame(paso);
+  };
+  requestAnimationFrame(paso);
+};
+
+const heroBalance = document.getElementById('heroBalance');
+if (heroBalance) contarHasta(heroBalance, Number(heroBalance.dataset.valor));

@@ -162,15 +162,12 @@
 
   <!-- ===== HERO ===== -->
   <section class="hero" id="top">
-    <div class="hero__glow"></div>
     <div class="container hero__inner">
       <div class="hero__copy">
-        <span class="badge">
-          <span class="badge__dot"></span> Nuevo · Clases y horarios
-        </span>
         <h1 class="hero__title">
-          Todo tu gimnasio,<br />
-          en <span class="grad">una sola app</span>.
+          Tu gimnasio<br />
+          entra en<br />
+          una pantalla.
         </h1>
         <p class="hero__sub">
           Mova reúne rutinas, alumnos, finanzas, tienda y staff
@@ -196,14 +193,52 @@
         </a>
       </div>
 
-      <!-- App screenshot -->
-      <div class="hero__device">
-        <div class="phone">
-          <div class="phone__screen">
-            <img src="assets/admin/inicio.webp" alt="Pantalla de inicio de Mova, con el perfil del gimnasio y el balance del mes" class="shot__img" width="364" height="777" fetchpriority="high" decoding="async" />
+      <!-- Los cuatro bloques que la app arma en el inicio del admin: clases de
+           hoy, "Requiere tu atención", resumen financiero del mes y alumnos.
+           Va en HTML y no como captura para que sea nítido en cualquier
+           pantalla, siga los dos esquemas y pueda contar el balance al cargar.
+           Las cifras son un ejemplo y el pie lo dice. -->
+      <figure class="panel" aria-label="Ejemplo de la pantalla de inicio de Mova. Las cifras no son de un gimnasio real.">
+        <div class="panel__head">
+          <span class="panel__gym">Gimnasio La Esquina</span>
+          <span class="panel__who">84 alumnos activos</span>
+        </div>
+
+        <div class="panel__finance">
+          <span class="panel__label">Balance de octubre</span>
+          <strong class="panel__balance" id="heroBalance" data-valor="1248600">$1.248.600</strong>
+          <div class="panel__pair">
+            <div class="panel__cell">
+              <span class="panel__cellLabel">Ingresos</span>
+              <b class="panel__in">+ $1.640.000</b>
+            </div>
+            <div class="panel__cell">
+              <span class="panel__cellLabel">Gastos</span>
+              <b class="panel__out">− $391.400</b>
+            </div>
           </div>
         </div>
-      </div>
+
+        <ul class="panel__rows">
+          <li class="panel__row">
+            <span class="panel__dot panel__dot--warn" aria-hidden="true"></span>
+            <span class="panel__rowText">Funcional 19:30 <em>hoy</em></span>
+            <span class="panel__rowMeta">14 anotados</span>
+          </li>
+          <li class="panel__row">
+            <span class="panel__dot panel__dot--neg" aria-hidden="true"></span>
+            <span class="panel__rowText">Requiere tu atención</span>
+            <span class="panel__rowMeta">3 cuotas por vencer</span>
+          </li>
+          <li class="panel__row">
+            <span class="panel__dot panel__dot--ok" aria-hidden="true"></span>
+            <span class="panel__rowText">Rutina sugerida para hoy</span>
+            <span class="panel__rowMeta">Fuerza, tren superior</span>
+          </li>
+        </ul>
+
+        <figcaption class="panel__note">Cifras de ejemplo, no de un gimnasio real.</figcaption>
+      </figure>
     </div>
   </section>
 
