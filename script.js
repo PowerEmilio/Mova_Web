@@ -418,8 +418,8 @@ document.getElementById('year').textContent = new Date().getFullYear();
 const PRICE_BASE = 20; // core (US$)
 // Tipo de cambio de referencia. Se actualiza cada 3 meses, y cuando se toca
 // hay que cambiarlo también en index.html: la nota de la calculadora dice el
-// valor en texto ("US$1 = $1.490").
-const USD_TO_ARS = 1490;
+// valor en texto ("US$1 = $1.520").
+const USD_TO_ARS = 1520;
 const usdEl = document.getElementById('calcUsd');
 const arsEl = document.getElementById('calcArs');
 if (usdEl && arsEl) {
