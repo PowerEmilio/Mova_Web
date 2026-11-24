@@ -565,6 +565,33 @@
     }
   }
 
+  /* ===== Selectores de público ===== */
+  .audience-tabs {
+    display: flex; justify-content: center; gap: 4px;
+    width: fit-content; max-width: 100%; margin: 0 auto var(--sp-10); padding: 4px;
+    background: var(--surface-2); border: 1px solid var(--line-strong);
+    border-radius: var(--r-full);
+  }
+  .audience-tabs--left { margin-left: 0; }
+  .audience-tab {
+    cursor: pointer; white-space: nowrap;
+    color: var(--fg-muted); font-size: var(--fs-base); font-weight: 600;
+    letter-spacing: -.01em; padding: 0.75rem var(--sp-7); border-radius: var(--r-full);
+    transition: color .2s, background .25s, box-shadow .25s;
+  }
+  .audience-tab:hover { color: var(--fg); }
+  .audience-tab[aria-pressed='true'] {
+    color: var(--accent-fg); background: var(--accent);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .16);
+  }
+  .audience-tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  @media (max-width: 560px) {
+    .audience-tabs,
+    .audience-tabs--left { width: 100%; margin-inline: 0; }
+    .audience-tab { flex: 1; padding-inline: var(--sp-2); font-size: var(--fs-sm); }
+  }
+
   /* ===== Recorrido por rol ===== */
   .tour { max-width: 62.5rem; margin-inline: auto; }
 
@@ -576,6 +603,7 @@
     background: var(--surface-2); border: 1px solid var(--line);
     border-radius: var(--r-full); padding: 4px; width: fit-content; margin: 0 auto var(--sp-10);
   }
+  .tour__roles[hidden] { display: none; }
   .tour__role {
     display: inline-flex; align-items: center; gap: var(--sp-2);
     cursor: pointer;
@@ -785,6 +813,35 @@
     .checks--row li { border-left: 0; }
   }
 
+  /* Resumen del producto elegido debajo del recorrido. */
+  .audience-summaries { max-width: 62.5rem; margin-inline: auto; }
+  .audience-summaries [hidden] { display: none !important; }
+  .plan-overview {
+    display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+    gap: var(--sp-8); margin-top: var(--sp-12); padding-top: var(--sp-7);
+    border-top: 1px solid var(--line);
+  }
+  .plan-overview__eyebrow {
+    display: block; margin-bottom: var(--sp-2);
+    color: var(--accent-ink); font-size: var(--fs-xs); font-weight: 700;
+  }
+  .plan-overview__intro h3 {
+    margin-bottom: var(--sp-3); font-family: var(--font-display);
+    font-size: var(--fs-xl); letter-spacing: var(--track-tight);
+  }
+  .plan-overview__intro p { color: var(--fg-muted); font-size: var(--fs-base); }
+  .plan-overview__options { display: grid; gap: var(--sp-3); }
+  .plan-overview__options article {
+    display: flex; flex-direction: column; gap: 4px;
+    padding: var(--sp-4) var(--sp-5); background: var(--surface);
+    border: 1px solid var(--line); border-radius: var(--r-md);
+  }
+  .plan-overview__options b { font-size: var(--fs-base); }
+  .plan-overview__options span { color: var(--fg-muted); font-size: var(--fs-sm); line-height: 1.5; }
+  @media (max-width: 700px) {
+    .plan-overview { grid-template-columns: 1fr; gap: var(--sp-5); }
+  }
+
   /* Real screenshots inside the phone frame */
   .shot__img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
 
@@ -877,6 +934,56 @@
   .install code { background: var(--code-bg); padding: 2px 6px; border-radius: 5px; color: var(--accent-ink); font-size: var(--fs-2xs); }
 
   /* ===== Pricing ===== */
+  [data-price-panel][hidden] { display: none !important; }
+
+  .price-choice-grid {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--sp-5);
+  }
+  .price-choice {
+    display: flex; flex-direction: column; min-width: 0;
+    padding: var(--sp-8); background: var(--surface);
+    border: 1px solid var(--line-strong); border-radius: var(--r-lg);
+    box-shadow: var(--shadow);
+  }
+  .price-choice--featured {
+    border-color: var(--accent);
+    box-shadow: var(--shadow-accent);
+  }
+  .price-choice__badge {
+    align-self: flex-start; margin-bottom: var(--sp-4);
+    padding: 5px var(--sp-3); color: var(--accent-ink);
+    background: var(--accent-soft); border: 1px solid var(--accent-line);
+    border-radius: var(--r-full); font-size: var(--fs-xs); font-weight: 600;
+  }
+  .price-choice h3 {
+    margin-bottom: 6px; font-family: var(--font-display);
+    font-size: var(--fs-2xl); letter-spacing: var(--track-tight);
+  }
+  .price-choice__lead { min-height: 3em; color: var(--fg-muted); font-size: var(--fs-base); }
+  .price-choice__price {
+    display: flex; align-items: baseline; gap: var(--sp-2); margin-top: var(--sp-6);
+  }
+  .price-choice__price b {
+    color: var(--fg); font-family: var(--font-display);
+    font-size: 2.5rem; line-height: 1; letter-spacing: -.03em;
+    font-variant-numeric: tabular-nums;
+  }
+  .price-choice__price span { color: var(--fg-subtle); font-size: var(--fs-md); font-weight: 500; }
+  .price-choice__ars { margin-top: var(--sp-2); color: var(--fg-muted); font-size: var(--fs-sm); }
+  .price-choice .plan__list { margin-top: var(--sp-7); margin-bottom: 0; }
+
+  .price-cta {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: var(--sp-8); margin-top: var(--sp-7); padding: var(--sp-6) var(--sp-7);
+    background: var(--info-soft); border: 1px solid var(--info-line);
+    border-radius: var(--r-lg);
+  }
+  .price-cta > div { display: flex; flex-direction: column; gap: 4px; max-width: 42rem; }
+  .price-cta b { font-family: var(--font-display); font-size: var(--fs-xl); }
+  .price-cta span { color: var(--fg-muted); font-size: var(--fs-sm); line-height: 1.5; }
+  .price-cta .btn { flex-shrink: 0; }
+
   /* El plan base y los módulos comparten UNA superficie: son un solo precio
      que se arma, no dos productos enfrentados. Los separa un hairline. */
   .pricing {
@@ -952,6 +1059,10 @@
   .faq--inline { max-width: none; margin-top: var(--sp-7); }
 
   @media (max-width: 900px) {
+    .price-choice-grid { grid-template-columns: 1fr; }
+    .price-choice__lead { min-height: 0; }
+    .price-cta { flex-direction: column; align-items: stretch; }
+    .price-cta .btn { justify-content: center; }
     .pricing { grid-template-columns: 1fr; }
     /* Apilados, el filete que los separa pasa de vertical a horizontal. */
     .plan { border-right: 0; border-bottom: 1px solid var(--line); }

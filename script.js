@@ -169,6 +169,31 @@ const TOUR = {
       desc: 'Las clases en las que está anotado, con días, horarios y entrenador, y la de hoy destacada.',
       fotos: [{ archivo: 'alumno/clases_alumno.webp', w: 360, h: 742 }] },
   ],
+  entrenador: [
+    { nombre: 'Diseñá tus rutinas',
+      desc: 'Definí días, series, repeticiones, carga, descanso y los campos que necesites para cada ejercicio.',
+      fotos: [{ archivo: 'rutinas/editor.webp', w: 720, h: 1640 }] },
+    { nombre: 'Asigná alumnos',
+      desc: 'Vinculá una rutina a uno o varios alumnos y dejá claro quién está a cargo.',
+      fotos: [{ archivo: 'rutinas/asignacion.webp', w: 720, h: 1640 }] },
+    { nombre: 'Seguí el progreso',
+      desc: 'Revisá carga máxima, volumen, récords y el detalle de cada sesión de tus alumnos.',
+      fotos: [
+        { archivo: 'rutinas/progreso.webp', w: 720, h: 1560 },
+        { archivo: 'rutinas/historial.webp', w: 720, h: 1560 },
+      ] },
+  ],
+  solo: [
+    { nombre: 'Registrá cada serie',
+      desc: 'Anotá repeticiones, carga y esfuerzo con el objetivo de la serie siempre a la vista.',
+      fotos: [{ archivo: 'rutinas/registro.webp', w: 720, h: 1640 }] },
+    { nombre: 'Medí tu progreso',
+      desc: 'Compará carga máxima y volumen, detectá récords y mirá cuánto avanzaste desde el inicio.',
+      fotos: [{ archivo: 'rutinas/progreso.webp', w: 720, h: 1560 }] },
+    { nombre: 'Consultá tu historial',
+      desc: 'Volvé a cualquier sesión para revisar ejercicios, volumen, esfuerzo y sensaciones.',
+      fotos: [{ archivo: 'rutinas/historial.webp', w: 720, h: 1560 }] },
+  ],
 };
 
 const tourList = document.getElementById('tourList');
@@ -176,7 +201,13 @@ const tourScreen = document.getElementById('tourScreen');
 const tourCaption = document.getElementById('tourCaption');
 
 if (tourList && tourScreen) {
-  const roles = [...document.querySelectorAll('.tour__role')];
+  const roles = [...document.querySelectorAll('#tourRoles .tour__role')];
+  const tourRoles = document.getElementById('tourRoles');
+  const audienceTabs = document.querySelector('[data-audience-tabs="showcase"]');
+  const audienceButtons = audienceTabs
+    ? [...audienceTabs.querySelectorAll('.audience-tab')]
+    : [];
+  const audiencePanels = [...document.querySelectorAll('[data-audience-panel]')];
   let rolActual = 'admin';
 
   const tourPager = document.getElementById('tourPager');
@@ -188,7 +219,12 @@ if (tourList && tourScreen) {
   // "rol:pantalla:foto"; las pantallas sin captura usan "rol:pantalla:vacio".
   const capas = new Map();
   Object.entries(TOUR).forEach(([rol, pantallas]) => {
-    const vista = rol === 'admin' ? 'dueño y staff' : 'alumno';
+    const vista = {
+      admin: 'dueño y staff',
+      alumno: 'alumno',
+      entrenador: 'entrenador independiente',
+      solo: 'entrenamiento personal',
+    }[rol] || rol;
     pantallas.forEach((p, i) => {
       if (p.fotos.length === 0) {
         const vacio = document.createElement('div');
@@ -205,6 +241,7 @@ if (tourList && tourScreen) {
         img.alt = `Pantalla ${p.nombre} de Mova, vista de ${vista}` +
           (p.fotos.length > 1 ? ` (${j + 1} de ${p.fotos.length})` : '');
         img.className = 'shot__img tour__shot';
+        img.setAttribute('aria-hidden', 'true');
         img.width = f.w;
         img.height = f.h;
         img.decoding = 'async';
@@ -225,7 +262,11 @@ if (tourList && tourScreen) {
     const { rol, indice, foto } = actual;
     const pantalla = pantallaActual();
     const clave = pantalla.fotos.length ? `${rol}:${indice}:${foto}` : `${rol}:${indice}:vacio`;
-    capas.forEach((el, k) => el.classList.toggle('is-on', k === clave));
+    capas.forEach((el, k) => {
+      const visible = k === clave;
+      el.classList.toggle('is-on', visible);
+      el.setAttribute('aria-hidden', String(!visible));
+    });
 
     const varias = pantalla.fotos.length > 1;
     tourPager.hidden = !varias;
@@ -290,6 +331,20 @@ if (tourList && tourScreen) {
     });
   });
 
+  audienceButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const audience = btn.dataset.audience;
+      audienceButtons.forEach((b) =>
+        b.setAttribute('aria-pressed', String(b === btn))
+      );
+      audiencePanels.forEach((panel) => {
+        panel.hidden = panel.dataset.audiencePanel !== audience;
+      });
+      if (tourRoles) tourRoles.hidden = audience !== 'gimnasio';
+      pintarLista(audience === 'gimnasio' ? rolActual : audience);
+    });
+  });
+
   pintarLista(rolActual);
 
   // Ampliar la captura. El teléfono del recorrido mide 300-340px: alcanza
@@ -329,6 +384,25 @@ if (tourList && tourScreen) {
     zoom.removeAttribute('aria-label');
     zoom.querySelector('.phone__zoom')?.remove();
   }
+}
+
+// Selector de público de Precios. Cada alternativa mantiene su propio bloque
+// para que los valores y beneficios no se mezclen con la calculadora del gym.
+const pricingTabs = document.querySelector('[data-audience-tabs="pricing"]');
+if (pricingTabs) {
+  const buttons = [...pricingTabs.querySelectorAll('.audience-tab')];
+  const panels = [...document.querySelectorAll('[data-price-panel]')];
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const audience = btn.dataset.audience;
+      buttons.forEach((b) =>
+        b.setAttribute('aria-pressed', String(b === btn))
+      );
+      panels.forEach((panel) => {
+        panel.hidden = panel.dataset.pricePanel !== audience;
+      });
+    });
+  });
 }
 
 // Botón Instalar Mova. Abre un modal que ofrece instalar Mova (acceso
